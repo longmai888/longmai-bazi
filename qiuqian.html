@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线求签 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .qiuqian-hero {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .qiuqian-hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .qiuqian-content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .qian-type-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .qian-type-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        .qian-type-btn.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            border-color: #FFA500;
+        }
+        .qiuqian-area {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .qian-tube {
+            width: 150px;
+            height: 300px;
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            border-radius: 75px;
+            margin: 30px auto;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .qian-tube:hover {
+            transform: scale(1.05);
+        }
+        .qian-tube.shaking {
+            animation: shake 0.5s ease-in-out infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .qian-tube-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+        }
+        .qian-stick {
+            width: 20px;
+            height: 200px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: none;
+            animation: dropIn 1s ease-out;
+        }
+        @keyframes dropIn {
+            0% { transform: translateY(-100px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .qian-result {
+            background: #f5f7fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            display: none;
+        }
+        .qian-number {
+            font-size: 3rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .qian-poem {
+            font-size: 1.3rem;
+            color: #333;
+            line-height: 2;
+            margin-bottom: 20px;
+            font-family: 'KaiTi', serif;
+        }
+        .qian-meaning {
+            text-align: left;
+            color: #555;
+            line-height: 1.8;
+        }
+        .qian-luck {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .luck-great { background: #FFD700; color: #8B4513; }
+        .luck-good { background: #90EE90; color: #006400; }
+        .luck-normal { background: #FFD700; color: #8B4513; }
+        .luck-bad { background: #FFB6C1; color: #8B0000; }
+    </style>
+</head>
+<body>
+    <div class="qiuqian-hero">
+        <h1>🎋 在线求签</h1>
+        <p class="subtitle">心诚则灵 · 指点迷津 · 趋吉避凶</p>
+    </div>
+
+    <div class="qiuqian-content">
+        <div class="qian-type-selector">
+            <button class="qian-type-btn active" onclick="selectQianType('guanyin')">观音灵签</button>
+            <button class="qian-type-btn" onclick="selectQianType('lvzu')">吕祖灵签</button>
+            <button class="qian-type-btn" onclick="selectQianType('guandi')">关帝灵签</button>
+            <button class="qian-type-btn" onclick="selectQianType('yuelao')">月老灵签</button>
+            <button class="qian-type-btn" onclick="selectQianType('caishen')">财神灵签</button>
+        </div>
+
+        <div class="qiuqian-area">
+            <h2 style="color: #764ba2; margin-bottom: 20px;">诚心默念所求之事，然后点击签筒</h2>
+            <p style="color: #666; margin-bottom: 30px;">一事一签，心诚则灵</p>
+            
+            <div class="qian-tube" id="qianTube" onclick="drawQian()">
+                <div class="qian-tube-text">求签</div>
+            </div>
+
+            <div class="qian-stick" id="qianStick"></div>
+
+            <div class="qian-result" id="qianResult">
+                <div class="qian-number" id="qianNumber">第1签</div>
+                <div class="qian-luck luck-great" id="qianLuck">上上签</div>
+                <div class="qian-poem" id="qianPoem">
+                    开天辟地作良缘，<br>
+                    吉日良时万物全，<br>
+                    若得此签非小可，<br>
+                    人行中正帝王宣。
+                </div>
+                <div class="qian-meaning" id="qianMeaning">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">解签</h3>
+                    <p>此签为开天辟地之签，万事皆宜。所求之事，皆能如愿。事业可成，婚姻可结，求财可得，疾病可愈。但需心存正念，行正道，方能得此大吉之兆。</p>
+                    <h4 style="color: #764ba2; margin: 20px 0 10px;">各方面详解</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>事业：</strong>大吉，有贵人相助，事业蒸蒸日上</li>
+                        <li><strong>财运：</strong>财源广进，投资有利</li>
+                        <li><strong>婚姻：</strong>姻缘天定，佳偶天成</li>
+                        <li><strong>健康：</strong>身体康健，百病不侵</li>
+                        <li><strong>出行：</strong>出行顺利，平安归来</li>
+                    </ul>
+                </div>
+                <button class="btn-primary" style="margin-top: 30px;" onclick="saveQian()">保存签文</button>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 15px; margin-top: 40px;">
+            <h3 style="color: #764ba2; margin-bottom: 20px;">📜 求签须知</h3>
+            <ul style="line-height: 2; color: #555;">
+                <li>1. 求签前请先静心，默念所求之事</li>
+                <li>2. 一事一签，不可重复求问同一件事</li>
+                <li>3. 签文仅供参考，命运掌握在自己手中</li>
+                <li>4. 吉签不可骄，凶签不可馁</li>
+                <li>5. 心诚则灵，怀疑则不应</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const qianData = {
+            'guanyin': [
+                { number: 1, luck: '上上签', luckClass: 'luck-great', poem: '开天辟地作良缘，吉日良时万物全，若得此签非小可，人行中正帝王宣。', meaning: '万事皆宜，所求皆能如愿。' },
+                { number: 2, luck: '上吉签', luckClass: 'luck-good', poem: '鲸鱼未变守江河，不可升腾更望高，异日峥嵘身变化，许君一跃跳龙门。', meaning: '暂时守旧，时机未到，等待时机。' },
+                { number: 3, luck: '中吉签', luckClass: 'luck-normal', poem: '冲风冒雨去还归，役役劳身似燕儿，衔得泥来欲作垒，到头垒坏复成泥。', meaning: '劳碌奔波，但需坚持，终有收获。' }
+            ],
+            'lvzu': [
+                { number: 1, luck: '上上签', luckClass: 'luck-great', poem: '蓬莱东阁玉桃香，顺水行舟仙赐方，宜男正好图全计，不必他方卜地长。', meaning: '大吉大利，诸事顺遂。' }
+            ],
+            'guandi': [
+                { number: 1, luck: '上上签', luckClass: 'luck-great', poem: '巍巍独步向云间，玉殿千官第一班，富贵荣华天付汝，福如东海寿如山。', meaning: '功名富贵，福寿双全。' }
+            ],
+            'yuelao': [
+                { number: 1, luck: '上上签', luckClass: 'luck-great', poem: '关关雎鸠在河之洲，窈窕淑女君子好逑，良缘天定莫迟疑，错过佳期悔莫及。', meaning: '姻缘天定，佳偶天成。' }
+            ],
+            'caishen': [
+                { number: 1, luck: '上上签', luckClass: 'luck-great', poem: '财禄丰盈喜气新，贵人指引福临门，黄金白玉皆如意，富贵荣华耀祖宗。', meaning: '财源广进，富贵荣华。' }
+            ]
+        };
+
+        let currentType = 'guanyin';
+
+        function selectQianType(type) {
+            currentType = type;
+            document.querySelectorAll('.qian-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 重置
+            document.getElementById('qianResult').style.display = 'none';
+            document.getElementById('qianStick').style.display = 'none';
+        }
+
+        function drawQian() {
+            const tube = document.getElementById('qianTube');
+            const stick = document.getElementById('qianStick');
+            const result = document.getElementById('qianResult');
+            
+            // 摇动动画
+            tube.classList.add('shaking');
+            
+            setTimeout(() => {
+                tube.classList.remove('shaking');
+                stick.style.display = 'block';
+                
+                // 随机选择签文
+                const qians = qianData[currentType];
+                const randomQian = qians[Math.floor(Math.random() * qians.length)];
+                
+                // 显示结果
+                setTimeout(() => {
+                    document.getElementById('qianNumber').textContent = '第' + randomQian.number + '签';
+                    document.getElementById('qianLuck').textContent = randomQian.luck;
+                    document.getElementById('qianLuck').className = 'qian-luck ' + randomQian.luckClass;
+                    document.getElementById('qianPoem').innerHTML = randomQian.poem;
+                    
+                    result.style.display = 'block';
+                    
+                    // 记录求签数据
+                    saveQianData({
+                        type: currentType,
+                        number: randomQian.number,
+                        luck: randomQian.luck,
+                        time: new Date().toISOString(),
+                        user: localStorage.getItem('currentUser') || '游客'
+                    });
+                }, 1000);
+            }, 2000);
+        }
+
+        function saveQianData(data) {
+            let qianHistory = JSON.parse(localStorage.getItem('qianHistory') || '[]');
+            qianHistory.push(data);
+            localStorage.setItem('qianHistory', JSON.stringify(qianHistory));
+        }
+
+        function saveQian() {
+            alert('签文已保存到您的记录中！');
+        }
+    </script>
+</body>
+</html>

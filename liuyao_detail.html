@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六爻详细占断 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand"><span class="navbar-logo">🐉</span><span>龙脉文化</span></a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">首页</a></li>
+                <li class="navbar-item"><a href="liuyao.html" class="navbar-link">六爻占卜</a></li>
+                <li class="navbar-item"><a href="liuyao_detail.html" class="navbar-link active">详细占断</a></li>
+                <li class="navbar-item"><a href="login.html" class="navbar-link">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <h1>🔯 六爻详细占断</h1>
+        <p class="subtitle">专业六爻分析 · 分类占断 · 精准预测</p>
+    </div>
+
+    <div class="container" style="max-width: 1200px; padding: 40px 20px;">
+        <div class="card" style="padding: 30px; margin-bottom: 30px;">
+            <h2 style="color: #764ba2; margin-bottom: 20px;">选择占断类型</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <button class="btn-primary" onclick="showDivination('wealth')">💰 求财占断</button>
+                <button class="btn-primary" onclick="showDivination('marriage')">💕 婚姻占断</button>
+                <button class="btn-primary" onclick="showDivination('career')">💼 官运占断</button>
+                <button class="btn-primary" onclick="showDivination('health')">🏥 疾病占断</button>
+                <button class="btn-primary" onclick="showDivination('travel')">✈️ 出行占断</button>
+                <button class="btn-primary" onclick="showDivination('lost')">🔍 失物占断</button>
+                <button class="btn-primary" onclick="showDivination('exam')">📚 考试占断</button>
+                <button class="btn-primary" onclick="showDivination('lawsuit')">⚖️ 官司占断</button>
+            </div>
+        </div>
+
+        <div id="divination-content" class="card" style="padding: 30px; display: none;">
+            <h2 id="divination-title" style="color: #764ba2; margin-bottom: 20px;"></h2>
+            <div id="divination-text" style="line-height: 1.8; color: #555;"></div>
+        </div>
+
+        <div class="card" style="padding: 30px; margin-top: 30px;">
+            <h3 style="color: #764ba2; margin-bottom: 20px;">📖 六爻基础知识</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #764ba2;">用神选取</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>求财：妻财爻为用神</li>
+                        <li>求官：官鬼爻为用神</li>
+                        <li>求名：父母爻为用神</li>
+                        <li>求子：子孙爻为用神</li>
+                        <li>兄弟：兄弟爻为用神</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">动变分析</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>动爻：事情的变化</li>
+                        <li>变爻：变化的结果</li>
+                        <li>回头生：变爻生本爻，吉</li>
+                        <li>回头克：变爻克本爻，凶</li>
+                        <li>化进神：事情发展顺利</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">应期判断</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>用神逢合：应期在冲</li>
+                        <li>用神逢冲：应期在合</li>
+                        <li>伏神出现：伏神当值之时</li>
+                        <li>入墓之爻：冲墓之时</li>
+                        <li>旬空之爻：出空填实之时</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const divinationData = {
+            'wealth': {
+                title: '💰 求财占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>求财以妻财爻为用神。妻财爻旺相，财可得；妻财爻衰弱，财难求。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>妻财爻旺相，子孙爻发动生财，大吉，财可得</li>
+                        <li>妻财爻入墓，财暂时不可得，待冲墓之时</li>
+                        <li>兄弟爻发动，劫财之象，求财不利</li>
+                        <li>官鬼爻发动，防官府或小人阻财</li>
+                    </ul>
+                    <h3>应期</h3>
+                    <p>财爻逢值、逢合之日；或子孙爻当值之时。</p>
+                `
+            },
+            'marriage': {
+                title: '💕 婚姻占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>男测婚姻以妻财爻为用神，女测婚姻以官鬼爻为用神。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>用神旺相，婚姻可成</li>
+                        <li>用神衰弱，婚姻难成或不成</li>
+                        <li>用神逢冲，婚姻有变</li>
+                        <li>用神入墓，婚姻暂时不成</li>
+                    </ul>
+                    <h3>对方情况</h3>
+                    <p>看用神的状态：旺相则人品好、条件佳；衰弱则反之。</p>
+                `
+            },
+            'career': {
+                title: '💼 官运占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>求官以官鬼爻为用神，官鬼爻旺相，官运亨通。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>官鬼爻旺相，父母爻发动生官，大吉，官运亨通</li>
+                        <li>官鬼爻衰弱，官运不佳</li>
+                        <li>子孙爻发动，克官鬼，防丢官或降职</li>
+                        <li>兄弟爻发动，竞争对手强</li>
+                    </ul>
+                `
+            },
+            'health': {
+                title: '🏥 疾病占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>自测疾病以世爻为用神，测他人以应爻为用神。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>用神旺相，病情不重，易痊愈</li>
+                        <li>用神衰弱，病情严重，难治</li>
+                        <li>官鬼爻发动，病情加重</li>
+                        <li>子孙爻发动，克制官鬼，病情好转</li>
+                    </ul>
+                    <h3>疾病部位</h3>
+                    <p>根据官鬼爻所在卦宫判断：乾为头、坤为腹、震为足等。</p>
+                `
+            },
+            'travel': {
+                title: '✈️ 出行占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>出行以世爻为用神，世爻旺相，出行顺利。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>世爻旺相，出行顺利，平安</li>
+                        <li>世爻衰弱，出行不顺，宜推迟</li>
+                        <li>世爻逢冲，出行有变</li>
+                        <li>官鬼爻发动，出行有险</li>
+                    </ul>
+                `
+            },
+            'lost': {
+                title: '🔍 失物占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>失物以妻财爻为用神（物品属财），或根据物品性质取用神。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>用神旺相，物可寻回</li>
+                        <li>用神衰弱，物难寻回</li>
+                        <li>用神伏藏，物被隐藏</li>
+                        <li>用神入墓，物在暗处</li>
+                    </ul>
+                    <h3>寻物方位</h3>
+                    <p>根据用神所在卦宫判断方位。</p>
+                `
+            },
+            'exam': {
+                title: '📚 考试占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>考试以父母爻为用神（父母主文书、学业）。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>父母爻旺相，成绩优异</li>
+                        <li>父母爻衰弱，成绩不佳</li>
+                        <li>官鬼爻发动，生父母爻，考试顺利</li>
+                        <li>妻财爻发动，克父母爻，考试不利</li>
+                    </ul>
+                `
+            },
+            'lawsuit': {
+                title: '⚖️ 官司占断',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>测官司以世爻代表自己，应爻代表对方，官鬼爻代表官司。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>世爻旺相，克应爻或官鬼爻，官司胜诉</li>
+                        <li>世爻衰弱，被应爻或官鬼爻克，官司败诉</li>
+                        <li>世爻与应爻相生，可和解</li>
+                        <li>官鬼爻旺相，官司严重</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showDivination(type) {
+            const data = divinationData[type];
+            if (data) {
+                document.getElementById('divination-title').textContent = data.title;
+                document.getElementById('divination-text').innerHTML = data.content;
+                document.getElementById('divination-content').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

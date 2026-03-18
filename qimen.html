@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榫欒剦鏂囧寲 路 濂囬棬閬佺敳</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .qimen-hero { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; }
+        .qimen-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .qimen-content { max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; }
+        .qimen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 600px; margin: 30px auto; }
+        .qimen-cell { aspect-ratio: 1; background: white; border: 2px solid #764ba2; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .qimen-cell.center { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; font-weight: bold; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; display: block; margin: 20px auto; }
+        .form-group { margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="qimen-hero">
+        <h1>鈿旓笍 濂囬棬閬佺敳</h1>
+        <p class="subtitle">甯濈帇涔嬪 路 棰勬祴鍐崇瓥 路 瓒嬪悏閬垮嚩</p>
+    </div>
+    <div class="qimen-content">
+        <div class="form-group">
+            <label>閫夋嫨鏃堕棿</label>
+            <input type="datetime-local" id="time-input">
+        </div>
+        <div class="form-group">
+            <label>鍗犲崪浜嬮」</label>
+            <select id="matter-select">
+                <option value="">璇烽�夋嫨</option>
+                <option value="career">浜嬩笟宸ヤ綔</option>
+                <option value="wealth">璐㈣繍鎶曡祫</option>
+                <option value="marriage">濠氬Щ鎰熸儏</option>
+                <option value="health">鍋ュ悍鐤剧梾</option>
+                <option value="lawsuit">瀹樺徃璇夎</option>
+                <option value="travel">鍑鸿鏃呮父</option>
+                <option value="exam">鑰冭瘯鍗囧</option>
+                <option value="other">鍏朵粬浜嬮」</option>
+            </select>
+        </div>
+        <button class="btn-primary" onclick="qimenPaipan()">寮�濮嬫帓鐩?/button>
+        <div id="qimen-result" style="display: none;">
+            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">濂囬棬閬佺敳鐩?/h3>
+            <div class="qimen-grid" id="qimen-grid">
+                <div class="qimen-cell">宸藉洓</div>
+                <div class="qimen-cell">绂讳節</div>
+                <div class="qimen-cell">鍧や簩</div>
+                <div class="qimen-cell">闇囦笁</div>
+                <div class="qimen-cell center">涓簲</div>
+                <div class="qimen-cell">鍏戜竷</div>
+                <div class="qimen-cell">鑹叓</div>
+                <div class="qimen-cell">鍧庝竴</div>
+                <div class="qimen-cell">涔惧叚</div>
+            </div>
+            <div id="interpretation" style="background: white; padding: 25px; border-radius: 12px; margin-top: 30px;">
+                <h4 style="color: #764ba2; margin-bottom: 15px;">瑙ｆ瀽</h4>
+                <p style="line-height: 1.8; color: #555;">濂囬棬閬佺敳瑙ｆ瀽鍐呭...</p>
+            </div>
+        </div>
+    </div>
+    <script src="qimen.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="about.html">品牌故事</a></li>
+                <li><a href="about.html">团队介绍</a></li>
+                <li><a href="about.html">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>法律声明</h4>
+            <ul>
+                <li><a href="user_agreement.html">用户协议</a></li>
+                <li><a href="privacy_policy.html">隐私政策</a></li>
+                <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>联系方式</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? 江苏省徐州市新沂市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? 本网站所有内容仅供娱乐参考，不构成任何形式的建议或承诺</p>
+        <p>?? 命理玄学属于传统文化范畴，请理性看待</p>
+        <p>?? 最终解释权归龙脉文化平台所有</p>
+        <p>? 2026 龙脉文化 版权所有 | 京ICP备XXXXXXXX号</p>
+    </div>
+</footer>
+</body>
+</html>

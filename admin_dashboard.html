@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员后台 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 管理员后台样式 */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 侧边栏 - 深色主题 */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-info {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #764ba2 0%, #9966CC 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .admin-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .admin-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            color: #67c23a;
+        }
+        
+        .nav-menu {
+            padding: 15px 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(118, 75, 162, 0.3);
+            color: white;
+        }
+        
+        .nav-item .icon {
+            font-size: 1.2rem;
+        }
+        
+        .nav-item .badge {
+            margin-left: auto;
+            background: #f56c6c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        
+        /* 顶部栏 */
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .page-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+        
+        .top-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #f56c6c;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 10px;
+        }
+        
+        /* 统计卡片 - 平台级 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+        
+        .stat-card.primary::before { background: #764ba2; }
+        .stat-card.success::before { background: #67c23a; }
+        .stat-card.warning::before { background: #e6a23c; }
+        .stat-card.danger::before { background: #f56c6c; }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-title {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            font-size: 0.85rem;
+        }
+        
+        .stat-change.up { color: #67c23a; }
+        .stat-change.down { color: #f56c6c; }
+        
+        /* 内容区域 */
+        .content-section {
+            padding: 0 30px 30px;
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .section-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e4e7ed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #764ba2 0%, #9966CC 100%);
+            color: white;
+        }
+        
+        .btn-success {
+            background: #67c23a;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #f56c6c;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #e6a23c;
+            color: white;
+        }
+        
+        .btn-default {
+            background: #f5f7fa;
+            color: var(--text-primary);
+            border: 1px solid #dcdfe6;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        /* 搜索栏 */
+        .search-bar {
+            padding: 20px 25px;
+            background: #f5f7fa;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 1px solid #dcdfe6;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        
+        .search-select {
+            padding: 10px 15px;
+            border: 1px solid #dcdfe6;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: white;
+        }
+        
+        /* 数据表格 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e4e7ed;
+        }
+        
+        .data-table th {
+            background: #f5f7fa;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .data-table tr:hover {
+            background: #f5f7fa;
+        }
+        
+        .order-id {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .status-pending {
+            background: #fdf6ec;
+            color: #e6a23c;
+        }
+        
+        .status-processing {
+            background: #ecf5ff;
+            color: #409eff;
+        }
+        
+        .status-completed {
+            background: #f0f9eb;
+            color: #67c23a;
+        }
+        
+        .status-rejected {
+            background: #fef0f0;
+            color: #f56c6c;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .action-btn.view {
+            background: #ecf5ff;
+            color: #409eff;
+        }
+        
+        .action-btn.approve {
+            background: #f0f9eb;
+            color: #67c23a;
+        }
+        
+        .action-btn.reject {
+            background: #fef0f0;
+            color: #f56c6c;
+        }
+        
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 8px;
+        }
+        
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #dcdfe6;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* 标签页 */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e4e7ed;
+            padding: 0 25px;
+            background: #f5f7fa;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            color: var(--primary-color);
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: white;
+        }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e4e7ed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #e4e7ed;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* 详情展示 */
+        .detail-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            width: 120px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: var(--text-primary);
+        }
+        
+        /* 审核意见输入 */
+        .review-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .content-section {
+                padding: 0 15px 15px;
+            }
+        }
+        
+        /* 图表容器 */
+        .chart-container {
+            padding: 25px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+        
+        /* 快捷操作卡片 */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 25px;
+        }
+        
+        .quick-action-btn {
+            padding: 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .quick-action-btn .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .quick-action-btn.primary {
+            background: linear-gradient(135deg, #764ba2 0%, #9966CC 100%);
+            color: white;
+        }
+        
+        .quick-action-btn.success {
+            background: #67c23a;
+            color: white;
+        }
+        
+        .quick-action-btn.warning {
+            background: #e6a23c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🐉 管理后台</h2>
+            </div>
+            
+            <div class="admin-info">
+                <div class="admin-avatar">👑</div>
+                <div class="admin-name">超级管理员</div>
+                <div class="admin-role">● 系统管理员</div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard')">
+                    <span class="icon">📊</span>
+                    <span>数据概览</span>
+                </a>
+                <a href="#applications" class="nav-item" onclick="showSection('applications')">
+                    <span class="icon">👤</span>
+                    <span>入驻审核</span>
+                    <span class="badge">5</span>
+                </a>
+                <a href="#masters" class="nav-item" onclick="showSection('masters')">
+                    <span class="icon">👥</span>
+                    <span>师傅管理</span>
+                </a>
+                <a href="#orders" class="nav-item" onclick="showSection('orders')">
+                    <span class="icon">📋</span>
+                    <span>订单监管</span>
+                </a>
+                <a href="#withdrawals" class="nav-item" onclick="showSection('withdrawals')">
+                    <span class="icon">💰</span>
+                    <span>提现审核</span>
+                    <span class="badge">3</span>
+                </a>
+                <a href="#crystals" class="nav-item" onclick="showSection('crystals')">
+                    <span class="icon">💎</span>
+                    <span>水晶商城</span>
+                </a>
+                <a href="#settings" class="nav-item" onclick="showSection('settings')">
+                    <span class="icon">⚙️</span>
+                    <span>系统设置</span>
+                </a>
+                <a href="index.html" class="nav-item">
+                    <span class="icon">🏠</span>
+                    <span>返回首页</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部栏 -->
+            <header class="top-bar">
+                <h1 class="page-title">数据概览</h1>
+                <div class="top-actions">
+                    <button class="notification-btn">
+                        🔔
+                        <span class="notification-badge">8</span>
+                    </button>
+                    <button class="btn btn-default" onclick="refreshData()">🔄 刷新数据</button>
+                </div>
+            </header>
+            
+            <!-- 数据概览 -->
+            <div id="dashboard-section" class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-header">
+                            <span class="stat-title">平台总收入</span>
+                            <span class="stat-icon">💰</span>
+                        </div>
+                        <div class="stat-value">¥128,560</div>
+                        <div class="stat-change up">↑ 18% 较上月</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <span class="stat-title">入驻师傅</span>
+                            <span class="stat-icon">👥</span>
+                        </div>
+                        <div class="stat-value">56</div>
+                        <div class="stat-change up">↑ 5 本月新增</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <span class="stat-title">待审核申请</span>
+                            <span class="stat-icon">⏳</span>
+                        </div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-change">需要尽快处理</div>
+                    </div>
+                    <div class="stat-card danger">
+                        <div class="stat-header">
+                            <span class="stat-title">待处理提现</span>
+                            <span class="stat-icon">💸</span>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-change">金额 ¥15,800</div>
+                    </div>
+                    <div class="stat-card primary">
+                        <div class="stat-header">
+                            <span class="stat-title">本月订单</span>
+                            <span class="stat-icon">📦</span>
+                        </div>
+                        <div class="stat-value">328</div>
+                        <div class="stat-change up">↑ 25% 较上月</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <span class="stat-title">水晶销售额</span>
+                            <span class="stat-icon">💎</span>
+                        </div>
+                        <div class="stat-value">¥45,230</div>
+                        <div class="stat-change up">↑ 12% 较上月</div>
+                    </div>
+                </div>
+                
+                <!-- 快捷操作 -->
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">快捷操作</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn primary" onclick="showSection('applications')">
+                                <div class="icon">👤</div>
+                                <div>审核入驻</div>
+                            </button>
+                            <button class="quick-action-btn success" onclick="showSection('withdrawals')">
+                                <div class="icon">💰</div>
+                                <div>处理提现</div>
+                            </button>
+                            <button class="quick-action-btn warning" onclick="showSection('orders')">
+                                <div class="icon">📋</div>
+                                <div>订单监管</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 最近订单 -->
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">最近订单</h3>
+                            <div class="section-actions">
+                                <button class="btn btn-default" onclick="showSection('orders')">查看全部</button>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>服务类型</th>
+                                    <th>师傅</th>
+                                    <th>客户</th>
+                                    <th>金额</th>
+                                    <th>平台收入</th>
+                                    <th>状态</th>
+                                    <th>时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="order-id">#20260318001</td>
+                                    <td>八字详批</td>
+                                    <td>张大师</td>
+                                    <td>李女士</td>
+                                    <td>¥199</td>
+                                    <td>¥59.7</td>
+                                    <td><span class="status-tag status-completed">已完成</span></td>
+                                    <td>10分钟前</td>
+                                </tr>
+                                <tr>
+                                    <td class="order-id">#20260318002</td>
+                                    <td>六爻占卜</td>
+                                    <td>王师傅</td>
+                                    <td>陈先生</td>
+                                    <td>¥99</td>
+                                    <td>¥29.7</td>
+                                    <td><span class="status-tag status-processing">进行中</span></td>
+                                    <td>30分钟前</td>
+                                </tr>
+                                <tr>
+                                    <td class="order-id">#20260318003</td>
+                                    <td>水晶-粉晶手链</td>
+                                    <td>平台自营</td>
+                                    <td>张女士</td>
+                                    <td>¥299</td>
+                                    <td>¥119.6</td>
+                                    <td><span class="status-tag status-completed">已完成</span></td>
+                                    <td>1小时前</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 入驻审核 -->
+            <div id="applications-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="tabs">
+                            <div class="tab active" onclick="switchTab(this, 'pending')">待审核</div>
+                            <div class="tab" onclick="switchTab(this, 'approved')">已通过</div>
+                            <div class="tab" onclick="switchTab(this, 'rejected')">已拒绝</div>
+                        </div>
+                        
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="搜索姓名、QQ、电话...">
+                            <select class="search-select">
+                                <option value="">全部领域</option>
+                                <option value="bazi">八字命理</option>
+                                <option value="liuyao">六爻占卜</option>
+                                <option value="qimen">奇门遁甲</option>
+                                <option value="fengshui">风水堪舆</option>
+                                <option value="ziwei">紫微斗数</option>
+                            </select>
+                            <button class="btn btn-primary">搜索</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>申请时间</th>
+                                    <th>姓名</th>
+                                    <th>昵称</th>
+                                    <th>QQ</th>
+                                    <th>擅长领域</th>
+                                    <th>从业年限</th>
+                                    <th>定价</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2026-03-18 10:30</td>
+                                    <td>测试师傅</td>
+                                    <td>测试大师</td>
+                                    <td>123456789</td>
+                                    <td>八字、六爻</td>
+                                    <td>3-5年</td>
+                                    <td>199元</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view" onclick="viewApplication(1)">查看</button>
+                                        <button class="action-btn approve" onclick="approveApplication(1)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectApplication(1)">拒绝</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2026-03-18 09:15</td>
+                                    <td>李明</td>
+                                    <td>明易大师</td>
+                                    <td>987654321</td>
+                                    <td>奇门、风水</td>
+                                    <td>5-10年</td>
+                                    <td>299元</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view" onclick="viewApplication(2)">查看</button>
+                                        <button class="action-btn approve" onclick="approveApplication(2)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectApplication(2)">拒绝</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2026-03-17 16:45</td>
+                                    <td>王芳</td>
+                                    <td>紫微仙子</td>
+                                    <td>456789123</td>
+                                    <td>紫微、姓名</td>
+                                    <td>1-3年</td>
+                                    <td>99元</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view" onclick="viewApplication(3)">查看</button>
+                                        <button class="action-btn approve" onclick="approveApplication(3)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectApplication(3)">拒绝</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="pagination">
+                            <button class="page-btn">上一页</button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">下一页</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 师傅管理 -->
+            <div id="masters-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">师傅列表</h3>
+                            <div class="section-actions">
+                                <button class="btn btn-default">导出数据</button>
+                            </div>
+                        </div>
+                        
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="搜索师傅姓名、昵称...">
+                            <select class="search-select">
+                                <option value="">全部状态</option>
+                                <option value="active">正常</option>
+                                <option value="suspended">已暂停</option>
+                            </select>
+                            <button class="btn btn-primary">搜索</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>师傅ID</th>
+                                    <th>昵称</th>
+                                    <th>真实姓名</th>
+                                    <th>擅长领域</th>
+                                    <th>累计订单</th>
+                                    <th>累计收入</th>
+                                    <th>评分</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#M001</td>
+                                    <td>张大师</td>
+                                    <td>张伟</td>
+                                    <td>八字、六爻</td>
+                                    <td>128</td>
+                                    <td>¥25,400</td>
+                                    <td>⭐ 4.9</td>
+                                    <td><span class="status-tag status-completed">正常</span></td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">查看</button>
+                                        <button class="action-btn reject">暂停</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#M002</td>
+                                    <td>李道长</td>
+                                    <td>李明</td>
+                                    <td>奇门、风水</td>
+                                    <td>86</td>
+                                    <td>¥18,200</td>
+                                    <td>⭐ 4.8</td>
+                                    <td><span class="status-tag status-completed">正常</span></td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">查看</button>
+                                        <button class="action-btn reject">暂停</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#M003</td>
+                                    <td>王师傅</td>
+                                    <td>王强</td>
+                                    <td>紫微、姓名</td>
+                                    <td>45</td>
+                                    <td>¥8,900</td>
+                                    <td>⭐ 4.7</td>
+                                    <td><span class="status-tag status-pending">已暂停</span></td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">查看</button>
+                                        <button class="action-btn approve">恢复</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 订单监管 -->
+            <div id="orders-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">全部订单</h3>
+                            <div class="section-actions">
+                                <button class="btn btn-default">导出报表</button>
+                            </div>
+                        </div>
+                        
+                        <div class="search-bar">
+                            <input type="text" class="search-input" placeholder="搜索订单号、客户...">
+                            <select class="search-select">
+                                <option value="">全部状态</option>
+                                <option value="pending">待接单</option>
+                                <option value="processing">进行中</option>
+                                <option value="completed">已完成</option>
+                            </select>
+                            <button class="btn btn-primary">搜索</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>类型</th>
+                                    <th>师傅</th>
+                                    <th>客户</th>
+                                    <th>金额</th>
+                                    <th>平台收入</th>
+                                    <th>状态</th>
+                                    <th>下单时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="order-id">#20260318001</td>
+                                    <td>八字详批</td>
+                                    <td>张大师</td>
+                                    <td>李女士</td>
+                                    <td>¥199</td>
+                                    <td>¥59.7</td>
+                                    <td><span class="status-tag status-completed">已完成</span></td>
+                                    <td>2026-03-18 10:30</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="order-id">#20260318002</td>
+                                    <td>六爻占卜</td>
+                                    <td>王师傅</td>
+                                    <td>陈先生</td>
+                                    <td>¥99</td>
+                                    <td>¥29.7</td>
+                                    <td><span class="status-tag status-processing">进行中</span></td>
+                                    <td>2026-03-18 10:10</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">查看</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 提现审核 -->
+            <div id="withdrawals-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="tabs">
+                            <div class="tab active" onclick="switchTab(this, 'pending')">待审核</div>
+                            <div class="tab" onclick="switchTab(this, 'completed')">已处理</div>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>申请时间</th>
+                                    <th>师傅</th>
+                                    <th>提现金额</th>
+                                    <th>提现方式</th>
+                                    <th>账号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2026-03-18 09:00</td>
+                                    <td>张大师</td>
+                                    <td>¥5,000</td>
+                                    <td>支付宝</td>
+                                    <td>138****8000</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn approve" onclick="approveWithdrawal(1)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectWithdrawal(1)">拒绝</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2026-03-18 08:30</td>
+                                    <td>李道长</td>
+                                    <td>¥8,000</td>
+                                    <td>微信</td>
+                                    <td>wx****1234</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn approve" onclick="approveWithdrawal(2)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectWithdrawal(2)">拒绝</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2026-03-17 16:00</td>
+                                    <td>王师傅</td>
+                                    <td>¥2,800</td>
+                                    <td>支付宝</td>
+                                    <td>139****5678</td>
+                                    <td class="action-btns">
+                                        <button class="action-btn approve" onclick="approveWithdrawal(3)">通过</button>
+                                        <button class="action-btn reject" onclick="rejectWithdrawal(3)">拒绝</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 水晶商城管理 -->
+            <div id="crystals-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">水晶商品管理</h3>
+                            <div class="section-actions">
+                                <button class="btn btn-primary">+ 添加商品</button>
+                            </div>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>商品ID</th>
+                                    <th>商品名称</th>
+                                    <th>分类</th>
+                                    <th>价格</th>
+                                    <th>库存</th>
+                                    <th>销量</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#C001</td>
+                                    <td>天然粉晶手链</td>
+                                    <td>粉晶系列</td>
+                                    <td>¥299</td>
+                                    <td>50</td>
+                                    <td>128</td>
+                                    <td><span class="status-tag status-completed">上架中</span></td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">编辑</button>
+                                        <button class="action-btn reject">下架</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#C002</td>
+                                    <td>紫水晶吊坠</td>
+                                    <td>紫晶系列</td>
+                                    <td>¥399</td>
+                                    <td>30</td>
+                                    <td>86</td>
+                                    <td><span class="status-tag status-completed">上架中</span></td>
+                                    <td class="action-btns">
+                                        <button class="action-btn view">编辑</button>
+                                        <button class="action-btn reject">下架</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 系统设置 -->
+            <div id="settings-section" class="section-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">基础设置</h3>
+                        </div>
+                        <div style="padding: 25px;">
+                            <div class="detail-item">
+                                <span class="detail-label">平台名称</span>
+                                <span class="detail-value">龙脉文化</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">客服QQ</span>
+                                <span class="detail-value">1614194452</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">分成比例</span>
+                                <span class="detail-value">师傅 70% : 平台 30%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">水晶销售分成</span>
+                                <span class="detail-value">供应商 60% : 平台 40%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">最低提现金额</span>
+                                <span class="detail-value">¥100</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">提现处理时间</span>
+                                <span class="detail-value">1-3个工作日</span>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 20px;">保存设置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 审核详情模态框 -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">入驻申请详情</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-item">
+                    <span class="detail-label">真实姓名</span>
+                    <span class="detail-value" id="modalName">测试师傅</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">昵称/法号</span>
+                    <span class="detail-value" id="modalNickname">测试大师</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">QQ号码</span>
+                    <span class="detail-value">123456789</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">联系电话</span>
+                    <span class="detail-value">13800138000</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">擅长领域</span>
+                    <span class="detail-value">八字命理、六爻占卜</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">从业年限</span>
+                    <span class="detail-value">3-5年</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">服务定价</span>
+                    <span class="detail-value">199元/次</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">个人简介</span>
+                    <span class="detail-value">专业命理师，从业5年，擅长八字和六爻预测</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">审核意见</span>
+                </div>
+                <textarea class="review-textarea" placeholder="请输入审核意见（通过或拒绝时填写）..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeModal()">取消</button>
+                <button class="btn btn-danger" onclick="confirmReject()">拒绝</button>
+                <button class="btn btn-success" onclick="confirmApprove()">通过</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 切换侧边栏导航
+        function showSection(section) {
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.getElementById(section + '-section').style.display = 'block';
+            
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            const titles = {
+                'dashboard': '数据概览',
+                'applications': '入驻审核',
+                'masters': '师傅管理',
+                'orders': '订单监管',
+                'withdrawals': '提现审核',
+                'crystals': '水晶商城',
+                'settings': '系统设置'
+            };
+            document.querySelector('.page-title').textContent = titles[section];
+        }
+        
+        // 切换标签
+        function switchTab(element, type) {
+            document.querySelectorAll('.tab').forEach(el => {
+                el.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+        
+        // 查看申请详情
+        function viewApplication(id) {
+            document.getElementById('reviewModal').classList.add('show');
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('reviewModal').classList.remove('show');
+        }
+        
+        // 通过申请
+        function approveApplication(id) {
+            if (confirm('确认通过该师傅的入驻申请？')) {
+                alert('✅ 已通过！\n\n已发送通知至师傅QQ：123456789\n师傅现在可以登录后台开始接单。');
+            }
+        }
+        
+        // 拒绝申请
+        function rejectApplication(id) {
+            viewApplication(id);
+        }
+        
+        // 确认通过
+        function confirmApprove() {
+            closeModal();
+            alert('✅ 审核通过！\n\n已发送通知至师傅QQ\n师傅现在可以登录后台开始接单。');
+        }
+        
+        // 确认拒绝
+        function confirmReject() {
+            closeModal();
+            alert('❌ 已拒绝\n\n已发送通知至师傅QQ，说明拒绝原因。');
+        }
+        
+        // 通过提现
+        function approveWithdrawal(id) {
+            if (confirm('确认通过该提现申请？')) {
+                alert('✅ 提现申请已通过！\n\n请尽快处理转账。');
+            }
+        }
+        
+        // 拒绝提现
+        function rejectWithdrawal(id) {
+            const reason = prompt('请输入拒绝原因：');
+            if (reason) {
+                alert('❌ 已拒绝提现申请\n\n原因：' + reason);
+            }
+        }
+        
+        // 刷新数据
+        function refreshData() {
+            alert('🔄 数据已刷新！');
+        }
+        
+        // 点击模态框外部关闭
+        document.getElementById('reviewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

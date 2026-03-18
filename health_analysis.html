@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 健康分析</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .health-hero {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .health-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .health-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .organ-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .organ-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .organ-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .health-score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .score-good { color: #00cc66; }
+        .score-medium { color: #ffaa00; }
+        .score-bad { color: #ff4444; }
+        .advice-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="health-hero">
+        <h1>🏥 健康分析</h1>
+        <p class="subtitle">五脏健康 · 体质分析 · 养生建议</p>
+    </div>
+    <div class="health-content">
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">输入您的八字</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                请先在主页完成八字排盘，或直接输入八�?            </p>
+            <button class="btn-primary" onclick="analyzeHealth()">开始分�?/button>
+        </div>
+
+        <div id="health-result" style="display: none;">
+            <h2 style="text-align: center; color: #764ba2; margin: 40px 0;">您的健康分析</h2>
+            
+            <div class="advice-card">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">🎯 体质类型：木型体�?/h3>
+                <p style="line-height: 1.8; color: #555;">
+                    您的八字木旺，属于木型体质。木型人通常身材修长，面色青白，性格急躁。肝胆功能较强，但容易因情绪波动影响健康�?                </p>
+            </div>
+
+            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">五脏健康评分</h3>
+            <div class="organ-grid">
+                <div class="organ-card">
+                    <div class="organ-icon">🫀</div>
+                    <h4>心脏</h4>
+                    <div class="health-score score-good">85�?/div>
+                    <p style="color: #666; font-size: 0.9rem;">健康状况良好</p>
+                </div>
+                <div class="organ-card">
+                    <div class="organ-icon">🫁</div>
+                    <h4>�?/h4>
+                    <div class="health-score score-medium">70�?/div>
+                    <p style="color: #666; font-size: 0.9rem;">需要注意保�?/p>
+                </div>
+                <div class="organ-card">
+                    <div class="organ-icon">🍖</div>
+                    <h4>肝胆</h4>
+                    <div class="health-score score-good">90�?/div>
+                    <p style="color: #666; font-size: 0.9rem;">功能强健</p>
+                </div>
+                <div class="organ-card">
+                    <div class="organ-icon">🥘</div>
+                    <h4>脾胃</h4>
+                    <div class="health-score score-medium">65�?/div>
+                    <p style="color: #666; font-size: 0.9rem;">消化功能偏弱</p>
+                </div>
+                <div class="organ-card">
+                    <div class="organ-icon">💧</div>
+                    <h4>�?/h4>
+                    <div class="health-score score-good">80�?/div>
+                    <p style="color: #666; font-size: 0.9rem;">基本健康</p>
+                </div>
+            </div>
+
+            <div class="advice-card">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">⚠️ 健康预警</h3>
+                <ul style="line-height: 2; color: #555;">
+                    <li>🔴 高风险：肝胆疾病（肝火旺盛，易怒伤肝）</li>
+                    <li>🟡 中风险：脾胃疾病（木克土，消化功能弱�?/li>
+                    <li>🟡 中风险：眼疾（肝开窍于目，用眼过度�?/li>
+                    <li>🟢 低风险：心血管疾病（火木相生，心脏健康）</li>
+                </ul>
+            </div>
+
+            <div class="advice-card">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">💊 养生建议</h3>
+                <h4 style="color: #11998e; margin: 15px 0;">饮食调理</h4>
+                <ul style="line-height: 2; color: #555;">
+                    <li>�?多吃：绿色蔬菜、酸味食物（养肝）、山楂、柠�?/li>
+                    <li>�?适量：甜食、黄色食物（健脾）、小米、南�?/li>
+                    <li>�?少吃：辛辣刺激、油腻食物、烧�?/li>
+                    <li>�?戒酒：酒精伤肝，木型人尤其要注意</li>
+                </ul>
+
+                <h4 style="color: #11998e; margin: 15px 0;">运动建议</h4>
+                <ul style="line-height: 2; color: #555;">
+                    <li>�?适合：瑜伽、太极、慢跑、游�?/li>
+                    <li>�?时间：早�?-7点（卯时）最�?/li>
+                    <li>�?频率：每�?-5次，每次30-60分钟</li>
+                    <li>�?避免：过度剧烈运动，容易伤筋�?/li>
+                </ul>
+
+                <h4 style="color: #11998e; margin: 15px 0;">作息调理</h4>
+                <ul style="line-height: 2; color: #555;">
+                    <li>�?睡眠：晚�?1点前入睡（养肝血�?/li>
+                    <li>�?午休：中午小�?5-30分钟</li>
+                    <li>�?情绪：保持心情舒畅，避免生气</li>
+                    <li>�?护眼：每小时休息10分钟，远眺放�?/li>
+                </ul>
+
+                <h4 style="color: #11998e; margin: 15px 0;">中医调理</h4>
+                <ul style="line-height: 2; color: #555;">
+                    <li>🌿 推荐中药：柴胡、白芍、当归、枸�?/li>
+                    <li>🍵 养生茶：菊花枸杞茶、玫瑰花�?/li>
+                    <li>💆 按摩穴位：太冲穴、期门穴、肝俞穴</li>
+                    <li>🧘 调理方法：疏肝理气、健脾和�?/li>
+                </ul>
+            </div>
+
+            <div class="advice-card">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">📅 流年健康运势</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: #f5f7fa;">
+                        <th style="padding: 12px; text-align: left;">年份</th>
+                        <th style="padding: 12px; text-align: left;">健康指数</th>
+                        <th style="padding: 12px; text-align: left;">注意事项</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2026�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐⭐⭐</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">整体健康，注意肝�?/td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2027�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">注意脾胃，避免暴饮暴�?/td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2028�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐⭐⭐�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">健康运佳，适合调理</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="health_analysis.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

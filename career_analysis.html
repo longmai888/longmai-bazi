@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 事业官运分析</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .career-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .career-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .career-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .career-path {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            flex: 1;
+            background: #f5f7fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+        }
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .industry-tag {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .industry-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .advantage-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f0f9ff;
+            border-radius: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="career-hero">
+        <h1>💼 事业官运分析</h1>
+        <p class="subtitle">事业方向 · 官运分析 · 创业建议</p>
+    </div>
+    <div class="career-content">
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">输入您的八字</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                请先在主页完成八字排盘，或直接输入八�?            </p>
+            <button class="btn-primary" onclick="analyzeCareer()">开始分�?/button>
+        </div>
+
+        <div id="career-result" style="display: none;">
+            <h2 style="text-align: center; color: #764ba2; margin: 40px 0;">您的事业官运分析</h2>
+            
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">🎯 事业类型：成长型事业</h3>
+                <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">
+                    您的八字显示日主为甲木，如参天大树，适合稳步成长型事业。建议从基层做起，逐步晋升，不要急于求成�?                </p>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">🏢 适合的行�?/h3>
+                <div class="industry-grid">
+                    <div class="industry-tag">📚 教育培训</div>
+                    <div class="industry-tag">📖 文化出版</div>
+                    <div class="industry-tag">🏠 房地�?/div>
+                    <div class="industry-tag">🌳 环保林业</div>
+                    <div class="industry-tag">👔 纺织服装</div>
+                    <div class="industry-tag">🌿 园艺农业</div>
+                    <div class="industry-tag">📝 咨询策划</div>
+                    <div class="industry-tag">🎨 文创设计</div>
+                </div>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">📈 职业发展路径</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-content">
+                            <h4>基层员工�?5-30岁）</h4>
+                            <p style="color: #666;">积累经验，学习业务，建立人脉</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-content">
+                            <h4>主管/组长�?0-35岁）</h4>
+                            <p style="color: #666;">带领小团队，展现管理能力</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-content">
+                            <h4>部门经理�?5-40岁）</h4>
+                            <p style="color: #666;">独当一面，负责重要项目</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-content">
+                            <h4>总监/VP�?0-50岁）</h4>
+                            <p style="color: #666;">进入高层，参与战略决�?/p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">�?您的优势</h3>
+                <div class="advantage-list">
+                    <div class="advantage-item">
+                        <span style="font-size: 1.5rem;">🎯</span>
+                        <span>有远见，能把握大�?/span>
+                    </div>
+                    <div class="advantage-item">
+                        <span style="font-size: 1.5rem;">👑</span>
+                        <span>有领导才�?/span>
+                    </div>
+                    <div class="advantage-item">
+                        <span style="font-size: 1.5rem;">📊</span>
+                        <span>规划能力�?/span>
+                    </div>
+                    <div class="advantage-item">
+                        <span style="font-size: 1.5rem;">🤝</span>
+                        <span>善于团队协作</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">⚠️ 需要注�?/h3>
+                <ul style="line-height: 2; color: #555;">
+                    <li>起步可能较慢，不要急躁</li>
+                    <li>有时优柔寡断，需要果断决�?/li>
+                    <li>避免过于理想化，要脚踏实�?/li>
+                    <li>不要频繁跳槽�?年内专注一个领�?/li>
+                </ul>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">💡 发展建议</h3>
+                <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #FFD700;">
+                    <p style="line-height: 1.8; color: #555;">
+                        <strong>短期�?-3年）�?/strong>选择有发展前景的行业，稳扎稳打，积累经验和人脉�?br><br>
+                        <strong>中期�?-5年）�?/strong>专注一个领域深耕，成为该领域的专家�?br><br>
+                        <strong>长期�?-10年）�?/strong>35-45岁是事业高峰期，可考虑晋升高管或创业�?br><br>
+                        <strong>最佳发展方向：</strong>东方、东南方的城市或项目更有利�?                    </p>
+                </div>
+            </div>
+
+            <div class="career-path">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">📅 流年运势</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: #f5f7fa;">
+                        <th style="padding: 12px; text-align: left;">年份</th>
+                        <th style="padding: 12px; text-align: left;">运势</th>
+                        <th style="padding: 12px; text-align: left;">建议</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2026�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐⭐⭐</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">适合晋升或跳�?/td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2027�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">稳定发展，积累实�?/td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">2028�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">⭐⭐⭐⭐�?/td>
+                        <td style="padding: 12px; border-bottom: 1px solid #eee;">大好机会，可创业</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="career_analysis.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

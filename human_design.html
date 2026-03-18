@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榫欒剦鏂囧寲 路 浜虹被鍥句笌鏄熷骇</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .hd-hero {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hd-hero h1 { font-size: 2.5rem; margin-bottom: 10px; color: #764ba2; }
+        .hd-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .nav-tab {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #764ba2;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group {
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .hd-chart {
+            width: 300px;
+            height: 400px;
+            margin: 30px auto;
+            background: white;
+            border: 3px solid #764ba2;
+            border-radius: 15px;
+            position: relative;
+        }
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .zodiac-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .zodiac-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hd-hero">
+        <h1>猸?浜虹被鍥句笌鏄熷骇</h1>
+        <p class="subtitle" style="color: #764ba2;">鎺㈢储鐪熷疄鑷垜 路 鍙戠幇浜虹敓浣垮懡</p>
+    </div>
+    <div class="hd-content">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('humandesign')">浜虹被鍥惧垎鏋?/button>
+            <button class="nav-tab" onclick="switchTab('zodiac')">鏄熷骇杩愬娍</button>
+        </div>
+
+        <!-- 浜虹被鍥?-->
+        <div id="humandesign-tab" class="tab-content active">
+            <div class="form-group">
+                <label>鍑虹敓鏃ユ湡</label>
+                <input type="date" id="hd-birth-date">
+            </div>
+            <div class="form-group">
+                <label>鍑虹敓鏃堕棿</label>
+                <input type="time" id="hd-birth-time">
+            </div>
+            <div class="form-group">
+                <label>鍑虹敓鍦扮偣</label>
+                <input type="text" id="hd-birth-place" placeholder="濡傦細鍖椾含">
+            </div>
+            <button class="btn-primary" onclick="analyzeHumanDesign()">鐢熸垚浜虹被鍥?/button>
+            <div id="hd-result" style="display: none;">
+                <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">鎮ㄧ殑浜虹被鍥?/h3>
+                <div class="hd-chart" id="hd-chart"></div>
+                <div id="hd-interpretation" style="background: white; padding: 25px; border-radius: 12px; margin-top: 30px;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">浜虹被鍥捐В鏋?/h4>
+                    <p id="hd-text" style="line-height: 1.8; color: #555;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 鏄熷骇杩愬娍 -->
+        <div id="zodiac-tab" class="tab-content">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 30px;">閫夋嫨鎮ㄧ殑鏄熷骇</h3>
+            <div class="zodiac-grid">
+                <div class="zodiac-card" onclick="showZodiacFortune('aries')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>鐧界緤搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">3.21-4.19</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('taurus')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>閲戠墰搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">4.20-5.20</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('gemini')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>鍙屽瓙搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">5.21-6.21</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('cancer')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>宸ㄨ煿搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">6.22-7.22</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('leo')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>鐙瓙搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">7.23-8.22</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('virgo')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>澶勫コ搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">8.23-9.22</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('libra')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>澶╃Г搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">9.23-10.23</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('scorpio')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>澶╄潕搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">10.24-11.22</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('sagittarius')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>灏勬墜搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">11.23-12.21</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('capricorn')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>鎽╃警搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">12.22-1.19</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('aquarius')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>姘寸摱搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">1.20-2.18</p>
+                </div>
+                <div class="zodiac-card" onclick="showZodiacFortune('pisces')">
+                    <div class="zodiac-icon">鈾?/div>
+                    <h4>鍙岄奔搴?/h4>
+                    <p style="color: #666; font-size: 0.9rem;">2.19-3.20</p>
+                </div>
+            </div>
+            <div id="zodiac-result" style="display: none; background: white; padding: 30px; border-radius: 15px; margin-top: 30px;">
+                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">杩愬娍璇︽儏</h3>
+                <div id="zodiac-fortune-content"></div>
+            </div>
+        </div>
+    </div>
+    <script src="human_design.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="about.html">品牌故事</a></li>
+                <li><a href="about.html">团队介绍</a></li>
+                <li><a href="about.html">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>法律声明</h4>
+            <ul>
+                <li><a href="user_agreement.html">用户协议</a></li>
+                <li><a href="privacy_policy.html">隐私政策</a></li>
+                <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>联系方式</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? 江苏省徐州市新沂市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? 本网站所有内容仅供娱乐参考，不构成任何形式的建议或承诺</p>
+        <p>?? 命理玄学属于传统文化范畴，请理性看待</p>
+        <p>?? 最终解释权归龙脉文化平台所有</p>
+        <p>? 2026 龙脉文化 版权所有 | 京ICP备XXXXXXXX号</p>
+    </div>
+</footer>
+</body>
+</html>

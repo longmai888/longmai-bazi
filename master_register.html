@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>师傅入驻 - 龙脉文化</title>
+    <meta name="description" content="加入龙脉文化命理师团队，传承千年智慧，服务大众。入驻免费，订单分成70%归您！">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        /* 师傅入驻专属样式 */
+        .master-hero {
+            background: linear-gradient(135deg, #FFB6C1 0%, #9966CC 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .master-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .master-hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        
+        .benefits-section {
+            padding: 60px 20px;
+            background: var(--bg-white);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .benefit-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .income-highlight {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .form-section {
+            padding: 60px 20px;
+            background: var(--bg-gray);
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .form-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .form-group label .required {
+            color: var(--danger);
+            margin-left: 4px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 0.95rem;
+        }
+        
+        .checkbox-group a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .process-section {
+            padding: 60px 20px;
+            background: white;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .process-step h4 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .process-step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .faq-section {
+            padding: 60px 20px;
+            background: var(--bg-gray);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .faq-question:hover {
+            background: var(--bg-gray);
+        }
+        
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="main-nav">
+        <div class="nav-brand">
+            <span class="logo">🐉</span>
+            <span class="brand-text">龙脉文化</span>
+        </div>
+        <div class="nav-right">
+            <button class="menu-toggle">☰</button>
+            <a href="index.html" class="nav-btn">首页</a>
+            <a href="crystals.html" class="nav-btn primary">💎 商城</a>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" style="display:none;">
+        <a href="index.html" class="mobile-menu-item">🏠 首页</a>
+        <a href="master_register.html" class="mobile-menu-item active">👨‍💼 师傅入驻</a>
+        <a href="crystals.html" class="mobile-menu-item">💎 水晶商城</a>
+    </div>
+
+    <!-- Hero区域 -->
+    <section class="master-hero">
+        <h1>🌟 师傅入驻</h1>
+        <p class="subtitle">加入我们 · 传承智慧 · 服务大众</p>
+    </section>
+
+    <!-- 入驻优势 -->
+    <section class="benefits-section">
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>高额分成</h3>
+                <p>咨询订单<span class="income-highlight">70%</span>归您<br>平台仅收取30%服务费</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🆓</div>
+                <h3>免费入驻</h3>
+                <p>零门槛入驻<br>无需缴纳任何费用</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📢</div>
+                <h3>平台推广</h3>
+                <p>优质师傅获得首页推荐<br>增加曝光和订单量</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🔒</div>
+                <h3>安全保障</h3>
+                <p>平台担保交易<br>订单完成自动结算</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 入驻流程 -->
+    <section class="process-section">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 10px;">入驻流程</h2>
+        <p style="text-align: center; color: var(--text-secondary);">简单四步，开启您的命理服务之旅</p>
+        
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>填写申请</h4>
+                <p>提交个人资料和擅长领域</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>资质审核</h4>
+                <p>平台1-3个工作日内审核</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>签署协议</h4>
+                <p>确认服务条款和分成比例</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>正式入驻</h4>
+                <p>开启接单，开始服务</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 入驻申请表单 -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2>📝 入驻申请</h2>
+            <p class="form-subtitle">请如实填写以下信息，我们将尽快与您联系</p>
+            
+            <div class="success-message" id="successMessage">
+                ✅ 申请提交成功！我们会在1-3个工作日内审核，审核结果将通过QQ通知您。
+            </div>
+            
+            <form id="masterForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>真实姓名 <span class="required">*</span></label>
+                        <input type="text" name="realName" required placeholder="请输入您的真实姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>昵称/法号 <span class="required">*</span></label>
+                        <input type="text" name="nickname" required placeholder="对外展示的称呼">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>QQ号码 <span class="required">*</span></label>
+                        <input type="text" name="qq" required placeholder="用于联系和接单通知">
+                    </div>
+                    <div class="form-group">
+                        <label>微信号</label>
+                        <input type="text" name="wechat" placeholder="选填">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>联系电话 <span class="required">*</span></label>
+                    <input type="tel" name="phone" required placeholder="请输入手机号码">
+                </div>
+                
+                <div class="form-group">
+                    <label>擅长领域 <span class="required">*</span>（可多选）</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="bazi"> 八字命理
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="liuyao"> 六爻占卜
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="qimen"> 奇门遁甲
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="fengshui"> 风水堪舆
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="ziwei"> 紫微斗数
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="xingming"> 姓名学
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="hehun"> 合婚配对
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" name="skills" value="other"> 其他
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>从业年限 <span class="required">*</span></label>
+                    <select name="experience" required>
+                        <option value="">请选择</option>
+                        <option value="1-3">1-3年</option>
+                        <option value="3-5">3-5年</option>
+                        <option value="5-10">5-10年</option>
+                        <option value="10+">10年以上</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>个人简介 <span class="required">*</span></label>
+                    <textarea name="bio" required placeholder="请介绍您的学习经历、师承、擅长方向等，不少于50字"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>服务定价 <span class="required">*</span></label>
+                    <select name="price" required>
+                        <option value="">请选择基础咨询价格</option>
+                        <option value="99">99元/次</option>
+                        <option value="199">199元/次</option>
+                        <option value="299">299元/次</option>
+                        <option value="399">399元/次</option>
+                        <option value="custom">自定义（审核时商议）</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>资质证书（选填）</label>
+                    <input type="text" name="certificates" placeholder="如有相关证书，请填写证书名称和编号">
+                </div>
+                
+                <div class="form-group">
+                    <label>案例展示（选填）</label>
+                    <textarea name="cases" placeholder="可简要描述1-2个成功案例，增加审核通过率"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreement" required>
+                        <label for="agreement">我已阅读并同意<a href="#" onclick="alert('服务协议内容将在审核通过后提供详细版本'); return false;">《师傅服务协议》</a>和<a href="#" onclick="alert('分成比例：咨询订单师傅获得70%，平台获得30%；水晶销售供应商获得60%，平台获得40%'); return false;">《分成说明》</a> <span class="required">*</span></label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">提交申请</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">常见问题</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>入驻需要缴纳费用吗？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    完全免费！龙脉文化平台对师傅入驻不收取任何费用，您只需通过资质审核即可开始接单。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>订单如何分成？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    咨询订单采用7:3分成模式，师傅获得70%，平台获得30%。例如用户支付199元咨询费，您将获得139.3元。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>审核需要多长时间？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    一般情况下，审核会在1-3个工作日内完成。审核结果将通过您填写的QQ号码通知您。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>如何接单和提供服务？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    审核通过后，您将收到师傅后台管理系统的登录方式。用户下单后，您会通过QQ收到订单通知，可在后台查看用户需求并提供服务。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>收入如何结算？</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    订单完成后，收入将计入您的账户余额。您可随时申请提现，提现将在3个工作日内到账您绑定的支付宝或微信账户。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer style="background: var(--text-primary); color: white; padding: 40px 20px; text-align: center;">
+        <p style="margin-bottom: 10px;">🐉 龙脉文化 - 传承千年智慧</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">客服QQ：1614194452 | 合作微信：fuxinfu889</p>
+        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 15px;">© 2026 龙脉文化 版权所有</p>
+    </footer>
+
+    <script>
+        // 表单提交处理
+        document.getElementById('masterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const formData = new FormData(this);
+            const data = {};
+            
+            // 处理普通字段
+            for (let [key, value] of formData.entries()) {
+                if (key === 'skills') {
+                    if (!data[key]) data[key] = [];
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // 验证必填项
+            if (!data.realName || !data.nickname || !data.qq || !data.phone) {
+                alert('请填写所有必填项！');
+                return;
+            }
+            
+            // 验证擅长领域
+            if (!data.skills || data.skills.length === 0) {
+                alert('请至少选择一项擅长领域！');
+                return;
+            }
+            
+            // 验证协议勾选
+            if (!document.getElementById('agreement').checked) {
+                alert('请阅读并同意服务协议！');
+                return;
+            }
+            
+            // 构建提交内容
+            const submitData = {
+                ...data,
+                skills: data.skills ? data.skills.join(', ') : '',
+                submitTime: new Date().toLocaleString('zh-CN'),
+                type: '师傅入驻申请'
+            };
+            
+            // 发送到QQ（使用现有的数据推送系统）
+            sendToQQ(submitData);
+            
+            // 显示成功消息
+            document.getElementById('successMessage').classList.add('show');
+            
+            // 重置表单
+            this.reset();
+            
+            // 滚动到成功消息
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        // 发送到QQ的函数（复用现有系统）
+        function sendToQQ(data) {
+            // 构建消息内容
+            let message = `【师傅入驻申请】\n`;
+            message += `提交时间：${data.submitTime}\n`;
+            message += `真实姓名：${data.realName}\n`;
+            message += `昵称/法号：${data.nickname}\n`;
+            message += `QQ：${data.qq}\n`;
+            message += `微信：${data.wechat || '未填写'}\n`;
+            message += `电话：${data.phone}\n`;
+            message += `擅长领域：${data.skills}\n`;
+            message += `从业年限：${data.experience}\n`;
+            message += `服务定价：${data.price}元\n`;
+            message += `资质证书：${data.certificates || '未填写'}\n`;
+            message += `个人简介：${data.bio}\n`;
+            message += `案例展示：${data.cases || '未填写'}`;
+            
+            // 使用QQ机器人API发送（这里使用console.log模拟，实际部署时需要接入真实的QQ推送系统）
+            console.log('发送到QQ 1614194452:', message);
+            
+            // 保存到本地存储（用于后台管理）
+            const applications = JSON.parse(localStorage.getItem('masterApplications') || '[]');
+            applications.push(data);
+            localStorage.setItem('masterApplications', JSON.stringify(applications));
+            
+            // 实际部署时，这里应该调用后端API
+            // fetch('/api/send-to-qq', { method: 'POST', body: JSON.stringify({ qq: '1614194452', message }) });
+        }
+        
+        // FAQ切换
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+        
+        // 移动端菜单切换
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

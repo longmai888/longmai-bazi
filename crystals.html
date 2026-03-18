@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 水晶能量商城</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        /* 商城特有样式 */
+        .crystals-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .crystals-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .crystals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .crystal-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .crystal-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .crystal-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f5f7fa;
+        }
+
+        .crystal-info {
+            padding: 20px;
+        }
+
+        .crystal-name {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .crystal-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .crystal-price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .crystal-energy {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .energy-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .category-filter {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid #764ba2;
+            background: white;
+            color: #764ba2;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .cart-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">龙脉文化</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html">首页</a></li>
+                <li class="nav-item"><a href="bazi.html">八字排盘</a></li>
+                <li class="nav-item"><a href="liuyao.html">六爻占卜</a></li>
+                <li class="nav-item"><a href="qimen.html">奇门遁甲</a></li>
+                <li class="nav-item"><a href="fengshui.html">风水布局</a></li>
+                <li class="nav-item"><a href="articles.html">知识文章</a></li>
+                <li class="nav-item active"><a href="crystals.html">水晶商城</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" title="搜索">🔍</a>
+                <a href="#" title="购物车">🛒</a>
+                <a href="user_center.html" title="个人中心">👤</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 商城头部 -->
+    <section class="crystals-hero">
+        <h1>💎 水晶能量商城</h1>
+        <p>精选天然水晶，汇聚天地灵气，助您开启能量人生</p>
+    </section>
+
+    <!-- 分类筛选 -->
+    <div class="category-filter">
+        <button class="filter-btn active" onclick="filterCrystals('all')">全部</button>
+        <button class="filter-btn" onclick="filterCrystals('bracelet')">手链</button>
+        <button class="filter-btn" onclick="filterCrystals('pendant')">吊坠</button>
+        <button class="filter-btn" onclick="filterCrystals('ball')">水晶球</button>
+        <button class="filter-btn" onclick="filterCrystals('cluster')">晶簇</button>
+        <button class="filter-btn" onclick="filterCrystals('decor')">摆件</button>
+    </div>
+
+    <!-- 产品网格 -->
+    <div class="crystals-grid" id="crystalsGrid">
+        <!-- 产品1 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478512105--506845708.jpg" alt="白水晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>白水晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">白水晶手链</div>
+                <div class="crystal-desc">纯净透明，净化负能量，提升专注力</div>
+                <div class="crystal-price">¥168</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">净化</span>
+                    <span class="energy-tag">专注</span>
+                    <span class="energy-tag">平衡</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('白水晶手链', 168)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品2 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478515864-1831037809.jpg" alt="紫水晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>紫水晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">紫水晶手链</div>
+                <div class="crystal-desc">智慧之石，提升直觉，助眠安神</div>
+                <div class="crystal-price">¥268</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">智慧</span>
+                    <span class="energy-tag">直觉</span>
+                    <span class="energy-tag">安眠</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('紫水晶手链', 268)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品3 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478519771-647583524.jpg" alt="绿幽灵手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>绿幽灵手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">绿幽灵手链</div>
+                <div class="crystal-desc">财富之石，招财进宝，事业顺利</div>
+                <div class="crystal-price">¥388</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">招财</span>
+                    <span class="energy-tag">事业</span>
+                    <span class="energy-tag">财富</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('绿幽灵手链', 388)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品4 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478522908--80260337.jpg" alt="黑曜石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>黑曜石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">黑曜石手链</div>
+                <div class="crystal-desc">辟邪护身，排除负能量，增强体力</div>
+                <div class="crystal-price">¥198</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">辟邪</span>
+                    <span class="energy-tag">护身</span>
+                    <span class="energy-tag">能量</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('黑曜石手链', 198)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品5 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478526174-1126366934.jpg" alt="黄水晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>黄水晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">黄水晶手链</div>
+                <div class="crystal-desc">财富之石，招财聚宝，增强自信</div>
+                <div class="crystal-price">¥228</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">招财</span>
+                    <span class="energy-tag">自信</span>
+                    <span class="energy-tag">事业</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('黄水晶手链', 228)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品6 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478529469-215738441.jpg" alt="红玛瑙手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>红玛瑙手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">红玛瑙手链</div>
+                <div class="crystal-desc">活力之石，增强生命力，改善血液循环</div>
+                <div class="crystal-price">¥158</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">活力</span>
+                    <span class="energy-tag">健康</span>
+                    <span class="energy-tag">生命力</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('红玛瑙手链', 158)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品7 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478532907--1547177909.jpg" alt="海蓝宝手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>海蓝宝手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">海蓝宝手链</div>
+                <div class="crystal-desc">沟通之石，增强表达能力，平静情绪</div>
+                <div class="crystal-price">¥328</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">沟通</span>
+                    <span class="energy-tag">平静</span>
+                    <span class="energy-tag">表达</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('海蓝宝手链', 328)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品8 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478535940--1259801641.jpg" alt="金发晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>金发晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">金发晶手链</div>
+                <div class="crystal-desc">财富之王，强力招财，增强领导力</div>
+                <div class="crystal-price">¥588</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">招财</span>
+                    <span class="energy-tag">领导</span>
+                    <span class="energy-tag">权威</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('金发晶手链', 588)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品9 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478539512--1686152617.jpg" alt="钛晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>钛晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">钛晶手链</div>
+                <div class="crystal-desc">能量之王，强力辟邪，增强运势</div>
+                <div class="crystal-price">¥688</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">辟邪</span>
+                    <span class="energy-tag">能量</span>
+                    <span class="energy-tag">运势</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('钛晶手链', 688)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品10 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478542291-1650363740.jpg" alt="多宝手串" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>多宝手串</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">多宝手串</div>
+                <div class="crystal-desc">多种水晶组合，全方位能量加持</div>
+                <div class="crystal-price">¥458</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">综合</span>
+                    <span class="energy-tag">平衡</span>
+                    <span class="energy-tag">全面</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('多宝手串', 458)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品11 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478559883--1655094440.jpg" alt="粉水晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>粉水晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">粉水晶手链</div>
+                <div class="crystal-desc">爱情之石，招桃花，增进人缘</div>
+                <div class="crystal-price">¥188</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">爱情</span>
+                    <span class="energy-tag">人缘</span>
+                    <span class="energy-tag">桃花</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('粉水晶手链', 188)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品12 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478563225--406657030.jpg" alt="碧玺手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>碧玺手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">碧玺手链</div>
+                <div class="crystal-desc">旺夫石，增进感情，提升魅力</div>
+                <div class="crystal-price">¥368</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">旺夫</span>
+                    <span class="energy-tag">感情</span>
+                    <span class="energy-tag">魅力</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('碧玺手链', 368)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品13 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478566171-700212895.jpg" alt="月光石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>月光石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">月光石手链</div>
+                <div class="crystal-desc">恋人之石，增进感情，平衡情绪</div>
+                <div class="crystal-price">¥258</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">爱情</span>
+                    <span class="energy-tag">平衡</span>
+                    <span class="energy-tag">情绪</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('月光石手链', 258)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品14 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478568933-1849915944.jpg" alt="青金石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>青金石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">青金石手链</div>
+                <div class="crystal-desc">智慧之石，增强洞察力，提升灵性</div>
+                <div class="crystal-price">¥218</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">智慧</span>
+                    <span class="energy-tag">洞察</span>
+                    <span class="energy-tag">灵性</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('青金石手链', 218)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品15 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478571756--79314307.jpg" alt="虎眼石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>虎眼石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">虎眼石手链</div>
+                <div class="crystal-desc">事业之石，增强自信，招财进宝</div>
+                <div class="crystal-price">¥178</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">事业</span>
+                    <span class="energy-tag">自信</span>
+                    <span class="energy-tag">招财</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('虎眼石手链', 178)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品16 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478575738--1177010209.jpg" alt="石榴石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>石榴石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">石榴石手链</div>
+                <div class="crystal-desc">女人石，美容养颜，增强活力</div>
+                <div class="crystal-price">¥198</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">美容</span>
+                    <span class="energy-tag">活力</span>
+                    <span class="energy-tag">健康</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('石榴石手链', 198)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品17 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478578600--914409743.jpg" alt="草莓晶手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>草莓晶手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">草莓晶手链</div>
+                <div class="crystal-desc">桃花石，招桃花，增进人缘</div>
+                <div class="crystal-price">¥168</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">桃花</span>
+                    <span class="energy-tag">人缘</span>
+                    <span class="energy-tag">爱情</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('草莓晶手链', 168)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品18 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478581733-931041273.jpg" alt="蓝晶石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>蓝晶石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">蓝晶石手链</div>
+                <div class="crystal-desc">冷静之石，平复情绪，增强沟通</div>
+                <div class="crystal-price">¥228</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">冷静</span>
+                    <span class="energy-tag">沟通</span>
+                    <span class="energy-tag">情绪</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('蓝晶石手链', 228)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品19 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478584561--504666004.jpg" alt="天河石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>天河石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">天河石手链</div>
+                <div class="crystal-desc">幸运之石，带来好运，增强信心</div>
+                <div class="crystal-price">¥188</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">幸运</span>
+                    <span class="energy-tag">信心</span>
+                    <span class="energy-tag">好运</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('天河石手链', 188)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品20 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478636279-1384952390.jpg" alt="紫锂辉手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>紫锂辉手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">紫锂辉手链</div>
+                <div class="crystal-desc">灵性之石，提升直觉，平静心灵</div>
+                <div class="crystal-price">¥298</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">灵性</span>
+                    <span class="energy-tag">直觉</span>
+                    <span class="energy-tag">平静</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('紫锂辉手链', 298)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品21 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478640152--1220036870.jpg" alt="橄榄石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>橄榄石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">橄榄石手链</div>
+                <div class="crystal-desc">太阳之石，驱散阴霾，带来希望</div>
+                <div class="crystal-price">¥208</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">希望</span>
+                    <span class="energy-tag">阳光</span>
+                    <span class="energy-tag">正能量</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('橄榄石手链', 208)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品22 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478643024-25862350.jpg" alt="摩根石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>摩根石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">摩根石手链</div>
+                <div class="crystal-desc">慈悲之石，增强爱心，治愈心灵</div>
+                <div class="crystal-price">¥278</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">爱心</span>
+                    <span class="energy-tag">治愈</span>
+                    <span class="energy-tag">慈悲</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('摩根石手链', 278)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品23 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478646238--533930540.jpg" alt="拉长石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>拉长石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">拉长石手链</div>
+                <div class="crystal-desc">保护之石，辟邪护身，增强直觉</div>
+                <div class="crystal-price">¥188</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">保护</span>
+                    <span class="energy-tag">辟邪</span>
+                    <span class="energy-tag">直觉</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('拉长石手链', 188)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 产品24 -->
+        <div class="crystal-card" data-category="bracelet">
+            <img class="crystal-img" src="images/crystals/1773478649386--868853764.jpg" alt="萤石手链" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22220%22><rect fill=%22%23f5f7fa%22 width=%22280%22 height=%22220%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>萤石手链</text></svg>'">
+            <div class="crystal-info">
+                <div class="crystal-name">萤石手链</div>
+                <div class="crystal-desc">智慧之石，增强学习，提升专注</div>
+                <div class="crystal-price">¥158</div>
+                <div class="crystal-energy">
+                    <span class="energy-tag">智慧</span>
+                    <span class="energy-tag">学习</span>
+                    <span class="energy-tag">专注</span>
+                </div>
+                <button class="buy-btn" onclick="addToCart('萤石手链', 158)">加入购物车</button>
+            </div>
+        </div>
+
+        <!-- 更多产品继续添加... -->
+
+    </div>
+
+    <!-- 购物车图标 -->
+    <div class="cart-icon" onclick="showCart()">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>关于龙脉</h4>
+                <p>传承千年命理智慧，融合现代科技，为您提供专业的命理咨询服务。</p>
+            </div>
+            <div class="footer-section">
+                <h4>联系方式</h4>
+                <p>📧 邮箱：contact@longmai.com</p>
+                <p>📱 微信：LongMai2026</p>
+                <p>📞 电话：400-888-8888</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <p><a href="about.html">关于我们</a></p>
+                <p><a href="contact.html">联系合作</a></p>
+                <p><a href="privacy.html">隐私政策</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 龙脉文化 版权所有 | 传承千年智慧，服务现代生活</p>
+        </div>
+    </footer>
+
+    <script>
+        // 购物车数据
+        let cart = [];
+
+        // 添加到购物车
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartCount();
+            alert(`已将 ${name} 添加到购物车！`);
+        }
+
+        // 更新购物车数量
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // 显示购物车
+        function showCart() {
+            if (cart.length === 0) {
+                alert('购物车是空的');
+                return;
+            }
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            let list = cart.map(item => `${item.name}: ¥${item.price}`).join('\n');
+            alert(`购物车:\n${list}\n\n总计: ¥${total}`);
+        }
+
+        // 筛选产品
+        function filterCrystals(category) {
+            // 更新按钮状态
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 筛选显示
+            const cards = document.querySelectorAll('.crystal-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

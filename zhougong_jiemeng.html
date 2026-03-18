@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周公解梦 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .dream-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .dream-hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .dream-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .category-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .dream-list {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .dream-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        .dream-item:hover {
+            background: #f5f7fa;
+        }
+        .dream-title {
+            font-size: 1.2rem;
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        .dream-meaning {
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="dream-hero">
+        <h1>🌙 周公解梦</h1>
+        <p class="subtitle">600种梦境解析 · 洞悉潜意识 · 预知吉凶</p>
+    </div>
+
+    <div class="dream-content">
+        <div class="search-box">
+            <input type="text" class="search-input" id="dreamSearch" placeholder="输入梦境关键词，如：梦见蛇、梦见飞..." onkeyup="searchDream()">
+        </div>
+
+        <h2 style="text-align: center; color: #764ba2; margin-bottom: 30px;">梦境分类</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="showCategory('animal')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🐍</div>
+                <h3>动物</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+            <div class="category-card" onclick="showCategory('person')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
+                <h3>人物</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+            <div class="category-card" onclick="showCategory('nature')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🌊</div>
+                <h3>自然</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+            <div class="category-card" onclick="showCategory('object')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">💎</div>
+                <h3>物品</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+            <div class="category-card" onclick="showCategory('action')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🏃</div>
+                <h3>行为</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+            <div class="category-card" onclick="showCategory('scene')">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🏰</div>
+                <h3>场景</h3>
+                <p style="color: #666; font-size: 0.9rem;">100种</p>
+            </div>
+        </div>
+
+        <div class="dream-list" id="dreamList">
+            <h2 style="color: #764ba2; margin-bottom: 20px;">热门梦境解析</h2>
+            
+            <div class="dream-item" onclick="showDreamDetail('snake')">
+                <div class="dream-title">梦见蛇</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>中吉<br>
+                    <strong>解析：</strong>蛇在梦中通常代表智慧、财富或潜在的威胁。梦见蛇可能预示财运将至，也可能暗示身边有小人...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('fly')">
+                <div class="dream-title">梦见飞</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>大吉<br>
+                    <strong>解析：</strong>梦见飞翔代表事业上升、突破困境。预示近期运势好转，有贵人相助，事业将有重大突破...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('fall')">
+                <div class="dream-title">梦见坠落</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>凶<br>
+                    <strong>解析：</strong>梦见从高处坠落，通常反映内心的不安全感或对未来的担忧。提醒近期要注意安全，避免冒险...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('water')">
+                <div class="dream-title">梦见水</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>吉<br>
+                    <strong>解析：</strong>水主财，梦见清澈的水预示财运亨通。若梦见洪水，则可能预示情绪波动或重大变化...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('fire')">
+                <div class="dream-title">梦见火</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>中吉<br>
+                    <strong>解析：</strong>火代表热情、能量和变化。梦见火可能预示事业有起色，但也提醒要注意控制情绪，避免冲动...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('money')">
+                <div class="dream-title">梦见钱</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>大吉<br>
+                    <strong>解析：</strong>梦见金钱通常预示财运将至。若梦见捡钱，可能有意外之财；梦见丢钱，则要小心破财...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('wedding')">
+                <div class="dream-title">梦见结婚</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>中吉<br>
+                    <strong>解析：</strong>梦见结婚可能预示新的开始，不一定是婚姻，也可能是事业或生活的新阶段。单身者梦见结婚，桃花运将至...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('death')">
+                <div class="dream-title">梦见死亡</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>中吉<br>
+                    <strong>解析：</strong>梦见死亡通常不代表真正的死亡，而是象征结束和新生。预示旧的事物结束，新的开始即将到来...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('exam')">
+                <div class="dream-title">梦见考试</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>平<br>
+                    <strong>解析：</strong>梦见考试通常反映内心的焦虑和压力。可能近期面临重要决策或挑战，需要做好准备...
+                </div>
+            </div>
+
+            <div class="dream-item" onclick="showDreamDetail('chase')">
+                <div class="dream-title">梦见被追赶</div>
+                <div class="dream-meaning">
+                    <strong>吉凶：</strong>凶<br>
+                    <strong>解析：</strong>梦见被追赶通常反映逃避心理，可能现实中遇到难以面对的问题。建议勇敢面对，寻求解决...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const dreamDatabase = {
+            'snake': { title: '梦见蛇', meaning: '蛇在梦中通常代表智慧、财富或潜在的威胁。', luck: '中吉' },
+            'fly': { title: '梦见飞', meaning: '梦见飞翔代表事业上升、突破困境。', luck: '大吉' },
+            'fall': { title: '梦见坠落', meaning: '反映内心的不安全感或对未来的担忧。', luck: '凶' },
+            'water': { title: '梦见水', meaning: '水主财，梦见清澈的水预示财运亨通。', luck: '吉' },
+            'fire': { title: '梦见火', meaning: '火代表热情、能量和变化。', luck: '中吉' },
+            'money': { title: '梦见钱', meaning: '梦见金钱通常预示财运将至。', luck: '大吉' },
+            'wedding': { title: '梦见结婚', meaning: '预示新的开始，可能是事业或生活的新阶段。', luck: '中吉' },
+            'death': { title: '梦见死亡', meaning: '象征结束和新生，旧的事物结束，新的开始即将到来。', luck: '中吉' },
+            'exam': { title: '梦见考试', meaning: '反映内心的焦虑和压力，可能近期面临重要决策。', luck: '平' },
+            'chase': { title: '梦见被追赶', meaning: '反映逃避心理，可能现实中遇到难以面对的问题。', luck: '凶' }
+        };
+
+        function searchDream() {
+            const keyword = document.getElementById('dreamSearch').value;
+            // 搜索功能实现
+        }
+
+        function showCategory(category) {
+            alert('显示' + category + '分类的梦境');
+        }
+
+        function showDreamDetail(dreamId) {
+            const dream = dreamDatabase[dreamId];
+            if (dream) {
+                alert(dream.title + '\n吉凶：' + dream.luck + '\n\n' + dream.meaning);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · AI命理问答</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .ai-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .ai-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .ai-content { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+        .message.ai .message-bubble {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .quick-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #764ba2;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .quick-btn:hover {
+            background: #764ba2;
+            color: white;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+        .send-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="ai-hero">
+        <h1>🤖 AI命理问答</h1>
+        <p class="subtitle">智能解答 · 运势预测 · 专业建议</p>
+    </div>
+    <div class="ai-content">
+        <div class="quick-questions">
+            <button class="quick-btn" onclick="askQuestion('我今年财运如何？')">我今年财运如何？</button>
+            <button class="quick-btn" onclick="askQuestion('什么时候能结婚�?)">什么时候能结婚�?/button>
+            <button class="quick-btn" onclick="askQuestion('适合什么工作？')">适合什么工作？</button>
+            <button class="quick-btn" onclick="askQuestion('健康需要注意什么？')">健康需要注意什么？</button>
+            <button class="quick-btn" onclick="askQuestion('今年运势如何�?)">今年运势如何�?/button>
+        </div>
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <div class="message ai">
+                    <div class="message-bubble">
+                        您好！我是龙脉文化AI命理助手。请问有什么可以帮您的？您可以问我关于财运、事业、婚姻、健康等问题�?                    </div>
+                </div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="输入您的问题..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()">发�?/button>
+            </div>
+        </div>
+    </div>
+    <script src="ai_qa.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

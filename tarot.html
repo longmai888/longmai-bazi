@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榫欒剦鏂囧寲 路 濉旂綏鍗犲崪</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .tarot-hero {
+            background: linear-gradient(135deg, #FFB6C1 0%, #9966CC 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tarot-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .tarot-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .spread-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .spread-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        .spread-btn.active {
+            background: linear-gradient(135deg, #FFB6C1, #9966CC);
+            color: white;
+            border-color: #9966CC;
+        }
+        .card-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .tarot-card {
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+        }
+        .tarot-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .tarot-card.selected {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            transform: scale(1.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="tarot-hero">
+        <h1>馃敭 濉旂綏鍗犲崪</h1>
+        <p class="subtitle">78寮犲缃楃墝 路 5绉嶇墝闃?路 AI鏅鸿兘瑙ｈ</p>
+    </div>
+    <div class="tarot-content">
+        <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">閫夋嫨鐗岄樀</h3>
+        <div class="spread-selector">
+            <button class="spread-btn active" onclick="selectSpread('single')">鍗曞紶鐗?/button>
+            <button class="spread-btn" onclick="selectSpread('three')">涓夊紶鐗?/button>
+            <button class="spread-btn" onclick="selectSpread('love')">鐖辨儏鐗岄樀</button>
+            <button class="spread-btn" onclick="selectSpread('career')">浜嬩笟鐗岄樀</button>
+            <button class="spread-btn" onclick="selectSpread('celtic')">鍑皵鐗瑰崄瀛?/button>
+        </div>
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">璇锋娊鐗?/h3>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                闈欏績鍐ユ兂鎮ㄧ殑闂锛岀劧鍚庨�夋嫨濉旂綏鐗?            </p>
+            <div class="card-deck" id="card-deck">
+                <!-- 濉旂綏鐗屽皢鍦ㄨ繖閲岀敓鎴?-->
+            </div>
+            <button class="btn-primary" onclick="interpretCards()">寮�濮嬭В璇?/button>
+        </div>
+        <div id="result-section" style="display: none; background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">濉旂綏瑙ｈ</h3>
+            <div id="interpretation-content"></div>
+        </div>
+    </div>
+    <script src="tarot.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="about.html">品牌故事</a></li>
+                <li><a href="about.html">团队介绍</a></li>
+                <li><a href="about.html">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>法律声明</h4>
+            <ul>
+                <li><a href="user_agreement.html">用户协议</a></li>
+                <li><a href="privacy_policy.html">隐私政策</a></li>
+                <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>联系方式</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? 江苏省徐州市新沂市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? 本网站所有内容仅供娱乐参考，不构成任何形式的建议或承诺</p>
+        <p>?? 命理玄学属于传统文化范畴，请理性看待</p>
+        <p>?? 最终解释权归龙脉文化平台所有</p>
+        <p>? 2026 龙脉文化 版权所有 | 京ICP备XXXXXXXX号</p>
+    </div>
+</footer>
+</body>
+</html>

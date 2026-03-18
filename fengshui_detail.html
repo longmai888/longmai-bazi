@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风水详细分析 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand"><span class="navbar-logo">🐉</span><span>龙脉文化</span></a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">首页</a></li>
+                <li class="navbar-item"><a href="fengshui.html" class="navbar-link">风水</a></li>
+                <li class="navbar-item"><a href="fengshui_detail.html" class="navbar-link active">详细分析</a></li>
+                <li class="navbar-item"><a href="login.html" class="navbar-link">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+        <h1>🏠 风水详细分析</h1>
+        <p class="subtitle">专业风水布局 · 催财旺运 · 化解煞气</p>
+    </div>
+
+    <div class="container" style="max-width: 1200px; padding: 40px 20px;">
+        <div class="card" style="padding: 30px; margin-bottom: 30px;">
+            <h2 style="color: #764ba2; margin-bottom: 20px;">风水分析类型</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <button class="btn-primary" onclick="showFengshui('house')">🏠 户型分析</button>
+                <button class="btn-primary" onclick="showFengshui('wealth')">💰 催财风水</button>
+                <button class="btn-primary" onclick="showFengshui('love')">💕 桃花风水</button>
+                <button class="btn-primary" onclick="showFengshui('study')">📚 文昌风水</button>
+                <button class="btn-primary" onclick="showFengshui('office')">🏢 办公室风水</button>
+                <button class="btn-primary" onclick="showFengshui('bedroom')">🛏️ 卧室风水</button>
+                <button class="btn-primary" onclick="showFengshui('kitchen')">🍳 厨房风水</button>
+                <button class="btn-primary" onclick="showFengshui('solution')">✨ 化解方法</button>
+            </div>
+        </div>
+
+        <div id="fengshui-content" class="card" style="padding: 30px; display: none;">
+            <h2 id="fengshui-title" style="color: #764ba2; margin-bottom: 20px;"></h2>
+            <div id="fengshui-text" style="line-height: 1.8; color: #555;"></div>
+        </div>
+
+        <div class="card" style="padding: 30px; margin-top: 30px;">
+            <h3 style="color: #764ba2; margin-bottom: 20px;">📖 风水基础知识</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #764ba2;">八宅风水</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>东四命：坎、离、震、巽</li>
+                        <li>西四命：乾、坤、艮、兑</li>
+                        <li>生气方：最吉利的方位</li>
+                        <li>延年方：次吉利的方位</li>
+                        <li>天医方：利于健康</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">五行生克</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>相生：木生火、火生土、土生金、金生水、水生木</li>
+                        <li>相克：木克土、土克水、水克火、火克金、金克木</li>
+                        <li>颜色五行：青木、红火、黄土、白金、黑水</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">常见煞气</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>路冲煞：道路直冲大门</li>
+                        <li>壁刀煞：建筑物尖角对冲</li>
+                        <li>天斩煞：两楼之间缝隙</li>
+                        <li>反弓煞：道路或河流反弓</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const fengshuiData = {
+            'house': {
+                title: '🏠 户型分析',
+                content: `
+                    <h3>户型吉凶判断</h3>
+                    <ul>
+                        <li>方正户型：最佳，气场稳定</li>
+                        <li>缺角户型：对应方位的人和事受影响</li>
+                        <li>刀把户型：不利健康，易有意外</li>
+                        <li>三角形户型：火气重，易有口舌</li>
+                    </ul>
+                    <h3>各房间方位</h3>
+                    <ul>
+                        <li>大门：宜开在吉方，忌冲煞</li>
+                        <li>客厅：宜在房屋中央或前方</li>
+                        <li>卧室：宜在安静方位，忌对门</li>
+                        <li>厨房：宜在凶方，以火压煞</li>
+                        <li>卫生间：宜在凶方，忌在中宫</li>
+                    </ul>
+                `
+            },
+            'wealth': {
+                title: '💰 催财风水',
+                content: `
+                    <h3>财位确定</h3>
+                    <ul>
+                        <li>明财位：大门对角线位置</li>
+                        <li>暗财位：根据八宅或玄空飞星确定</li>
+                        <li>流年财位：每年变化，2026年在正北</li>
+                    </ul>
+                    <h3>催财布局</h3>
+                    <ul>
+                        <li>财位宜明亮、整洁、有生气</li>
+                        <li>可摆放招财植物（发财树、金钱树）</li>
+                        <li>可摆放招财摆件（貔貅、金蟾）</li>
+                        <li>财位忌压、忌暗、忌杂乱</li>
+                    </ul>
+                `
+            },
+            'love': {
+                title: '💕 桃花风水',
+                content: `
+                    <h3>桃花位确定</h3>
+                    <ul>
+                        <li>本命桃花：根据生肖确定</li>
+                        <li>流年桃花：每年变化</li>
+                        <li>卧室桃花：床头朝向</li>
+                    </ul>
+                    <h3>催桃花布局</h3>
+                    <ul>
+                        <li>桃花位摆放粉色水晶或鲜花</li>
+                        <li>卧室摆放成对物品</li>
+                        <li>床头宜靠实墙，忌悬空</li>
+                        <li>卧室忌摆放单人照</li>
+                    </ul>
+                `
+            },
+            'study': {
+                title: '📚 文昌风水',
+                content: `
+                    <h3>文昌位确定</h3>
+                    <ul>
+                        <li>本命文昌：根据出生年确定</li>
+                        <li>住宅文昌：根据房屋坐向确定</li>
+                        <li>流年文昌：每年变化，2026年在西北</li>
+                    </ul>
+                    <h3>文昌布局</h3>
+                    <ul>
+                        <li>书桌宜放在文昌位</li>
+                        <li>书桌宜靠实墙，忌背对门窗</li>
+                        <li>可摆放文昌塔或毛笔</li>
+                        <li>书房宜安静、明亮、整洁</li>
+                    </ul>
+                `
+            },
+            'office': {
+                title: '🏢 办公室风水',
+                content: `
+                    <h3>办公桌布局</h3>
+                    <ul>
+                        <li>座位宜有靠山（实墙）</li>
+                        <li>忌背对门或窗户</li>
+                        <li>桌面宜整洁，左高右低</li>
+                        <li>可摆放绿植增加生气</li>
+                    </ul>
+                    <h3>办公室禁忌</h3>
+                    <ul>
+                        <li>忌座位在横梁下</li>
+                        <li>忌座位正对厕所</li>
+                        <li>忌办公室门对门</li>
+                        <li>忌办公室光线昏暗</li>
+                    </ul>
+                `
+            },
+            'bedroom': {
+                title: '🛏️ 卧室风水',
+                content: `
+                    <h3>床位摆放</h3>
+                    <ul>
+                        <li>床头宜靠实墙</li>
+                        <li>床忌正对门</li>
+                        <li>床忌在横梁下</li>
+                        <li>床忌对着镜子</li>
+                    </ul>
+                    <h3>卧室布局</h3>
+                    <ul>
+                        <li>卧室宜方正，忌异形</li>
+                        <li>色调宜温馨柔和</li>
+                        <li>忌摆放过多电器</li>
+                        <li>忌摆放尖锐物品</li>
+                    </ul>
+                `
+            },
+            'kitchen': {
+                title: '🍳 厨房风水',
+                content: `
+                    <h3>厨房布局</h3>
+                    <ul>
+                        <li>厨房宜在凶方，以火压煞</li>
+                        <li>炉灶忌正对门或窗户</li>
+                        <li>炉灶忌与水槽相对</li>
+                        <li>厨房忌在中宫</li>
+                    </ul>
+                    <h3>厨房禁忌</h3>
+                    <ul>
+                        <li>忌厨房门对大门</li>
+                        <li>忌厨房门对厕所门</li>
+                        <li>忌厨房地面高于客厅</li>
+                        <li>忌厨房光线昏暗</li>
+                    </ul>
+                `
+            },
+            'solution': {
+                title: '✨ 化解方法',
+                content: `
+                    <h3>常见煞气化解</h3>
+                    <ul>
+                        <li>路冲煞：设置屏风、泰山石敢当</li>
+                        <li>壁刀煞：悬挂八卦镜、摆放绿植</li>
+                        <li>天斩煞：悬挂葫芦、摆放水晶</li>
+                        <li>反弓煞：摆放石狮子、设置屏风</li>
+                    </ul>
+                    <h3>通用化解物品</h3>
+                    <ul>
+                        <li>八卦镜：化解各种形煞</li>
+                        <li>泰山石：镇宅辟邪</li>
+                        <li>葫芦：化解病气、煞气</li>
+                        <li>水晶：净化磁场</li>
+                        <li>绿植：增加生气</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showFengshui(type) {
+            const data = fengshuiData[type];
+            if (data) {
+                document.getElementById('fengshui-title').textContent = data.title;
+                document.getElementById('fengshui-text').innerHTML = data.content;
+                document.getElementById('fengshui-content').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

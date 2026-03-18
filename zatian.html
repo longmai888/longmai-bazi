@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杂谈专栏 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .zatian-hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .zatian-hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .zatian-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .article-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .article-cover {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        .article-body {
+            padding: 25px;
+        }
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .article-summary {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+        .article-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="zatian-hero">
+        <h1>📚 杂谈专栏</h1>
+        <p class="subtitle">玄学杂谈 · 命理随笔 · 生活智慧</p>
+    </div>
+
+    <div class="zatian-content">
+        <div class="article-grid" id="articleGrid">
+            <!-- 文章1 -->
+            <div class="article-card" onclick="showArticle(1)">
+                <div class="article-cover">🔥</div>
+                <div class="article-body">
+                    <div class="article-title">2026年离火运开启，这3个生肖将迎来大转运！</div>
+                    <div class="article-summary">
+                        2026年是丙午年，离火运正式开启。根据三元九运理论，未来20年将是火运当旺的时期。属马、属羊、属虎的朋友要特别注意...
+                    </div>
+                    <div>
+                        <span class="article-tag">运势</span>
+                        <span class="article-tag">离火运</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 龙脉命理师</span>
+                        <span>👁️ 3258 · 💬 28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章2 -->
+            <div class="article-card" onclick="showArticle(2)">
+                <div class="article-cover">💕</div>
+                <div class="article-body">
+                    <div class="article-title">八字看婚姻：什么样的八字最容易晚婚？</div>
+                    <div class="article-summary">
+                        在八字命理中，有些格局确实容易导致晚婚。比如日主过旺、官杀混杂、夫妻宫受冲等。今天我们来详细分析...
+                    </div>
+                    <div>
+                        <span class="article-tag">婚姻</span>
+                        <span class="article-tag">八字</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 龙脉命理师</span>
+                        <span>👁️ 2156 · 💬 18</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章3 -->
+            <div class="article-card" onclick="showArticle(3)">
+                <div class="article-cover">💰</div>
+                <div class="article-body">
+                    <div class="article-title">风水大师揭秘：家中这5个地方最聚财！</div>
+                    <div class="article-summary">
+                        想要财运亨通，家居风水很重要。大门、客厅、厨房、卧室、财位，这5个地方的风水布局直接影响你的财运...
+                    </div>
+                    <div>
+                        <span class="article-tag">风水</span>
+                        <span class="article-tag">财运</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 龙脉风水师</span>
+                        <span>👁️ 4521 · 💬 42</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章4 -->
+            <div class="article-card" onclick="showArticle(4)">
+                <div class="article-cover">💎</div>
+                <div class="article-body">
+                    <div class="article-title">水晶能量：不同星座适合佩戴什么水晶？</div>
+                    <div class="article-summary">
+                        水晶不仅有美观价值，更有能量疗愈作用。根据星座特性选择适合的水晶，可以增强运势、改善情绪...
+                    </div>
+                    <div>
+                        <span class="article-tag">水晶</span>
+                        <span class="article-tag">星座</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 水晶疗愈师</span>
+                        <span>👁️ 3892 · 💬 35</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章5 -->
+            <div class="article-card" onclick="showArticle(5)">
+                <div class="article-cover">🌙</div>
+                <div class="article-body">
+                    <div class="article-title">周公解梦：梦见蛇到底是吉是凶？</div>
+                    <div class="article-summary">
+                        梦见蛇是很多人都会遇到的梦境。有人说梦见蛇是财运，有人说是小人。到底该如何解读？今天我们来详细分析...
+                    </div>
+                    <div>
+                        <span class="article-tag">解梦</span>
+                        <span class="article-tag">梦境</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 龙脉解梦师</span>
+                        <span>👁️ 2789 · 💬 22</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章6 -->
+            <div class="article-card" onclick="showArticle(6)">
+                <div class="article-cover">📖</div>
+                <div class="article-body">
+                    <div class="article-title">易经入门：阴阳五行基础知识详解</div>
+                    <div class="article-summary">
+                        易经是中华文化的瑰宝，阴阳五行是易学的基础。本文带你了解阴阳五行的基本概念，以及它们在命理中的应用...
+                    </div>
+                    <div>
+                        <span class="article-tag">易经</span>
+                        <span class="article-tag">入门</span>
+                    </div>
+                    <div class="article-meta">
+                        <span>👤 龙脉易学师</span>
+                        <span>👁️ 5234 · 💬 48</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章7-100 省略，实际生成时会包含100篇 -->
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-primary" onclick="loadMore()">加载更多</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const articles = [
+            { id: 1, title: '2026年离火运开启，这3个生肖将迎来大转运！', category: '运势' },
+            { id: 2, title: '八字看婚姻：什么样的八字最容易晚婚？', category: '婚姻' },
+            { id: 3, title: '风水大师揭秘：家中这5个地方最聚财！', category: '风水' },
+            { id: 4, title: '水晶能量：不同星座适合佩戴什么水晶？', category: '水晶' },
+            { id: 5, title: '周公解梦：梦见蛇到底是吉是凶？', category: '解梦' },
+            { id: 6, title: '易经入门：阴阳五行基础知识详解', category: '易经' }
+            // 实际会有100篇
+        ];
+
+        function showArticle(id) {
+            alert('查看文章详情：' + id);
+        }
+
+        function loadMore() {
+            alert('加载更多文章...');
+        }
+    </script>
+</body>
+</html>

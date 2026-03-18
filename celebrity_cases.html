@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榫欒剦鏂囧寲 路 鍚嶄汉鍏瓧妗堜緥搴?/title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .celebrity-hero {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .celebrity-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .celebrity-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .category-tab {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-tab.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            border-color: #FFA500;
+        }
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .celebrity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .celebrity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .celebrity-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        .celebrity-name {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        .celebrity-title {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .bazi-display {
+            background: #f5f7fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .bazi-pillars {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        .pillar {
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="celebrity-hero">
+        <h1>馃専 鍚嶄汉鍏瓧妗堜緥搴?/h1>
+        <p class="subtitle">鍘嗗彶鍚嶄汉 路 鐜颁唬鍚嶄汉 路 浼佷笟瀹?路 鏄庢槦</p>
+    </div>
+    <div class="celebrity-content">
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="filterCategory('all')">鍏ㄩ儴</button>
+            <button class="category-tab" onclick="filterCategory('historical')">鍘嗗彶鍚嶄汉</button>
+            <button class="category-tab" onclick="filterCategory('modern')">鐜颁唬鍚嶄汉</button>
+            <button class="category-tab" onclick="filterCategory('business')">浼佷笟瀹?/button>
+            <button class="category-tab" onclick="filterCategory('star')">鏄庢槦鑹轰汉</button>
+        </div>
+
+        <div class="celebrity-grid" id="celebrity-grid">
+            <div class="celebrity-card" data-category="historical" onclick="showDetail('zhugeliang')">
+                <div class="celebrity-avatar">馃幁</div>
+                <div class="celebrity-name">璇歌憶浜?/div>
+                <div class="celebrity-title">涓夊浗 路 铚�姹変笧鐩?/div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">杈涢厜</div>
+                        <div class="pillar">涓欑敵</div>
+                        <div class="pillar">鐧镐笐</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氱櫢姘?| 鏍煎眬锛氭鍗版牸
+                </p>
+            </div>
+
+            <div class="celebrity-card" data-category="historical" onclick="showDetail('wuzetian')">
+                <div class="celebrity-avatar">馃憫</div>
+                <div class="celebrity-name">姝﹀垯澶?/div>
+                <div class="celebrity-title">鍞愭湞 路 濂崇殗甯?/div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">鐢茬敵</div>
+                        <div class="pillar">涓欏瘏</div>
+                        <div class="pillar">鐢插崍</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氱敳鏈?| 鏍煎眬锛氶绁炴牸
+                </p>
+            </div>
+
+            <div class="celebrity-card" data-category="business" onclick="showDetail('mayun')">
+                <div class="celebrity-avatar">馃捈</div>
+                <div class="celebrity-name">椹簯</div>
+                <div class="celebrity-title">闃块噷宸村反鍒涘浜?/div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">鐢茶景</div>
+                        <div class="pillar">涓欏瓙</div>
+                        <div class="pillar">宸卞嵂</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氬繁鍦?| 鏍煎眬锛氶绁炵敓璐?                </p>
+            </div>
+
+            <div class="celebrity-card" data-category="business" onclick="showDetail('leijun')">
+                <div class="celebrity-avatar">馃摫</div>
+                <div class="celebrity-name">闆峰啗</div>
+                <div class="celebrity-title">灏忕背绉戞妧鍒涘浜?/div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">宸遍厜</div>
+                        <div class="pillar">涓欏瓙</div>
+                        <div class="pillar">鐧告湭</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氱櫢姘?| 鏍煎眬锛氫激瀹橀厤鍗?                </p>
+            </div>
+
+            <div class="celebrity-card" data-category="star" onclick="showDetail('zhourunfa')">
+                <div class="celebrity-avatar">馃幀</div>
+                <div class="celebrity-name">鍛ㄦ鼎鍙?/div>
+                <div class="celebrity-title">棣欐腐褰卞笣</div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">涔欐湭</div>
+                        <div class="pillar">鎴婂瘏</div>
+                        <div class="pillar">涓欏崍</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氫笝鐏?| 鏍煎眬锛氳韩鏃鸿储瀹?                </p>
+            </div>
+
+            <div class="celebrity-card" data-category="star" onclick="showDetail('chenglong')">
+                <div class="celebrity-avatar">馃</div>
+                <div class="celebrity-name">鎴愰緳</div>
+                <div class="celebrity-title">鍥介檯鍔熷か宸ㄦ槦</div>
+                <div class="bazi-display">
+                    <div class="bazi-pillars">
+                        <div class="pillar">鐢茶景</div>
+                        <div class="pillar">涓欏瘏</div>
+                        <div class="pillar">宸卞烦</div>
+                        <div class="pillar">鏈煡</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                    鏃ヤ富锛氬繁鍦?| 鏍煎眬锛氬嵃缁舵牸
+                </p>
+            </div>
+        </div>
+
+        <div id="detail-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; padding: 20px; overflow-y: auto;">
+            <div style="max-width: 800px; margin: 50px auto; background: white; border-radius: 20px; padding: 40px; position: relative;">
+                <button onclick="closeDetail()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2rem; cursor: pointer;">脳</button>
+                <div id="detail-content"></div>
+            </div>
+        </div>
+    </div>
+    <script src="celebrity_cases.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="about.html">品牌故事</a></li>
+                <li><a href="about.html">团队介绍</a></li>
+                <li><a href="about.html">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>法律声明</h4>
+            <ul>
+                <li><a href="user_agreement.html">用户协议</a></li>
+                <li><a href="privacy_policy.html">隐私政策</a></li>
+                <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>联系方式</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? 江苏省徐州市新沂市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? 本网站所有内容仅供娱乐参考，不构成任何形式的建议或承诺</p>
+        <p>?? 命理玄学属于传统文化范畴，请理性看待</p>
+        <p>?? 最终解释权归龙脉文化平台所有</p>
+        <p>? 2026 龙脉文化 版权所有 | 京ICP备XXXXXXXX号</p>
+    </div>
+</footer>
+</body>
+</html>

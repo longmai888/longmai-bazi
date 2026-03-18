@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 财富投资分析</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .wealth-hero {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .wealth-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .wealth-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .investment-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .investment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .investment-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .investment-name {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        .risk-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+        .risk-high { background: #ff4444; color: white; }
+        .risk-medium { background: #ffaa00; color: white; }
+        .risk-low { background: #00cc66; color: white; }
+        .suitability-score {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin: 20px 0;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wealth-hero">
+        <h1>💰 财富投资分析</h1>
+        <p class="subtitle">八字看财�?· 投资方向建议 · 风险评估</p>
+    </div>
+    <div class="wealth-content">
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">输入您的八字</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                请先在主页完成八字排盘，或直接输入八�?            </p>
+            <button class="btn-primary" onclick="analyzeWealth()">开始分�?/button>
+        </div>
+
+        <div id="wealth-result" style="display: none;">
+            <h2 style="text-align: center; color: #764ba2; margin: 40px 0;">您的财富投资分析</h2>
+            
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px;">
+                <h3 style="color: #764ba2; margin-bottom: 15px;">💎 财运总评</h3>
+                <div id="wealth-summary" style="line-height: 1.8; color: #555;"></div>
+            </div>
+
+            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">适合的投资类�?/h3>
+            <div class="investment-grid">
+                <div class="investment-card">
+                    <div class="investment-icon">📈</div>
+                    <div class="investment-name">股票投资</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-high">高风�?/span>
+                        <span class="risk-badge risk-high">高回�?/span>
+                    </div>
+                    <div class="suitability-score">85�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        您的八字显示偏财旺盛，适合股票投资。建议关注科技、新能源板块�?                    </p>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-icon">💹</div>
+                    <div class="investment-name">基金投资</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-medium">中风�?/span>
+                        <span class="risk-badge risk-medium">中回�?/span>
+                    </div>
+                    <div class="suitability-score">92�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        正财稳健，非常适合基金定投。建议选择指数基金长期持有�?                    </p>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-icon">🏠</div>
+                    <div class="investment-name">房产投资</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-medium">中风�?/span>
+                        <span class="risk-badge risk-low">稳定</span>
+                    </div>
+                    <div class="suitability-score">78�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        土旺有根，适合房产投资。建议关注二三线城市的优质地段�?                    </p>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-icon">💼</div>
+                    <div class="investment-name">实业投资</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-medium">中风�?/span>
+                        <span class="risk-badge risk-medium">稳定回报</span>
+                    </div>
+                    <div class="suitability-score">88�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        食伤生财，适合创业或实业投资。建议从事服务业或教育行业�?                    </p>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-icon">💱</div>
+                    <div class="investment-name">外汇投资</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-high">极高风险</span>
+                    </div>
+                    <div class="suitability-score">45�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        水弱，不太适合外汇投资。如果尝试，建议小额试水�?                    </p>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-icon">�?/div>
+                    <div class="investment-name">数字货币</div>
+                    <div style="text-align: center; margin: 15px 0;">
+                        <span class="risk-badge risk-high">极高风险</span>
+                    </div>
+                    <div class="suitability-score">52�?/div>
+                    <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                        偏财有力但不稳，可小额配置。切忌重仓，控制在总资�?%以内�?                    </p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 30px;">
+                <h3 style="color: #764ba2; margin-bottom: 15px;">📊 投资建议</h3>
+                <ul style="line-height: 2; color: #555;">
+                    <li>�?最佳投资时机：流年财星到位时（�?026年�?029年）</li>
+                    <li>�?投资方向：东南方、南方的项目更有�?/li>
+                    <li>�?资产配置：建�?0%基金 + 30%股票 + 10%现金</li>
+                    <li>⚠️ 风险提示：避免在流年冲克财星时大额投�?/li>
+                    <li>⚠️ 注意事项：不宜借贷投资，量力而行</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="wealth_analysis.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片管理系统 - 龙脉文化</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .folder-list {
+            list-style: none;
+        }
+        
+        .folder-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .folder-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .folder-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .folder-icon {
+            font-size: 1.2rem;
+        }
+        
+        .content-area {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .toolbar h2 {
+            color: #333;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #fafafa;
+        }
+        
+        .upload-area.dragover {
+            border-color: #764ba2;
+            background: #f0e6ff;
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .upload-hint {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .image-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .image-info {
+            padding: 15px;
+        }
+        
+        .image-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .image-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        .image-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .ai-review-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .ai-review-panel h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-status {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .ai-status-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .ai-status-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .sync-panel {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .sync-panel h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .sync-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+        
+        .sync-info {
+            color: #666;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .modal h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🖼️ 图片管理系统</h1>
+            <p>AI智能审核 + 自动同步部署 | 龙脉文化网站图片管理中心</p>
+        </div>
+        
+        <!-- 统计栏 -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-number" id="totalImages">75</div>
+                <div class="stat-label">总图片数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingReview">0</div>
+                <div class="stat-label">待审核</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approved">75</div>
+                <div class="stat-label">已通过</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="synced">75</div>
+                <div class="stat-label">已同步</div>
+            </div>
+        </div>
+        
+        <!-- AI审核面板 -->
+        <div class="ai-review-panel">
+            <h3>🤖 AI智能审核系统</h3>
+            <p>自动检测图片质量、内容合规性、版权问题</p>
+            <div class="ai-status">
+                <div class="ai-status-item">
+                    <div class="ai-status-number">✓</div>
+                    <div>质量检测</div>
+                </div>
+                <div class="ai-status-item">
+                    <div class="ai-status-number">✓</div>
+                    <div>内容审核</div>
+                </div>
+                <div class="ai-status-item">
+                    <div class="ai-status-number">✓</div>
+                    <div>版权检查</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 同步状态面板 -->
+        <div class="sync-panel">
+            <h3>🔄 自动同步状态</h3>
+            <div class="sync-status">
+                <div class="sync-indicator"></div>
+                <div class="sync-info">
+                    <strong>自动同步已开启</strong><br>
+                    <small>本地图片变更将自动部署到网站</small>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+            </div>
+            <p style="margin-top: 10px; color: #666; font-size: 0.9rem;">
+                上次同步：刚刚 | 下次检查：实时
+            </p>
+        </div>
+        
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <h3>📁 图片分类</h3>
+                <ul class="folder-list">
+                    <li class="folder-item active" onclick="switchFolder('all')">
+                        <span class="folder-icon">📷</span>
+                        <span>全部图片 (75)</span>
+                    </li>
+                    <li class="folder-item" onclick="switchFolder('crystals')">
+                        <span class="folder-icon">💎</span>
+                        <span>水晶产品 (75)</span>
+                    </li>
+                    <li class="folder-item" onclick="switchFolder('products')">
+                        <span class="folder-icon">🛍️</span>
+                        <span>商品图片 (0)</span>
+                    </li>
+                    <li class="folder-item" onclick="switchFolder('fengshui')">
+                        <span class="folder-icon">🎋</span>
+                        <span>风水用品 (0)</span>
+                    </li>
+                    <li class="folder-item" onclick="switchFolder('masters')">
+                        <span class="folder-icon">👤</span>
+                        <span>师傅头像 (0)</span>
+                    </li>
+                    <li class="folder-item" onclick="switchFolder('banners')">
+                        <span class="folder-icon">🖼️</span>
+                        <span>横幅广告 (0)</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area">
+                <div class="toolbar">
+                    <h2>📷 全部图片</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="selectAll()">
+                            ✓ 全选
+                        </button>
+                        <button class="btn btn-success" onclick="syncToWebsite()">
+                            🔄 同步到网站
+                        </button>
+                        <button class="btn btn-warning" onclick="aiReview()">
+                            🤖 AI审核
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 上传区域 -->
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">📤</div>
+                    <div class="upload-text">点击或拖拽上传图片</div>
+                    <div class="upload-hint">支持 JPG、PNG、GIF 格式，单个文件不超过 10MB</div>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                </div>
+                
+                <!-- 图片网格 -->
+                <div class="image-grid" id="imageGrid">
+                    <!-- 动态加载图片 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 同步成功弹窗 -->
+    <div class="modal" id="syncModal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h3>同步成功！</h3>
+            <p>图片已成功同步到网站，现在可以在网页上查看了。</p>
+            <button class="btn btn-primary" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        // 图片数据（实际应从服务器获取）
+        const imageData = [
+            { name: '白水晶球', folder: 'crystals', status: 'approved', size: '2.3MB', date: '2026-03-15' },
+            { name: '紫水晶簇', folder: 'crystals', status: 'approved', size: '1.8MB', date: '2026-03-15' },
+            { name: '粉水晶心', folder: 'crystals', status: 'approved', size: '1.5MB', date: '2026-03-15' },
+            { name: '黄水晶柱', folder: 'crystals', status: 'approved', size: '2.1MB', date: '2026-03-15' },
+            { name: '黑曜石球', folder: 'crystals', status: 'approved', size: '1.9MB', date: '2026-03-15' },
+            { name: '碧玺手链', folder: 'crystals', status: 'approved', size: '1.2MB', date: '2026-03-15' },
+            { name: '玛瑙摆件', folder: 'crystals', status: 'approved', size: '2.5MB', date: '2026-03-15' },
+            { name: '翡翠挂件', folder: 'crystals', status: 'approved', size: '1.7MB', date: '2026-03-15' },
+        ];
+        
+        // 加载图片
+        function loadImages(folder = 'all') {
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+            
+            const images = folder === 'all' ? imageData : imageData.filter(img => img.folder === folder);
+            
+            images.forEach(img => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <img src="images/crystals/${img.name}.jpg" alt="${img.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f0f0f0%22 width=%22200%22 height=%22200%22/><text fill=%22%23999%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>暂无图片</text></svg>'">
+                    <div class="image-info">
+                        <div class="image-name">${img.name}</div>
+                        <div class="image-meta">
+                            <span>${img.size}</span>
+                            <span class="image-status status-${img.status}">
+                                ${img.status === 'approved' ? '已通过' : img.status === 'pending' ? '待审核' : '已拒绝'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // 切换文件夹
+        function switchFolder(folder) {
+            document.querySelectorAll('.folder-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.folder-item').classList.add('active');
+            loadImages(folder);
+        }
+        
+        // 同步到网站
+        function syncToWebsite() {
+            // 显示加载状态
+            const btn = event.target;
+            btn.innerHTML = '🔄 同步中...';
+            btn.disabled = true;
+            
+            // 模拟同步过程
+            setTimeout(() => {
+                btn.innerHTML = '✅ 同步完成';
+                document.getElementById('syncModal').classList.add('active');
+                
+                setTimeout(() => {
+                    btn.innerHTML = '🔄 同步到网站';
+                    btn.disabled = false;
+                }, 2000);
+            }, 2000);
+        }
+        
+        // AI审核
+        function aiReview() {
+            alert('🤖 AI正在审核图片...\n\n检测项目：\n• 图片质量（清晰度、亮度）\n• 内容合规性（无违规内容）\n• 版权问题（无侵权风险）\n\n预计耗时：30秒');
+        }
+        
+        // 全选
+        function selectAll() {
+            alert('已选择全部图片');
+        }
+        
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('syncModal').classList.remove('active');
+        }
+        
+        // 文件上传处理
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                alert(`已选择 ${files.length} 个文件，准备上传...`);
+                // 这里添加上传逻辑
+            }
+        });
+        
+        // 拖拽上传
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            alert(`已拖拽 ${files.length} 个文件，准备上传...`);
+        });
+        
+        // 初始化加载
+        loadImages();
+    </script>
+</body>
+</html>

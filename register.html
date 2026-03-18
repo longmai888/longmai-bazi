@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 注册</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .auth-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #764ba2;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            border-color: #764ba2;
+            outline: none;
+        }
+        .agreement-section {
+            margin: 25px 0;
+            padding: 15px;
+            background: #f5f7fa;
+            border-radius: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .checkbox-item label {
+            flex: 1;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .checkbox-item label a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        .checkbox-item label a:hover {
+            text-decoration: underline;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .auth-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .auth-links a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        .error-message {
+            color: #f56c6c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1 class="auth-title">🐉 注册龙脉文化</h1>
+        
+        <form id="registerForm" onsubmit="return handleRegister(event)">
+            <div class="form-group">
+                <label>手机号码 *</label>
+                <input type="tel" id="phone" placeholder="请输入手机号�? maxlength="11" required>
+                <div class="error-message" id="phone-error">请输入正确的手机号码</div>
+            </div>
+            
+            <div class="form-group">
+                <label>验证�?*</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="code" placeholder="请输入验证码" maxlength="6" style="flex: 1;" required>
+                    <button type="button" class="btn-primary" style="width: 120px; margin-top: 0;" onclick="sendCode()" id="sendCodeBtn">获取验证�?/button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>设置密码 *</label>
+                <input type="password" id="password" placeholder="请设�?-20位密�? minlength="6" maxlength="20" required>
+                <div class="error-message" id="password-error">密码长度需�?-20位之�?/div>
+            </div>
+            
+            <div class="form-group">
+                <label>确认密码 *</label>
+                <input type="password" id="confirmPassword" placeholder="请再次输入密�? required>
+                <div class="error-message" id="confirm-error">两次输入的密码不一�?/div>
+            </div>
+            
+            <div class="agreement-section">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agreeAll" onchange="toggleAllAgreements()">
+                    <label for="agreeAll"><strong>我已阅读并同意以下全部协�?/strong></label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agreeUser" class="agreement-checkbox" required>
+                    <label for="agreeUser">
+                        我已阅读并同�?<a href="user_agreement.html" target="_blank">《用户协议�?/a> *
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agreePrivacy" class="agreement-checkbox" required>
+                    <label for="agreePrivacy">
+                        我已阅读并同�?<a href="privacy_policy.html" target="_blank">《隐私政策�?/a> *
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agreeDisclaimer" class="agreement-checkbox" required>
+                    <label for="agreeDisclaimer">
+                        我已阅读并同�?<a href="disclaimer.html" target="_blank">《免责声明�?/a> *
+                    </label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agreeSensitive" class="agreement-checkbox" required>
+                    <label for="agreeSensitive">
+                        我理解命理玄学仅供娱乐参考，不用于医疗、法律、金融等专业领域 *
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-primary" id="submitBtn" disabled>注册</button>
+        </form>
+        
+        <div class="auth-links">
+            <p>已有账号�?a href="login.html">立即登录</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // 检查所有协议是否勾�?        function checkAllAgreements() {
+            const agreeUser = document.getElementById('agreeUser').checked;
+            const agreePrivacy = document.getElementById('agreePrivacy').checked;
+            const agreeDisclaimer = document.getElementById('agreeDisclaimer').checked;
+            const agreeSensitive = document.getElementById('agreeSensitive').checked;
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const agreeAll = document.getElementById('agreeAll');
+            
+            if (agreeUser && agreePrivacy && agreeDisclaimer && agreeSensitive) {
+                submitBtn.disabled = false;
+                agreeAll.checked = true;
+            } else {
+                submitBtn.disabled = true;
+                agreeAll.checked = false;
+            }
+        }
+        
+        // 监听所有复选框
+        document.querySelectorAll('.agreement-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', checkAllAgreements);
+        });
+        
+        // 全�?取消全�?        function toggleAllAgreements() {
+            const agreeAll = document.getElementById('agreeAll').checked;
+            document.querySelectorAll('.agreement-checkbox').forEach(checkbox => {
+                checkbox.checked = agreeAll;
+            });
+            checkAllAgreements();
+        }
+        
+        // 发送验证码
+        function sendCode() {
+            const phone = document.getElementById('phone').value;
+            if (!phone || phone.length !== 11) {
+                document.getElementById('phone-error').style.display = 'block';
+                return;
+            }
+            
+            // 模拟发送验证码
+            let countdown = 60;
+            const btn = document.getElementById('sendCodeBtn');
+            btn.disabled = true;
+            
+            const timer = setInterval(() => {
+                btn.textContent = countdown + 's';
+                countdown--;
+                
+                if (countdown < 0) {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    btn.textContent = '获取验证�?;
+                }
+            }, 1000);
+            
+            alert('验证码已发送：123456（演示用�?);
+        }
+        
+        // 处理注册
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('phone').value;
+            const code = document.getElementById('code').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // 验证手机�?            if (!phone || phone.length !== 11) {
+                document.getElementById('phone-error').style.display = 'block';
+                return false;
+            }
+            
+            // 验证密码
+            if (password.length < 6 || password.length > 20) {
+                document.getElementById('password-error').style.display = 'block';
+                return false;
+            }
+            
+            // 验证两次密码
+            if (password !== confirmPassword) {
+                document.getElementById('confirm-error').style.display = 'block';
+                return false;
+            }
+            
+            // 验证协议
+            if (!document.getElementById('agreeUser').checked ||
+                !document.getElementById('agreePrivacy').checked ||
+                !document.getElementById('agreeDisclaimer').checked ||
+                !document.getElementById('agreeSensitive').checked) {
+                alert('请阅读并同意所有协�?);
+                return false;
+            }
+            
+            // 保存用户数据（演示）
+            const userData = {
+                phone: phone,
+                password: password,
+                registerTime: new Date().toISOString(),
+                agreeUser: true,
+                agreePrivacy: true,
+                agreeDisclaimer: true,
+                agreeSensitive: true,
+                ip: '用户IP地址',
+                device: navigator.userAgent
+            };
+            
+            // 保存到本地存储（实际应发送到服务器）
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            alert('注册成功�?);
+            window.location.href = 'index.html';
+            
+            return false;
+        }
+    </script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

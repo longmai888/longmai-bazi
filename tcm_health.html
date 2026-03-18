@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 中医养生</title>
+    <link rel="stylesheet" href="style.css">`n    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .tcm-hero {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tcm-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tcm-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .input-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-card h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .constitution-type {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .type-balanced { background: #90EE90; color: #2E8B57; }
+        .type-qi-deficiency { background: #FFE4B5; color: #D2691E; }
+        .type-yang-deficiency { background: #FFB6C1; color: #8B008B; }
+        .type-yin-deficiency { background: #E6E6FA; color: #4B0082; }
+        .type-phlegm-dampness { background: #F0E68C; color: #808000; }
+        .type-dampness-heat { background: #FFA07A; color: #CD5C5C; }
+        .type-blood-stasis { background: #DDA0DD; color: #8B008B; }
+        .type-qi-depression { background: #B0C4DE; color: #4682B4; }
+        .type-special { background: #FFB6C1; color: #8B008B; }
+
+        .medicine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .medicine-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .medicine-card h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .seasonal-tips {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .health-advice ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .health-advice li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .health-advice li:before {
+            content: "�?";
+            color: #764ba2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="tcm-hero">
+        <h1>🏥 中医养生</h1>
+        <p>八字五行 �?体质辨识 �?个性化养生方案</p>
+    </div>
+
+    <div class="tcm-content">
+        <div class="input-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #764ba2;">请输入您的生辰八�?/h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>出生年份</label>
+                    <select id="year">
+                        <option value="">选择年份</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>出生月份</label>
+                    <select id="month">
+                        <option value="">选择月份</option>
+                        <option value="1">正月</option>
+                        <option value="2">二月</option>
+                        <option value="3">三月</option>
+                        <option value="4">四月</option>
+                        <option value="5">五月</option>
+                        <option value="6">六月</option>
+                        <option value="7">七月</option>
+                        <option value="8">八月</option>
+                        <option value="9">九月</option>
+                        <option value="10">十月</option>
+                        <option value="11">冬月</option>
+                        <option value="12">腊月</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>出生日期</label>
+                    <select id="day">
+                        <option value="">选择日期</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>出生时辰</label>
+                    <select id="hour">
+                        <option value="">选择时辰</option>
+                        <option value="0">子时 (23:00-01:00)</option>
+                        <option value="1">丑时 (01:00-03:00)</option>
+                        <option value="2">寅时 (03:00-05:00)</option>
+                        <option value="3">卯时 (05:00-07:00)</option>
+                        <option value="4">辰时 (07:00-09:00)</option>
+                        <option value="5">巳时 (09:00-11:00)</option>
+                        <option value="6">午时 (11:00-13:00)</option>
+                        <option value="7">未时 (13:00-15:00)</option>
+                        <option value="8">申时 (15:00-17:00)</option>
+                        <option value="9">酉时 (17:00-19:00)</option>
+                        <option value="10">戌时 (19:00-21:00)</option>
+                        <option value="11">亥时 (21:00-23:00)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>性别</label>
+                    <select id="gender">
+                        <option value="male">�?/option>
+                        <option value="female">�?/option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="analyzeHealth()">开始体质分�?/button>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-card">
+                <h3>🎯 您的体质类型</h3>
+                <div id="constitutionResult"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>📊 八字五行分析</h3>
+                <div id="wuxingAnalysis"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>💊 个性化养生方案</h3>
+                <div class="health-advice" id="healthAdvice"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>🍵 药食同源推荐</h3>
+                <div class="medicine-grid" id="medicineGrid"></div>
+            </div>
+
+            <div class="seasonal-tips">
+                <h3>🌸 节气养生提醒</h3>
+                <div id="seasonalTips"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>⚠️ 大运健康预警</h3>
+                <div id="healthWarning"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化年份选择
+        const yearSelect = document.getElementById('year');
+        for (let i = 2026; i >= 1920; i--) {
+            yearSelect.innerHTML += `<option value="${i}">${i}�?/option>`;
+        }
+
+        // 初始化日期选择
+        const daySelect = document.getElementById('day');
+        for (let i = 1; i <= 31; i++) {
+            daySelect.innerHTML += `<option value="${i}">${i}�?/option>`;
+        }
+
+        // 9种体质类�?        const constitutions = {
+            balanced: {
+                name: '平和�?,
+                class: 'type-balanced',
+                description: '阴阳气血调和，体态适中，面色红润，精力充沛',
+                features: ['体态适中', '面色红润', '精力充沛', '睡眠良好', '二便正常'],
+                advice: ['保持规律作息', '饮食均衡', '适度运动', '心态平�?]
+            },
+            qiDeficiency: {
+                name: '气虚�?,
+                class: 'type-qi-deficiency',
+                description: '元气不足，疲乏无力，气短懒言',
+                features: ['容易疲劳', '气短懒言', '声音低弱', '易出�?, '易感�?],
+                advice: ['多吃益气食物', '避免过度劳累', '适度运动', '早睡早起']
+            },
+            yangDeficiency: {
+                name: '阳虚�?,
+                class: 'type-yang-deficiency',
+                description: '阳气不足，畏寒怕冷，手足不�?,
+                features: ['畏寒怕冷', '手足不温', '喜热饮食', '精神不振', '睡眠偏多'],
+                advice: ['多吃温阳食物', '注意保暖', '适当晒太�?, '避免生冷']
+            },
+            yinDeficiency: {
+                name: '阴虚�?,
+                class: 'type-yin-deficiency',
+                description: '阴液亏少，口燥咽干，手足心热',
+                features: ['手足心热', '口燥咽干', '鼻微�?, '喜冷�?, '大便干燥'],
+                advice: ['多吃滋阴食物', '避免熬夜', '保持心情舒畅', '少食辛辣']
+            },
+            phlegmDampness: {
+                name: '痰湿�?,
+                class: 'type-phlegm-dampness',
+                description: '痰湿凝聚，形体肥胖，腹部肥满',
+                features: ['形体肥胖', '腹部肥满', '口黏�?, '痰多', '喜食肥甘'],
+                advice: ['饮食清淡', '加强运动', '避免甜腻食物', '保持环境干燥']
+            },
+            dampnessHeat: {
+                name: '湿热�?,
+                class: 'type-dampness-heat',
+                description: '湿热内蕴，面垢油光，易生痤疮',
+                features: ['面垢油光', '易生痤疮', '口苦口干', '大便黏滞', '易烦�?],
+                advice: ['清淡饮食', '多吃清热利湿食物', '避免熬夜', '保持皮肤清洁']
+            },
+            bloodStasis: {
+                name: '血瘀�?,
+                class: 'type-blood-stasis',
+                description: '血行不畅，肤色晦暗，舌质紫�?,
+                features: ['肤色晦暗', '色素沉着', '易出瘀�?, '口唇暗淡', '易疼�?],
+                advice: ['多吃活血食物', '适度运动', '保持心情舒畅', '避免久坐']
+            },
+            qiDepression: {
+                name: '气郁�?,
+                class: 'type-qi-depression',
+                description: '气机郁滞，神情抑郁，忧虑脆弱',
+                features: ['神情抑郁', '情感脆弱', '烦闷不乐', '胸胁胀�?, '易失�?],
+                advice: ['多参加社交活�?, '培养兴趣爱好', '适度运动', '保持乐观心�?]
+            },
+            special: {
+                name: '特禀�?,
+                class: 'type-special',
+                description: '先天失常，生理缺陷，过敏反应',
+                features: ['易过�?, '易哮�?, '易荨麻疹', '皮肤易起�?, '季节变化敏感'],
+                advice: ['避免过敏�?, '增强体质', '注意环境卫生', '饮食清淡']
+            }
+        };
+
+        function analyzeHealth() {
+            const year = document.getElementById('year').value;
+            const month = document.getElementById('month').value;
+            const day = document.getElementById('day').value;
+            const hour = document.getElementById('hour').value;
+
+            if (!year || !month || !day || !hour) {
+                alert('请填写完整的出生信息');
+                return;
+            }
+
+            const birthDate = new Date(year, month - 1, day);
+            const dayOfYear = Math.floor((birthDate - new Date(year, 0, 0)) / 1000 / 60 / 60 / 24);
+            
+            const constitutionKeys = Object.keys(constitutions);
+            const constitutionIndex = (dayOfYear + parseInt(hour)) % 9;
+            const primaryType = constitutionKeys[constitutionIndex];
+            const secondaryType = constitutionKeys[(constitutionIndex + 3) % 9];
+
+            displayResults(primaryType, secondaryType);
+        }
+
+        function displayResults(primaryType, secondaryType) {
+            const resultSection = document.getElementById('resultSection');
+            resultSection.style.display = 'block';
+
+            const primary = constitutions[primaryType];
+            const secondary = constitutions[secondaryType];
+            
+            document.getElementById('constitutionResult').innerHTML = `
+                <p style="margin-bottom: 15px;"><strong>主要体质�?/strong></p>
+                <span class="constitution-type ${primary.class}">${primary.name}</span>
+                <p style="margin: 15px 0;">${primary.description}</p>
+                <p style="margin-bottom: 15px;"><strong>次要体质�?/strong></p>
+                <span class="constitution-type ${secondary.class}">${secondary.name}</span>
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px;">体质特征�?/h4>
+                    <ul style="list-style: none; padding: 0;">
+                        ${primary.features.map(f => `<li style="padding: 5px 0;">�?${f}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const wuxing = ['�?, '�?, '�?, '�?, '�?];
+            const wuxingColors = ['#90EE90', '#FF6B6B', '#DEB887', '#FFD700', '#87CEEB'];
+            const wuxingScores = wuxing.map(() => Math.floor(Math.random() * 40) + 30);
+            
+            document.getElementById('wuxingAnalysis').innerHTML = `
+                <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+                    ${wuxing.map((w, i) => `
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: ${wuxingScores[i]}px; background: ${wuxingColors[i]}; border-radius: 5px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: center; color: white; font-weight: bold; padding-bottom: 5px;">${wuxingScores[i]}%</div>
+                            <p style="margin-top: 10px; font-weight: bold;">${w}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            document.getElementById('healthAdvice').innerHTML = `
+                <h4>针对${primary.name}的养生建议：</h4>
+                <ul>
+                    ${primary.advice.map(a => `<li>${a}</li>`).join('')}
+                </ul>
+            `;
+
+            document.getElementById('medicineGrid').innerHTML = `
+                <div class="medicine-card">
+                    <h4>黄芪</h4>
+                    <p><strong>功效�?/strong>补气升阳，益卫固�?/p>
+                    <p><strong>用法�?/strong>泡水、炖�?/p>
+                </div>
+                <div class="medicine-card">
+                    <h4>枸杞</h4>
+                    <p><strong>功效�?/strong>滋补肝肾，益精明�?/p>
+                    <p><strong>用法�?/strong>泡水、煲�?/p>
+                </div>
+                <div class="medicine-card">
+                    <h4>山药</h4>
+                    <p><strong>功效�?/strong>补脾养胃，生津益�?/p>
+                    <p><strong>用法�?/strong>煮粥、炖�?/p>
+                </div>
+            `;
+
+            document.getElementById('seasonalTips').innerHTML = `
+                <p><strong>当前季节养生重点�?/strong></p>
+                <ul style="margin-top: 10px; list-style: none;">
+                    <li style="padding: 5px 0;">�?饮食清淡，少食油�?/li>
+                    <li style="padding: 5px 0;">�?早睡早起，保证睡�?/li>
+                    <li style="padding: 5px 0;">�?适度运动，增强体�?/li>
+                </ul>
+            `;
+
+            document.getElementById('healthWarning').innerHTML = `
+                <p><strong>近期健康提醒�?/strong></p>
+                <ul style="margin-top: 10px;">
+                    <li>注意${primary.name}相关的健康问�?/li>
+                    <li>大运流年变化期间，建议定期体检</li>
+                    <li>情绪波动较大时，及时调整心�?/li>
+                </ul>
+            `;
+
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

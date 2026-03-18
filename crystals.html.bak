@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 水晶能量商城</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 商城特有样式 */
+        .crystals-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .crystals-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .crystals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .crystal-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .crystal-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .crystal-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f5f7fa;
+        }
+
+        .crystal-info {
+            padding: 20px;
+        }
+
+        .crystal-name {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .crystal-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .crystal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .crystal-tag {
+            background: #e8f0fe;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .crystal-price {
+            font-size: 1.5rem;
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .buy-btn:hover {
+            background: #5568d3;
+        }
+
+        .footer-note {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+        }
+
+        .footer-note a {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🦞 龙脉文化</h1>
+            <p class="subtitle">天然水晶 · 能量认证 · 保真假一赔十</p>
+        </header>
+
+        <div class="crystals-hero">
+            <h1>💎 水晶能量商城</h1>
+            <p>精选天然水晶，能量加持，助运改命</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.9;">
+                所有产品支持闲鱼担保交易 · 7天无理由退换
+            </p>
+        </div>
+
+        <div class="crystals-grid">
+            <!-- 产品1：白水晶 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="images/crystals/white-crystal.jpg" alt="白水晶手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">白水晶手链</div>
+                    <div class="crystal-desc">
+                        天然白水晶，净化负能量，提升专注力。适合初学者入门，净化空间磁场。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">净化</span>
+                        <span class="crystal-tag">入门</span>
+                        <span class="crystal-tag">专注</span>
+                    </div>
+                    <div class="crystal-price">¥99</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品2：紫水晶 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/amethyst/400/300" alt="紫水晶手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">紫水晶手链</div>
+                    <div class="crystal-desc">
+                        乌拉圭紫水晶，助眠安神，提升直觉力。适合需要灵感创意的人群。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">助眠</span>
+                        <span class="crystal-tag">直觉</span>
+                        <span class="crystal-tag">灵感</span>
+                    </div>
+                    <div class="crystal-price">¥199</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品3：绿幽灵 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/green-ghost/400/300" alt="绿幽灵手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">绿幽灵手链</div>
+                    <div class="crystal-desc">
+                        哥伦比亚绿幽灵，正财招财，事业上升。适合创业者、职场人士佩戴。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">正财</span>
+                        <span class="crystal-tag">事业</span>
+                        <span class="crystal-tag">晋升</span>
+                    </div>
+                    <div class="crystal-price">¥299</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品4：黑曜石 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/obsidian/400/300" alt="黑曜石手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">黑曜石手链</div>
+                    <div class="crystal-desc">
+                        墨西哥黑曜石，强力辟邪，防小人。适合磁场敏感、常走夜路的人群。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">辟邪</span>
+                        <span class="crystal-tag">防小人</span>
+                        <span class="crystal-tag">防护</span>
+                    </div>
+                    <div class="crystal-price">¥88</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品5：黄水晶 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/citrine/400/300" alt="黄水晶手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">黄水晶手链</div>
+                    <div class="crystal-desc">
+                        巴西黄水晶，偏财旺运，增强自信。适合投资、销售、需要气场的人。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">偏财</span>
+                        <span class="crystal-tag">自信</span>
+                        <span class="crystal-tag">气场</span>
+                    </div>
+                    <div class="crystal-price">¥259</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品6：红玛瑙 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/agate/400/300" alt="红玛瑙手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">红玛瑙手链</div>
+                    <div class="crystal-desc">
+                         Dieu红玛瑙，旺桃花，提升活力。适合单身人士、气血不足者。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">桃花</span>
+                        <span class="crystal-tag">活力</span>
+                        <span class="crystal-tag">热情</span>
+                    </div>
+                    <div class="crystal-price">¥128</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品7：海蓝宝 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/aquamarine/400/300" alt="海蓝宝手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">海蓝宝手链</div>
+                    <div class="crystal-desc">
+                        巴西海蓝宝，沟通顺畅，平静心情。适合经常表达、情绪波动大的人。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">沟通</span>
+                        <span class="crystal-tag">平静</span>
+                        <span class="crystal-tag">疗愈</span>
+                    </div>
+                    <div class="crystal-price">¥599</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品8：金发晶 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/rutilated-quartz/400/300" alt="金发晶手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">金发晶手链</div>
+                    <div class="crystal-desc">
+                        巴西金发晶，能量强大，领导力提升。适合管理者、创业者、需要决断力的人。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">领导力</span>
+                        <span class="crystal-tag">能量</span>
+                        <span class="crystal-tag">决策</span>
+                    </div>
+                    <div class="crystal-price">¥799</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品9：钛晶 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/titanium-quartz/400/300" alt="钛晶手链">
+                <div class="crystal-info">
+                    <div class="crystal-name">钛晶手链</div>
+                    <div class="crystal-desc">
+                        巴西钛晶，水晶之王，权威象征。适合大运之年、重大决策佩戴。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">权威</span>
+                        <span class="crystal-tag">大运</span>
+                        <span class="crystal-tag">高端</span>
+                    </div>
+                    <div class="crystal-price">¥999</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+
+            <!-- 产品10：多宝手串 -->
+            <div class="crystal-card">
+                <img class="crystal-img" src="https://picsum.photos/seed/multi-crystal/400/300" alt="多宝手串">
+                <div class="crystal-info">
+                    <div class="crystal-name">多宝手串</div>
+                    <div class="crystal-desc">
+                        7种天然水晶混搭，全方位能量加持。送礼首选，适合追求全能能量者。
+                    </div>
+                    <div class="crystal-tags">
+                        <span class="crystal-tag">全能</span>
+                        <span class="crystal-tag">送礼</span>
+                        <span class="crystal-tag">高端</span>
+                    </div>
+                    <div class="crystal-price">¥1,680</div>
+                    <a href="https://2.taobao.com/item.htm?id=待上架" target="_blank" class="buy-btn">
+                        🛒 去闲鱼购买
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>🛡️ 所有产品支持闲鱼担保交易 · 7天无理由退换 · 保真假一赔十</p>
+            <p style="margin-top: 10px;">
+                有疑问？联系QQ：<a href="tel:1614194452">1614194452</a> 或访问
+                <a href="index.html">首页排盘</a>
+            </p>
+            <div class="footer-links" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+                <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">OpenClaw</a>
+                <span>|</span>
+                <a href="https://6tail.github.io/lunar-js/" target="_blank" rel="noopener">lunar-js</a>
+                <span>|</span>
+                <a href="https://baike.baidu.com/item/八字" target="_blank" rel="noopener">八字百科</a>
+                <span>|</span>
+                <a href="https://baike.baidu.com/item/五行" target="_blank" rel="noopener">五行百科</a>
+                <span>|</span>
+                <a href="https://xhslink.com/m/At9c7LGrkSe" target="_blank" rel="noopener">小红书</a>
+                <span>|</span>
+                <a href="https://v.douyin.com/IFovI9ZFpjk/" target="_blank" rel="noopener">抖音</a>
+                <span>|</span>
+                <a href="weixin://addfriend/fuxinfu889" target="_blank" rel="noopener">微信</a>
+                <span>|</span>
+                <a href="https://mp.weixin.qq.com/mp/profile?biz=wusuokan" target="_blank" rel="noopener">公众号</a>
+                <span>|</span>
+                <a href="tel:1614194452">QQ:1614194452</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

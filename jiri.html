@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>é¾™è„‰æ–‡åŒ– Â· é»„é“å‰æ—¥</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .jiri-hero { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; }
+        .jiri-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .jiri-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .calendar { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+        .calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .calendar-day:hover { background: #f0f0f0; }
+        .calendar-day.auspicious { background: linear-gradient(135deg, #90EE90, #32CD32); color: white; }
+        .calendar-day.inauspicious { background: linear-gradient(135deg, #FFB6C1, #FF69B4); color: white; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; margin: 10px; }
+        .form-group { margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="jiri-hero">
+        <h1>ðŸ“… é»„é“å‰æ—¥</h1>
+        <p class="subtitle">æ‹©å‰é¿å‡¶ Â· è¶‹å‰é¿å®³ Â· ä¸‡äº‹å¦‚æ„</p>
+    </div>
+    <div class="jiri-content">
+        <div class="form-group">
+            <label>é€‰æ‹©äº‹é¡¹</label>
+            <select id="matter-select">
+                <option value="">è¯·é€‰æ‹©</option>
+                <option value="marriage">ç»“å©šå«å¨¶</option>
+                <option value="move">æ¬å®¶å…¥å®…</option>
+                <option value="business">å¼€ä¸šå¼€å¼?/option>
+                <option value="travel">å‡ºè¡Œæ—…æ¸¸</option>
+                <option value="contract">ç­¾çº¦åˆåŒ</option>
+                <option value="decoration">è£…ä¿®åŠ¨åœŸ</option>
+                <option value="funeral">ä¸§è‘¬ç¥­ç¥€</option>
+                <option value="other">å…¶ä»–äº‹é¡¹</option>
+            </select>
+        </div>
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="btn-primary" onclick="prevMonth()">â†?ä¸Šæœˆ</button>
+            <span id="current-month" style="font-size: 1.3rem; font-weight: bold; color: #764ba2; margin: 0 20px;">2026å¹?æœ?/span>
+            <button class="btn-primary" onclick="nextMonth()">ä¸‹æœˆ â†?/button>
+        </div>
+        <div class="calendar">
+            <div class="calendar-grid">
+                <div style="text-align: center; font-weight: bold;">æ—?/div>
+                <div style="text-align: center; font-weight: bold;">ä¸€</div>
+                <div style="text-align: center; font-weight: bold;">äº?/div>
+                <div style="text-align: center; font-weight: bold;">ä¸?/div>
+                <div style="text-align: center; font-weight: bold;">å›?/div>
+                <div style="text-align: center; font-weight: bold;">äº?/div>
+                <div style="text-align: center; font-weight: bold;">å…?/div>
+                <div class="calendar-day" id="day-grid">
+                    <!-- æ—¥æœŸå°†åœ¨è¿™é‡Œç”Ÿæˆ -->
+                </div>
+            </div>
+        </div>
+        <div id="day-detail" style="display: none; background: white; padding: 25px; border-radius: 12px; margin-top: 30px;">
+            <h4 style="color: #764ba2; margin-bottom: 15px;">æ—¥æœŸè¯¦æƒ…</h4>
+            <p id="detail-text" style="line-height: 1.8; color: #555;"></p>
+        </div>
+    </div>
+    <script src="jiri.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>¹ØÓÚÎÒÃÇ</h4>
+            <ul>
+                <li><a href="about.html">Æ·ÅÆ¹ÊÊÂ</a></li>
+                <li><a href="about.html">ÍÅ¶Ó½éÉÜ</a></li>
+                <li><a href="about.html">ÁªÏµÎÒÃÇ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>·¨ÂÉÉùÃ÷</h4>
+            <ul>
+                <li><a href="user_agreement.html">ÓÃ»§Ð­Òé</a></li>
+                <li><a href="privacy_policy.html">ÒþË½Õþ²ß</a></li>
+                <li><a href="disclaimer.html">ÃâÔðÉùÃ÷</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>ÁªÏµ·½Ê½</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ½­ËÕÊ¡ÐìÖÝÊÐÐÂÒÊÊÐ</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ±¾ÍøÕ¾ËùÓÐÄÚÈÝ½ö¹©ÓéÀÖ²Î¿¼£¬²»¹¹³ÉÈÎºÎÐÎÊ½µÄ½¨Òé»ò³ÐÅµ</p>
+        <p>?? ÃüÀíÐþÑ§ÊôÓÚ´«Í³ÎÄ»¯·¶³ë£¬ÇëÀíÐÔ¿´´ý</p>
+        <p>?? ×îÖÕ½âÊÍÈ¨¹éÁúÂöÎÄ»¯Æ½Ì¨ËùÓÐ</p>
+        <p>? 2026 ÁúÂöÎÄ»¯ °æÈ¨ËùÓÐ | ¾©ICP±¸XXXXXXXXºÅ</p>
+    </div>
+</footer>
+</body>
+</html>

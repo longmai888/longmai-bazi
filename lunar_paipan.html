@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>é¾™è„‰æ–‡åŒ– Â· é˜´åŽ†æŽ’ç›˜</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .lunar-hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .lunar-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .lunar-content { max-width: 1000px; margin: 0 auto; padding: 0 20px 60px; }
+        .input-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .result-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .bazi-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .bazi-pillar {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 12px;
+        }
+        .bazi-pillar h4 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+        .bazi-char {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="lunar-hero">
+        <h1>ðŸŒ™ é˜´åŽ†æŽ’ç›˜</h1>
+        <p class="subtitle">å†œåŽ†è½¬æ¢ Â· é—°æœˆå¤„ç† Â· çœŸå¤ªé˜³æ—¶æ ¡æ­£</p>
+    </div>
+    <div class="lunar-content">
+        <div class="input-section">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">è¾“å…¥å†œåŽ†ç”Ÿè¾°</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>å†œåŽ†å¹´ä»½</label>
+                    <select id="lunar-year">
+                        <option value="">è¯·é€‰æ‹©</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>å†œåŽ†æœˆä»½</label>
+                    <select id="lunar-month">
+                        <option value="">è¯·é€‰æ‹©</option>
+                        <option value="1">æ­£æœˆ</option>
+                        <option value="2">äºŒæœˆ</option>
+                        <option value="3">ä¸‰æœˆ</option>
+                        <option value="4">å››æœˆ</option>
+                        <option value="5">äº”æœˆ</option>
+                        <option value="6">å…­æœˆ</option>
+                        <option value="7">ä¸ƒæœˆ</option>
+                        <option value="8">å…«æœˆ</option>
+                        <option value="9">ä¹æœˆ</option>
+                        <option value="10">åæœˆ</option>
+                        <option value="11">å†¬æœˆ</option>
+                        <option value="12">è…Šæœˆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>å†œåŽ†æ—¥æœŸ</label>
+                    <select id="lunar-day">
+                        <option value="">è¯·é€‰æ‹©</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>å‡ºç”Ÿæ—¶è¾°</label>
+                    <select id="birth-hour">
+                        <option value="">è¯·é€‰æ‹©</option>
+                        <option value="23-1">å­æ—¶ï¼?3:00-01:00ï¼?/option>
+                        <option value="1-3">ä¸‘æ—¶ï¼?1:00-03:00ï¼?/option>
+                        <option value="3-5">å¯…æ—¶ï¼?3:00-05:00ï¼?/option>
+                        <option value="5-7">å¯æ—¶ï¼?5:00-07:00ï¼?/option>
+                        <option value="7-9">è¾°æ—¶ï¼?7:00-09:00ï¼?/option>
+                        <option value="9-11">å·³æ—¶ï¼?9:00-11:00ï¼?/option>
+                        <option value="11-13">åˆæ—¶ï¼?1:00-13:00ï¼?/option>
+                        <option value="13-15">æœªæ—¶ï¼?3:00-15:00ï¼?/option>
+                        <option value="15-17">ç”³æ—¶ï¼?5:00-17:00ï¼?/option>
+                        <option value="17-19">é…‰æ—¶ï¼?7:00-19:00ï¼?/option>
+                        <option value="19-21">æˆŒæ—¶ï¼?9:00-21:00ï¼?/option>
+                        <option value="21-23">äº¥æ—¶ï¼?1:00-23:00ï¼?/option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>æ€§åˆ«</label>
+                    <select id="gender">
+                        <option value="male">ç”?/option>
+                        <option value="female">å¥?/option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>æ˜¯å¦é—°æœˆ</label>
+                    <select id="is-leap">
+                        <option value="no">å?/option>
+                        <option value="yes">æ˜?/option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>å‡ºç”Ÿåœ°ï¼ˆçœŸå¤ªé˜³æ—¶ï¼?/label>
+                    <input type="text" id="birth-place" placeholder="å¦‚ï¼šåŒ—äº¬">
+                </div>
+            </div>
+            <button class="btn-primary" onclick="lunarPaipan()">å¼€å§‹æŽ’ç›?/button>
+        </div>
+
+        <div class="result-section" id="result-section">
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">å…«å­—æŽ’ç›˜ç»“æžœ</h3>
+            <div id="conversion-info" style="background: #f5f7fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <p><strong>å†œåŽ†ï¼?/strong><span id="lunar-date"></span></p>
+                <p><strong>å…¬åŽ†ï¼?/strong><span id="solar-date"></span></p>
+                <p><strong>çœŸå¤ªé˜³æ—¶ï¼?/strong><span id="true-solar-time"></span></p>
+            </div>
+            <div class="bazi-display">
+                <div class="bazi-pillar">
+                    <h4>å¹´æŸ±</h4>
+                    <div class="bazi-char" id="year-gan">ç”?/div>
+                    <div class="bazi-char" id="year-zhi">å­?/div>
+                </div>
+                <div class="bazi-pillar">
+                    <h4>æœˆæŸ±</h4>
+                    <div class="bazi-char" id="month-gan">ä¹?/div>
+                    <div class="bazi-char" id="month-zhi">ä¸?/div>
+                </div>
+                <div class="bazi-pillar">
+                    <h4>æ—¥æŸ±</h4>
+                    <div class="bazi-char" id="day-gan">ä¸?/div>
+                    <div class="bazi-char" id="day-zhi">å¯?/div>
+                </div>
+                <div class="bazi-pillar">
+                    <h4>æ—¶æŸ±</h4>
+                    <div class="bazi-char" id="hour-gan">ä¸?/div>
+                    <div class="bazi-char" id="hour-zhi">å?/div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lunar_paipan.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>¹ØÓÚÎÒÃÇ</h4>
+            <ul>
+                <li><a href="about.html">Æ·ÅÆ¹ÊÊÂ</a></li>
+                <li><a href="about.html">ÍÅ¶Ó½éÉÜ</a></li>
+                <li><a href="about.html">ÁªÏµÎÒÃÇ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>·¨ÂÉÉùÃ÷</h4>
+            <ul>
+                <li><a href="user_agreement.html">ÓÃ»§Ð­Òé</a></li>
+                <li><a href="privacy_policy.html">ÒþË½Õþ²ß</a></li>
+                <li><a href="disclaimer.html">ÃâÔðÉùÃ÷</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>ÁªÏµ·½Ê½</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ½­ËÕÊ¡ÐìÖÝÊÐÐÂÒÊÊÐ</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ±¾ÍøÕ¾ËùÓÐÄÚÈÝ½ö¹©ÓéÀÖ²Î¿¼£¬²»¹¹³ÉÈÎºÎÐÎÊ½µÄ½¨Òé»ò³ÐÅµ</p>
+        <p>?? ÃüÀíÐþÑ§ÊôÓÚ´«Í³ÎÄ»¯·¶³ë£¬ÇëÀíÐÔ¿´´ý</p>
+        <p>?? ×îÖÕ½âÊÍÈ¨¹éÁúÂöÎÄ»¯Æ½Ì¨ËùÓÐ</p>
+        <p>? 2026 ÁúÂöÎÄ»¯ °æÈ¨ËùÓÐ | ¾©ICP±¸XXXXXXXXºÅ</p>
+    </div>
+</footer>
+</body>
+</html>

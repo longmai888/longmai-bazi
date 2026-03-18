@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奇门详细预测 - 龙脉文化</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand"><span class="navbar-logo">🐉</span><span>龙脉文化</span></a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">首页</a></li>
+                <li class="navbar-item"><a href="qimen.html" class="navbar-link">奇门遁甲</a></li>
+                <li class="navbar-item"><a href="qimen_detail.html" class="navbar-link active">详细预测</a></li>
+                <li class="navbar-item"><a href="login.html" class="navbar-link">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        <h1>⚔️ 奇门详细预测</h1>
+        <p class="subtitle">帝王之术 · 九宫排盘 · 精准决策</p>
+    </div>
+
+    <div class="container" style="max-width: 1200px; padding: 40px 20px;">
+        <div class="card" style="padding: 30px; margin-bottom: 30px;">
+            <h2 style="color: #764ba2; margin-bottom: 20px;">选择预测类型</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <button class="btn-primary" onclick="showPrediction('wealth')">💰 求财预测</button>
+                <button class="btn-primary" onclick="showPrediction('career')">💼 求官预测</button>
+                <button class="btn-primary" onclick="showPrediction('marriage')">💕 婚姻预测</button>
+                <button class="btn-primary" onclick="showPrediction('travel')">✈️ 出行预测</button>
+                <button class="btn-primary" onclick="showPrediction('health')">🏥 疾病预测</button>
+                <button class="btn-primary" onclick="showPrediction('lawsuit')">⚖️ 诉讼预测</button>
+            </div>
+        </div>
+
+        <div id="prediction-content" class="card" style="padding: 30px; display: none;">
+            <h2 id="prediction-title" style="color: #764ba2; margin-bottom: 20px;"></h2>
+            <div id="prediction-text" style="line-height: 1.8; color: #555;"></div>
+        </div>
+
+        <div class="card" style="padding: 30px; margin-top: 30px;">
+            <h3 style="color: #764ba2; margin-bottom: 20px;">📖 奇门遁甲基础知识</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #764ba2;">用神选取</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>日干：代表求测者本人</li>
+                        <li>时干：代表所测之事</li>
+                        <li>年命：代表求测者年命</li>
+                        <li>值符：代表领导、贵人</li>
+                        <li>值使：代表执行、过程</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">三奇六仪</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>乙奇：日奇，代表希望</li>
+                        <li>丙奇：月奇，代表权威</li>
+                        <li>丁奇：星奇，代表机遇</li>
+                        <li>六仪：戊己庚辛壬癸</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #764ba2;">八门九星</h4>
+                    <ul style="line-height: 2; color: #555;">
+                        <li>开门：事业、工作</li>
+                        <li>休门：休息、贵人</li>
+                        <li>生门：财运、生机</li>
+                        <li>伤门：伤害、竞争</li>
+                        <li>天蓬星：智慧、冒险</li>
+                        <li>天任星：稳重、责任</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>法律声明</h4>
+                <ul>
+                    <li><a href="user_agreement.html">用户协议</a></li>
+                    <li><a href="privacy_policy.html">隐私政策</a></li>
+                    <li><a href="disclaimer.html">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ 本网站所有内容仅供娱乐参考</p>
+            <p>📋 最终解释权归龙脉文化平台所有</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        const predictionData = {
+            'wealth': {
+                title: '💰 求财预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>求财以生门为用神，兼看甲子戊（资本）和时干。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>生门旺相，临三奇吉格，财可得</li>
+                        <li>生门克日干，财可得但辛苦</li>
+                        <li>生门入墓或逢空，财暂时不可得</li>
+                        <li>天乙（值符）生助生门，有贵人助财</li>
+                    </ul>
+                    <h3>投资方向</h3>
+                    <p>看生门所在宫：坎宫主水、离宫主火、震宫主木等，依五行定行业。</p>
+                `
+            },
+            'career': {
+                title: '💼 求官预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>求官以开门为用神，兼看日干和年命。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>开门旺相，临吉格，官运亨通</li>
+                        <li>开门克日干，官职可得但压力大</li>
+                        <li>值符生助开门，有领导赏识</li>
+                        <li>白虎临开门，官职有险</li>
+                    </ul>
+                `
+            },
+            'marriage': {
+                title: '💕 婚姻预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>男测以乙奇为女方，女测以庚为男方，六合为媒妁。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>乙庚相生，婚姻可成</li>
+                        <li>乙庚相克，婚姻难成</li>
+                        <li>六合临吉格，媒人得力</li>
+                        <li>天乙生乙庚，父母支持</li>
+                    </ul>
+                `
+            },
+            'travel': {
+                title: '✈️ 出行预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>出行以日干为行人，时干为所往之地。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>日干旺相，出行顺利</li>
+                        <li>日干克时干，出行有阻</li>
+                        <li>开门吉格，出行吉利</li>
+                        <li>天蓬星临，出行有险</li>
+                    </ul>
+                `
+            },
+            'health': {
+                title: '🏥 疾病预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>以天芮星为病神，日干为病人。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>天芮星旺相，病情严重</li>
+                        <li>天芮星衰弱，病情轻微</li>
+                        <li>天乙克天芮，医药有效</li>
+                        <li>日干克天芮，病人能愈</li>
+                    </ul>
+                `
+            },
+            'lawsuit': {
+                title: '⚖️ 诉讼预测',
+                content: `
+                    <h3>用神选取</h3>
+                    <p>以惊门为官司，日干为原告，时干为被告。</p>
+                    <h3>吉凶判断</h3>
+                    <ul>
+                        <li>日干克时干，原告胜诉</li>
+                        <li>时干克日干，被告胜诉</li>
+                        <li>惊门临吉格，官司易解</li>
+                        <li>值符生日干，有贵人助</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showPrediction(type) {
+            const data = predictionData[type];
+            if (data) {
+                document.getElementById('prediction-title').textContent = data.title;
+                document.getElementById('prediction-text').innerHTML = data.content;
+                document.getElementById('prediction-content').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

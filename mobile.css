@@ -1,0 +1,406 @@
+/* ====================================
+   龙脉文化 - 统一手机端适配样式
+   创建时间：2026年3月17日
+   用途：所有页面统一引用，确保手机端完美显示
+   ==================================== */
+
+/* 基础响应式设置 */
+@media screen and (max-width: 768px) {
+    
+    /* 全局设置 */
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    /* 容器适配 */
+    .container,
+    .dao-content,
+    .xian-content,
+    .healing-content,
+    .map-content,
+    .ar-content,
+    .tcm-content,
+    .buddha-content {
+        padding: 15px 10px !important;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    /* 头部适配 */
+    .header h1,
+    .dao-hero h1,
+    .xian-hero h1,
+    .healing-hero h1,
+    .map-hero h1,
+    .ar-hero h1,
+    .buddha-hero h1 {
+        font-size: 1.8rem !important;
+        margin-bottom: 10px;
+    }
+    
+    .header p,
+    .dao-hero .subtitle,
+    .xian-hero p,
+    .healing-hero p {
+        font-size: 0.9rem !important;
+    }
+    
+    /* 导航标签适配 */
+    .main-tabs,
+    .tab-navigation,
+    .region-tabs,
+    .nav-tabs {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px;
+    }
+    
+    .main-tab,
+    .tab-btn,
+    .region-tab,
+    .nav-tab {
+        width: 100%;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
+    /* 卡片网格适配 */
+    .deity-grid,
+    .xian-grid,
+    .service-grid,
+    .mountain-grid,
+    .product-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    
+    /* 表单适配 */
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        font-size: 16px; /* 防止iOS自动缩放 */
+    }
+    
+    /* 按钮适配 */
+    .btn-primary,
+    .btn-secondary,
+    .analyze-btn,
+    .upload-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+    
+    /* 步骤指示器适配 */
+    .step-indicator,
+    .steps {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .step {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* 结果卡片适配 */
+    .result-card,
+    .dao-card,
+    .xian-card,
+    .service-card,
+    .mountain-card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .result-card h3,
+    .dao-card h3,
+    .xian-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* 表格适配 */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.85rem;
+    }
+    
+    table th,
+    table td {
+        padding: 8px 5px;
+        min-width: 80px;
+    }
+    
+    /* Canvas画布适配 */
+    #floorPlanCanvas,
+    .canvas-container {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* 上传区域适配 */
+    .upload-area,
+    .upload-section {
+        padding: 30px 15px;
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+    }
+    
+    /* 图片适配 */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .deity-card img,
+    .xian-item img,
+    .mountain-image {
+        width: 100%;
+        height: auto;
+    }
+    
+    /* 文本适配 */
+    p, li {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    h4 {
+        font-size: 1.1rem;
+    }
+    
+    /* 列表适配 */
+    ul, ol {
+        padding-left: 20px;
+    }
+    
+    /* 价格标签适配 */
+    .price {
+        font-size: 1.3rem;
+    }
+    
+    /* 标签适配 */
+    .tag,
+    .badge {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+    
+    /* 弹窗适配 */
+    .modal-content,
+    .popup {
+        width: 95%;
+        margin: 10px auto;
+        padding: 20px;
+    }
+    
+    /* 固定底部按钮 */
+    .fixed-bottom-btn {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background: white;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    
+    /* 隐藏桌面端元素 */
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* 显示移动端元素 */
+    .mobile-only {
+        display: block !important;
+    }
+    
+    /* 导航栏适配 */
+    nav {
+        flex-direction: column;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    /* 侧边栏适配 */
+    .sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    /* 两列布局改为单列 */
+    .two-column {
+        flex-direction: column;
+    }
+    
+    .column {
+        width: 100%;
+    }
+    
+    /* 间距调整 */
+    .section {
+        padding: 20px 10px;
+    }
+    
+    .mb-30 {
+        margin-bottom: 15px;
+    }
+    
+    .mt-30 {
+        margin-top: 15px;
+    }
+    
+    /* 字体图标适配 */
+    .icon {
+        font-size: 2rem;
+    }
+    
+    /* 加载动画适配 */
+    .loading {
+        font-size: 1rem;
+    }
+    
+    /* Toast提示适配 */
+    .toast {
+        width: 90%;
+        left: 5%;
+        font-size: 0.9rem;
+    }
+    
+    /* 分享按钮适配 */
+    .share-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .share-btn {
+        width: 100%;
+    }
+}
+
+/* 超小屏幕适配（<375px） */
+@media screen and (max-width: 375px) {
+    body {
+        font-size: 13px;
+    }
+    
+    .header h1,
+    .dao-hero h1,
+    .xian-hero h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    table {
+        font-size: 0.75rem;
+    }
+    
+    .btn-primary {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 横屏适配 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .dao-hero,
+    .xian-hero,
+    .healing-hero,
+    .map-hero,
+    .ar-hero {
+        padding: 20px 10px;
+    }
+    
+    .header h1,
+    .dao-hero h1 {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* 触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+    /* 增加可点击区域 */
+    button,
+    a,
+    .clickable {
+        min-height: 44px; /* iOS推荐最小点击区域 */
+        min-width: 44px;
+    }
+    
+    /* 移除hover效果 */
+    .service-card:hover,
+    .mountain-card:hover,
+    .deity-card:hover {
+        transform: none;
+    }
+    
+    /* 优化点击反馈 */
+    button:active,
+    .btn-primary:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+    }
+}
+
+/* 防止文本选择（提升体验） */
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 隐藏滚动条（保留滚动功能） */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* 安全区域适配（iPhone刘海屏） */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(10px, env(safe-area-inset-left));
+        padding-right: max(10px, env(safe-area-inset-right));
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+}

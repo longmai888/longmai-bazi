@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 · 东北仙学文化</title>
+    <link rel="stylesheet" href="style.css">`n    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .xian-hero {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .xian-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .xian-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .xian-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .xian-card h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .xian-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .xian-item {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #E8C4C4;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .xian-item:hover {
+            transform: translateY(-5px);
+            border-color: #764ba2;
+        }
+
+        .xian-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .symptom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .symptom-list li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            border-radius: 4px;
+        }
+
+        .symptom-list li.active {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .offering-guide {
+            background: linear-gradient(135deg, #FFB6C1, #E8C4C4);
+            border-radius: 12px;
+            padding: 25px;
+            color: white;
+        }
+
+        .offering-guide h4 {
+            margin-bottom: 15px;
+        }
+
+        .offering-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .offering-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="xian-hero">
+        <h1>🦊 东北仙学文化</h1>
+        <p>仙缘测试 · 保家仙供�?· 出马仙征兆（独家�?/p>
+    </div>
+
+    <div class="xian-content">
+        <!-- 标签导航 -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('test')">仙缘测试</button>
+            <button class="tab-btn" onclick="switchTab('offering')">保家仙供�?/button>
+            <button class="tab-btn" onclick="switchTab('symptoms')">出马仙征�?/button>
+            <button class="tab-btn" onclick="switchTab('knowledge')">仙家知识</button>
+        </div>
+
+        <!-- 仙缘测试 -->
+        <div class="tab-content active" id="test">
+            <div class="xian-card">
+                <h3>🔮 仙缘测试</h3>
+                <p style="color: #666; margin-bottom: 20px;">回答以下问题，测试您与仙家的缘分</p>
+                
+                <div id="questions">
+                    <div class="symptom-list">
+                        <li onclick="toggleSymptom(this)">经常做奇怪的梦（梦见动物、神仙）</li>
+                        <li onclick="toggleSymptom(this)">身体无故不适（医院查不出原因）</li>
+                        <li onclick="toggleSymptom(this)">对玄学、宗教特别感兴趣</li>
+                        <li onclick="toggleSymptom(this)">直觉特别准确</li>
+                        <li onclick="toggleSymptom(this)">家族中有人信仰仙�?/li>
+                        <li onclick="toggleSymptom(this)">经常感觉�?东西"跟着</li>
+                        <li onclick="toggleSymptom(this)">喜欢独处，不喜欢热闹</li>
+                        <li onclick="toggleSymptom(this)">对某些动物特别有好感</li>
+                        <li onclick="toggleSymptom(this)">曾经历过灵异事件</li>
+                        <li onclick="toggleSymptom(this)">性格善良，喜欢帮助他�?/li>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="calculateXianYuan()">查看测试结果</button>
+            </div>
+
+            <div class="xian-card" id="testResult" style="display: none;">
+                <h3>📊 测试结果</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+                <div id="resultText"></div>
+            </div>
+        </div>
+
+        <!-- 保家仙供�?-->
+        <div class="tab-content" id="offering">
+            <div class="xian-card">
+                <h3>🏠 保家仙供奉指�?/h3>
+                <p style="color: #666; margin-bottom: 20px;">东北五大仙家：狐仙、黄仙、白仙、柳仙、灰�?/p>
+
+                <div class="xian-grid">
+                    <div class="xian-item">
+                        <div class="xian-icon">🦊</div>
+                        <h4>狐仙（胡家）</h4>
+                        <p style="color: #666; font-size: 0.9rem;">主管智慧、姻�?/p>
+                    </div>
+                    <div class="xian-item">
+                        <div class="xian-icon">🐭</div>
+                        <h4>黄仙（黄家）</h4>
+                        <p style="color: #666; font-size: 0.9rem;">主管财运、事�?/p>
+                    </div>
+                    <div class="xian-item">
+                        <div class="xian-icon">🐍</div>
+                        <h4>白仙（白家）</h4>
+                        <p style="color: #666; font-size: 0.9rem;">主管健康、长�?/p>
+                    </div>
+                    <div class="xian-item">
+                        <div class="xian-icon">🦎</div>
+                        <h4>柳仙（柳家）</h4>
+                        <p style="color: #666; font-size: 0.9rem;">主管医术、治�?/p>
+                    </div>
+                    <div class="xian-item">
+                        <div class="xian-icon">🐁</div>
+                        <h4>灰仙（灰家）</h4>
+                        <p style="color: #666; font-size: 0.9rem;">主管守护、辟�?/p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offering-guide">
+                <h4>📿 供奉方法</h4>
+                <div class="offering-grid">
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">🕯�?/div>
+                        <p>香烛</p>
+                    </div>
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">🍎</div>
+                        <p>水果</p>
+                    </div>
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">💧</div>
+                        <p>清水</p>
+                    </div>
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">🌾</div>
+                        <p>五谷</p>
+                    </div>
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">🍖</div>
+                        <p>肉食（可选）</p>
+                    </div>
+                    <div class="offering-item">
+                        <div style="font-size: 2rem;">🍷</div>
+                        <p>白酒（可选）</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                    <p><strong>供奉时间�?/strong>每月初一、十�?/p>
+                    <p><strong>供奉位置�?/strong>家中清净处，面向东方或北�?/p>
+                    <p><strong>注意事项�?/strong>保持虔诚，不可亵�?/p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 重要提醒</h4>
+                <p>1. 供奉仙家需要真诚的心，不可抱有功利�?/p>
+                <p>2. 如果不确定是否有仙缘，建议先咨询专业师傅</p>
+                <p>3. 供奉后需要定期上香，不可半途而废</p>
+                <p>4. 如需立堂子，必须找专业师傅指�?/p>
+            </div>
+        </div>
+
+        <!-- 出马仙征�?-->
+        <div class="tab-content" id="symptoms">
+            <div class="xian-card">
+                <h3>🌟 出马仙征兆自�?/h3>
+                <p style="color: #666; margin-bottom: 20px;">以下是常见的出马仙征兆，请对照自身情�?/p>
+
+                <div class="symptom-list">
+                    <li>
+                        <strong>梦境征兆</strong><br>
+                        频繁梦见动物（狐狸、蛇、黄鼠狼等）、神仙、庙�?                    </li>
+                    <li>
+                        <strong>身体征兆</strong><br>
+                        无故头晕、恶心、身体发冷、医院检查正�?                    </li>
+                    <li>
+                        <strong>精神征兆</strong><br>
+                        突然对宗教、玄学产生浓厚兴趣，想学习相关知�?                    </li>
+                    <li>
+                        <strong>行为征兆</strong><br>
+                        不由自主地想去庙里、山上，喜欢独处
+                    </li>
+                    <li>
+                        <strong>感应征兆</strong><br>
+                        能感应到别人的情绪、疾病，直觉特别�?                    </li>
+                    <li>
+                        <strong>异常征兆</strong><br>
+                        说话、行为与平时不同，像变了一个人
+                    </li>
+                    <li>
+                        <strong>家族征兆</strong><br>
+                        家族中有人出马、信仰仙�?                    </li>
+                    <li>
+                        <strong>灵异征兆</strong><br>
+                        经历过无法解释的灵异事件
+                    </li>
+                </div>
+            </div>
+
+            <div class="xian-card">
+                <h3>🔍 出马流程</h3>
+                <div style="padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #764ba2;">第一步：查事</h4>
+                        <p>找专业师傅查看是否真的有仙缘，确定仙家身�?/p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #764ba2;">第二步：立堂�?/h4>
+                        <p>举行立堂子仪式，正式接受仙家</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #764ba2;">第三步：开马办</h4>
+                        <p>开启通灵能力，学习如何与仙家沟�?/p>
+                    </div>
+                    <div>
+                        <h4 style="color: #764ba2;">第四步：正式出马</h4>
+                        <p>开始为他人看事、治病、化�?/p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 特别提醒</h4>
+                <p><strong>不是所有征兆都代表要出马！</strong></p>
+                <p>1. 很多身体不适可能是疾病，请先去医院检�?/p>
+                <p>2. 出马是一件严肃的事情，不可轻易尝�?/p>
+                <p>3. 必须找正规、有经验的师傅指�?/p>
+                <p>4. 我们平台提供专业师傅咨询服务（收费）</p>
+                <button class="btn-primary" style="margin-top: 15px;" onclick="contactMaster()">联系专业师傅</button>
+            </div>
+        </div>
+
+        <!-- 仙家知识 -->
+        <div class="tab-content" id="knowledge">
+            <div class="xian-card">
+                <h3>📚 东北仙学知识</h3>
+                
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">什么是出马仙？</h4>
+                    <p style="line-height: 1.8;">
+                        出马仙是东北地区特有的民间信仰，指的是有仙家（动物修炼成精）附体的人�?                        这些人能够通过仙家的力量为他人看事、治病、化解灾难�?                        出马仙文化在东北三省（黑龙江、吉林、辽宁）非常盛行�?                    </p>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">五大仙家详解</h4>
+                    <div class="xian-grid">
+                        <div class="xian-item">
+                            <div class="xian-icon">🦊</div>
+                            <h4>狐仙（胡家）</h4>
+                            <p style="text-align: left; font-size: 0.9rem; color: #666;">
+                                最常见的仙家，聪明狡黠，主管智慧、姻缘、财运�?                                狐仙通常性格温和，善于沟通�?                            </p>
+                        </div>
+                        <div class="xian-item">
+                            <div class="xian-icon">🐭</div>
+                            <h4>黄仙（黄家）</h4>
+                            <p style="text-align: left; font-size: 0.9rem; color: #666;">
+                                黄鼠狼成精，性格直爽，主管财运、事业�?                                黄仙脾气较大，但办事效率高�?                            </p>
+                        </div>
+                        <div class="xian-item">
+                            <div class="xian-icon">🐍</div>
+                            <h4>白仙（白家）</h4>
+                            <p style="text-align: left; font-size: 0.9rem; color: #666;">
+                                蛇、刺猬成精，主管健康、长寿、治病�?                                白仙通常比较温和，擅长医术�?                            </p>
+                        </div>
+                        <div class="xian-item">
+                            <div class="xian-icon">🦎</div>
+                            <h4>柳仙（柳家）</h4>
+                            <p style="text-align: left; font-size: 0.9rem; color: #666;">
+                                蛇类成精，主管医术、治病、化解�?                                柳仙性格冷静，医术高明�?                            </p>
+                        </div>
+                        <div class="xian-item">
+                            <div class="xian-icon">🐁</div>
+                            <h4>灰仙（灰家）</h4>
+                            <p style="text-align: left; font-size: 0.9rem; color: #666;">
+                                老鼠成精，主管守护、辟邪、保平安�?                                灰仙通常比较低调，但守护能力强�?                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">常见问题解答</h4>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                        <p style="margin-bottom: 15px;"><strong>Q: 出马仙是迷信吗？</strong></p>
+                        <p style="margin-bottom: 20px; color: #666;">
+                            A: 出马仙是东北地区的民间信仰，有其文化传承价值�?                            我们尊重传统文化，但也提倡科学理性看待�?                        </p>
+
+                        <p style="margin-bottom: 15px;"><strong>Q: 出马仙能治病吗？</strong></p>
+                        <p style="margin-bottom: 20px; color: #666;">
+                            A: 出马仙主要是心理疏导和能量调理，不能替代医学治疗�?                            身体不适请先去正规医院检查�?                        </p>
+
+                        <p style="margin-bottom: 15px;"><strong>Q: 如何分辨真假出马仙？</strong></p>
+                        <p style="color: #666;">
+                            A: 真正的出马仙不会主动索要高额费用，不会恐吓威胁，
+                            不会承诺包治百病。建议选择口碑好、有资质的师傅�?                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedSymptoms = 0;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function toggleSymptom(element) {
+            element.classList.toggle('active');
+            selectedSymptoms = document.querySelectorAll('.symptom-list li.active').length;
+        }
+
+        function calculateXianYuan() {
+            if (selectedSymptoms === 0) {
+                alert('请至少选择一项症�?);
+                return;
+            }
+
+            const percentage = (selectedSymptoms / 10) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const resultText = document.getElementById('resultText');
+
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = percentage + '%';
+
+            let result = '';
+            if (percentage >= 70) {
+                result = `
+                    <div style="padding: 20px; background: #d4edda; border-radius: 8px; margin-top: 20px;">
+                        <h4 style="color: #155724; margin-bottom: 15px;">🌟 仙缘极强</h4>
+                        <p style="color: #155724;">
+                            您的仙缘非常强，很可能有仙家跟随。建议尽快找专业师傅查事�?                            确定仙家身份，考虑是否需要立堂子�?                        </p>
+                        <button class="btn-primary" style="margin-top: 15px;" onclick="contactMaster()">
+                            联系专业师傅
+                        </button>
+                    </div>
+                `;
+            } else if (percentage >= 40) {
+                result = `
+                    <div style="padding: 20px; background: #fff3cd; border-radius: 8px; margin-top: 20px;">
+                        <h4 style="color: #856404; margin-bottom: 15px;">�?仙缘中等</h4>
+                        <p style="color: #856404;">
+                            您有一定的仙缘，可能是保家仙或者祖先仙�?                            建议咨询师傅，了解具体情况，决定是否需要供奉�?                        </p>
+                    </div>
+                `;
+            } else {
+                result = `
+                    <div style="padding: 20px; background: #d1ecf1; border-radius: 8px; margin-top: 20px;">
+                        <h4 style="color: #0c5460; margin-bottom: 15px;">💫 仙缘较弱</h4>
+                        <p style="color: #0c5460;">
+                            您的仙缘较弱，可能只是对玄学感兴趣�?                            可以继续学习相关知识，但不必急于出马�?                        </p>
+                    </div>
+                `;
+            }
+
+            resultText.innerHTML = result;
+            document.getElementById('testResult').style.display = 'block';
+            document.getElementById('testResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function contactMaster() {
+            alert('请联系平台客服微信：fuxinfu889\n\n我们会为您推荐专业的出马仙师傅进行咨询。\n\n收费标准：\n查事：�?00-500\n立堂子：¥8000-20000（含仪式、乐队）');
+        }
+    </script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="about.html">Ʒ�ƹ���</a></li>
+                <li><a href="about.html">�Ŷӽ���</a></li>
+                <li><a href="about.html">��ϵ����</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��������</h4>
+            <ul>
+                <li><a href="user_agreement.html">�û�Э��</a></li>
+                <li><a href="privacy_policy.html">��˽����</a></li>
+                <li><a href="disclaimer.html">��������</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>��ϵ��ʽ</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? ����ʡ������������</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
+        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
+        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
+        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+    </div>
+</footer>
+</body>
+</html>

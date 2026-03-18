@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榫欒剦鏂囧寲 路 椋庢按缃楃洏</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        .luopan-hero { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; }
+        .luopan-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .luopan-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .compass-container { width: 350px; height: 350px; margin: 30px auto; position: relative; background: radial-gradient(circle, #FFD700, #FFA500, #8B4513); border-radius: 50%; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .compass-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #8B4513; border-radius: 50%; border: 3px solid #FFD700; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; font-weight: bold; }
+        .compass-needle { position: absolute; top: 50%; left: 50%; width: 4px; height: 150px; background: linear-gradient(180deg, red 0%, red 50%, white 50%, white 100%); transform-origin: bottom center; transform: translate(-50%, -100%) rotate(0deg); transition: transform 1s ease-out; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .direction-labels { position: absolute; width: 100%; height: 100%; }
+        .direction-label { position: absolute; font-weight: bold; font-size: 1.2rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .direction-label.north { top: 10px; left: 50%; transform: translateX(-50%); color: #FF0000; }
+        .direction-label.south { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .direction-label.east { right: 10px; top: 50%; transform: translateY(-50%); }
+        .direction-label.west { left: 10px; top: 50%; transform: translateY(-50%); }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; display: block; margin: 20px auto; }
+        .form-group { margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="luopan-hero">
+        <h1>馃Л 椋庢按缃楃洏</h1>
+        <p class="subtitle">绮惧噯瀹氬悜 路 鍫垎甯冨眬 路 瓒嬪悏閬垮嚩</p>
+    </div>
+    <div class="luopan-content">
+        <div class="compass-container">
+            <div class="direction-labels">
+                <div class="direction-label north">鍖?瀛?/div>
+                <div class="direction-label south">鍗?鍗?/div>
+                <div class="direction-label east">涓?鍗?/div>
+                <div class="direction-label west">瑗?閰?/div>
+            </div>
+            <div class="compass-needle" id="compass-needle"></div>
+            <div class="compass-center">缃楃洏</div>
+        </div>
+        <div class="form-group">
+            <label>杈撳叆鏂逛綅瑙掑害锛?-360掳锛?/label>
+            <input type="number" id="degree-input" min="0" max="360" placeholder="0-360">
+        </div>
+        <button class="btn-primary" onclick="setDirection()">璁剧疆鏂逛綅</button>
+        <button class="btn-primary" onclick="autoDetect()">鑷姩妫�娴嬫柟浣?/button>
+        <div id="result" style="display: none; background: white; padding: 25px; border-radius: 12px; margin-top: 30px;">
+            <h4 style="color: #764ba2; margin-bottom: 15px;">鏂逛綅鍒嗘瀽</h4>
+            <p id="direction-text" style="line-height: 1.8; color: #555;"></p>
+        </div>
+    </div>
+    <script src="luopan.js"></script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>关于我们</h4>
+            <ul>
+                <li><a href="about.html">品牌故事</a></li>
+                <li><a href="about.html">团队介绍</a></li>
+                <li><a href="about.html">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>法律声明</h4>
+            <ul>
+                <li><a href="user_agreement.html">用户协议</a></li>
+                <li><a href="privacy_policy.html">隐私政策</a></li>
+                <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>联系方式</h4>
+            <ul>
+                <li>?? longmai@foxmail.com</li>
+                <li>?? 400-XXX-XXXX</li>
+                <li>?? 江苏省徐州市新沂市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>?? 本网站所有内容仅供娱乐参考，不构成任何形式的建议或承诺</p>
+        <p>?? 命理玄学属于传统文化范畴，请理性看待</p>
+        <p>?? 最终解释权归龙脉文化平台所有</p>
+        <p>? 2026 龙脉文化 版权所有 | 京ICP备XXXXXXXX号</p>
+    </div>
+</footer>
+</body>
+</html>
