@@ -3,324 +3,856 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>龙脉文化 - 中华传统文化一站式平台</title>
-    <meta name="description" content="龙脉文化专业八字排盘、六爻占卜、奇门遁甲、风水罗盘、梅花易数、紫微斗数。传承千年智慧，开启灵动人生�?>
-    <link rel="stylesheet" href="style.css">`n    <link rel="stylesheet" href="mobile.css">
+    <title>龙脉文化 - 中华传统文化一站式平台 | 八字排盘 六爻占卜 奇门遁甲 风水罗盘 紫微斗数 塔罗牌</title>
+    <meta name="description" content="龙脉文化是专业的中华传统文化一站式服务平台，提供免费八字排盘、六爻占卜、奇门遁甲、梅花易数、紫微斗数、塔罗牌占卜、家居风水分析、合婚配对、姓名测试等服务。传承千年智慧，开启灵动人生。">
+    <meta name="keywords" content="八字排盘,六爻占卜,奇门遁甲,风水,紫微斗数,塔罗牌,梅花易数,合婚,姓名测试,周公解梦,求签,龙脉文化">
+    <meta name="author" content="龙脉文化">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/index.html">
+    <style>
+        /* ===== 全局重置 ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .nav {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover {
+            background: #f0e6ff;
+            color: #764ba2;
+        }
+
+        /* ===== Hero区域 ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px 30px;
+        }
+        .hero h1 { font-size: 2rem; margin-bottom: 8px; }
+        .hero p { opacity: 0.9; font-size: 1rem; }
+
+        /* ===== 功能模块网格 ===== */
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        .module-card .icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .module-card .name { font-weight: bold; font-size: 0.95rem; margin-bottom: 4px; }
+        .module-card .desc { font-size: 0.75rem; color: #888; }
+        .module-card.hot::after {
+            content: "热门";
+            position: absolute;
+            top: 8px; right: 8px;
+            background: #ff4757;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+        .module-card { position: relative; }
+
+        /* ===== 分区标题 ===== */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0 15px;
+            padding-left: 12px;
+            border-left: 4px solid #764ba2;
+        }
+
+        /* ===== 八字排盘表单 ===== */
+        .bazi-form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+        }
+        .form-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 20px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #fafafa;
+            color: #333;
+            appearance: auto;
+        }
+        .form-group select:focus, .form-group input:focus {
+            border-color: #764ba2;
+            outline: none;
+            background: white;
+        }
+        .shichen-btns {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .shichen-btn {
+            padding: 10px 5px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        .shichen-btn:hover, .shichen-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #764ba2;
+        }
+        .shichen-btn .sc-icon { font-size: 1.2rem; display: block; margin-bottom: 3px; }
+        .gender-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .gender-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .gender-btn:hover, .gender-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #764ba2;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ===== 排盘结果 ===== */
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-top: 20px;
+            display: none;
+        }
+        .result-card.show { display: block; }
+        .result-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .result-header h3 { color: #764ba2; font-size: 1.3rem; }
+        .bazi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .bazi-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        .bazi-table td {
+            padding: 12px 10px;
+            border: 1px solid #eee;
+            font-size: 1.1rem;
+        }
+        .bazi-table tr:nth-child(even) { background: #f9f9ff; }
+        .tiangan { color: #764ba2; font-weight: bold; font-size: 1.3rem; }
+        .dizhi { color: #e67e22; font-weight: bold; font-size: 1.3rem; }
+        .wuxing-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: white;
+            margin: 2px;
+        }
+        .wx-jin { background: #f1c40f; color: #333; }
+        .wx-mu { background: #27ae60; }
+        .wx-shui { background: #2980b9; }
+        .wx-huo { background: #e74c3c; }
+        .wx-tu { background: #8B4513; }
+
+        .analysis-box {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .analysis-box h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        .analysis-box p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* ===== 今日运势 ===== */
+        .fortune-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .fortune-date { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
+        .fortune-star { font-size: 1.5rem; color: #f1c40f; margin-bottom: 5px; }
+        .fortune-text { color: #555; font-size: 0.95rem; }
+
+        /* ===== 底部 ===== */
+        .footer {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        .footer p { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
+        .footer a { color: #764ba2; text-decoration: none; }
+        .footer-links { margin: 10px 0; }
+        .footer-links a { margin: 0 8px; font-size: 0.85rem; }
+
+        /* ===== 移动端适配 ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.5rem; }
+            .module-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .module-card { padding: 15px 5px; }
+            .module-card .icon { font-size: 2rem; }
+            .module-card .name { font-size: 0.8rem; }
+            .module-card .desc { display: none; }
+            .form-row { grid-template-columns: 1fr 1fr; }
+            .shichen-btns { grid-template-columns: repeat(3, 1fr); }
+            .nav-links { display: none; }
+            .bazi-table { font-size: 0.85rem; }
+            .bazi-table td { padding: 8px 5px; }
+            .tiangan, .dizhi { font-size: 1.1rem; }
+        }
+        @media (max-width: 400px) {
+            .module-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
 </head>
 <body>
-    <!-- 顶部导航（移动端简化） -->
-    <nav class="main-nav">
-        <div class="nav-brand">
-            <span class="logo">🐉</span>
-            <span class="brand-text">龙脉文化</span>
-        </div>
-        <div class="nav-right">
-            <button class="menu-toggle">�?/button>
-            <a href="crystals.html" class="nav-btn primary">💎 商城</a>
+
+    <!-- 顶部导航 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">🐉 龙脉文化</a>
+        <div class="nav-links">
+            <a href="articles.html">📚 文章</a>
+            <a href="crystals.html">💎 商城</a>
+            <a href="master_register.html">🧙 师傅入驻</a>
+            <a href="login.html">👤 登录</a>
         </div>
     </nav>
 
-    <!-- 移动端菜�?-->
-    <div class="mobile-menu" style="display:none;">
-        <a href="#bazi" class="mobile-menu-item active">🔮 八字排盘</a>
-        <a href="#liuyao" class="mobile-menu-item">🔯 六爻占卜</a>
-        <a href="#meihua" class="mobile-menu-item">🌸 梅花易数</a>
-        <a href="#qimen" class="mobile-menu-item">🎲 奇门遁甲</a>
-        <a href="#fengshui" class="mobile-menu-item">🏠 家居风水</a>
-        <a href="#hehun" class="mobile-menu-item">❤️ 合婚配对</a>
-        <a href="#crystals" class="mobile-menu-item">💎 水晶商城</a>
+    <!-- Hero -->
+    <div class="hero">
+        <h1>🐉 龙脉文化</h1>
+        <p>中华传统文化一站式平台 · 传承千年智慧</p>
     </div>
 
-    <!-- 主体内容�?-->
-    <main class="main-content">
-        <!-- Hero区域：首屏大按钮 -->
-        <section class="hero-section">
-            <h1>🐉 免费八字排盘</h1>
-            <p class="hero-subtitle">30秒get你的命理密码 · 精准人生规划</p>
-            <button class="hero-cta" onclick="scrollToCalc()">🚀 开始免费测�?/button>
-            <div class="hero-features">
-                <span>�?完全免费</span>
-                <span>�?30秒完�?/span>
-                <span>📱 手机友好</span>
-            </div>
-        </section>
+    <div class="container">
 
-        <!-- 每日运势模块 -->
-        <section id="daily-fortune" class="section" style="margin: 16px;">
-            <div class="calculator-section">
-                <div class="section-header">
-                    <h2>📅 今日运势</h2>
-                    <p>基于今日农历日柱的能量分�?/p>
-                </div>
-                <div id="daily-fortune-loading" style="text-align: center; padding: 40px;">
-                    <div>�?正在计算今日运势...</div>
-                </div>
-                <div id="daily-fortune-content" style="display: none;"></div>
-            </div>
-        </section>
+        <!-- 功能模块入口 -->
+        <div class="section-title">🔮 核心工具</div>
+        <div class="module-grid">
+            <a href="#bazi-form" class="module-card" onclick="document.getElementById('bazi-form').scrollIntoView({behavior:'smooth'})">
+                <div class="icon">🔮</div>
+                <div class="name">八字排盘</div>
+                <div class="desc">免费测算</div>
+            </a>
+            <a href="liuyao.html" class="module-card">
+                <div class="icon">🔯</div>
+                <div class="name">六爻占卜</div>
+                <div class="desc">摇卦问事</div>
+            </a>
+            <a href="qimen.html" class="module-card">
+                <div class="icon">🎲</div>
+                <div class="name">奇门遁甲</div>
+                <div class="desc">趋吉避凶</div>
+            </a>
+            <a href="meihua.html" class="module-card">
+                <div class="icon">🌸</div>
+                <div class="name">梅花易数</div>
+                <div class="desc">随心起卦</div>
+            </a>
+            <a href="fengshui.html" class="module-card">
+                <div class="icon">🏠</div>
+                <div class="name">家居风水</div>
+                <div class="desc">环境调理</div>
+            </a>
+            <a href="ziwei.html" class="module-card">
+                <div class="icon">⭐</div>
+                <div class="name">紫微斗数</div>
+                <div class="desc">命盘解读</div>
+            </a>
+            <a href="tarot.html" class="module-card">
+                <div class="icon">🃏</div>
+                <div class="name">塔罗牌</div>
+                <div class="desc">灵感指引</div>
+            </a>
+            <a href="marriage_match.html" class="module-card">
+                <div class="icon">❤️</div>
+                <div class="name">合婚配对</div>
+                <div class="desc">姻缘分析</div>
+            </a>
+        </div>
 
-        <!-- 八字排盘模块 -->
-        <section id="bazi" class="section active calculator-section">
-            <div class="section-header">
-                <h2>🔮 填写出生信息</h2>
-                <p>公历日期，真太阳时自动校�?/p>
+        <div class="section-title">📖 更多服务</div>
+        <div class="module-grid">
+            <a href="mingxue.html" class="module-card">
+                <div class="icon">📝</div>
+                <div class="name">姓名测试</div>
+                <div class="desc">名字吉凶</div>
+            </a>
+            <a href="zhougong_jiemeng.html" class="module-card">
+                <div class="icon">🌙</div>
+                <div class="name">周公解梦</div>
+                <div class="desc">梦境解析</div>
+            </a>
+            <a href="qiuqian.html" class="module-card">
+                <div class="icon">🎋</div>
+                <div class="name">在线求签</div>
+                <div class="desc">观音灵签</div>
+            </a>
+            <a href="jiri.html" class="module-card">
+                <div class="icon">📅</div>
+                <div class="name">择吉日</div>
+                <div class="desc">黄道吉日</div>
+            </a>
+            <a href="luopan.html" class="module-card">
+                <div class="icon">🧭</div>
+                <div class="name">罗盘</div>
+                <div class="desc">方位测量</div>
+            </a>
+            <a href="ar_fengshui.html" class="module-card">
+                <div class="icon">📱</div>
+                <div class="name">AR风水</div>
+                <div class="desc">实景分析</div>
+            </a>
+            <a href="human_design.html" class="module-card">
+                <div class="icon">🧬</div>
+                <div class="name">人类图</div>
+                <div class="desc">能量解读</div>
+            </a>
+            <a href="number_test.html" class="module-card">
+                <div class="icon">🔢</div>
+                <div class="name">号码测试</div>
+                <div class="desc">数字能量</div>
+            </a>
+        </div>
+
+        <div class="section-title">📚 文化专区</div>
+        <div class="module-grid">
+            <a href="articles.html" class="module-card">
+                <div class="icon">📰</div>
+                <div class="name">知识文章</div>
+                <div class="desc">命理学习</div>
+            </a>
+            <a href="buddha_dao.html" class="module-card">
+                <div class="icon">☸️</div>
+                <div class="name">佛道文化</div>
+                <div class="desc">修行智慧</div>
+            </a>
+            <a href="daojiao_culture.html" class="module-card">
+                <div class="icon">☯️</div>
+                <div class="name">道教文化</div>
+                <div class="desc">道法自然</div>
+            </a>
+            <a href="dongbei_xian.html" class="module-card">
+                <div class="icon">🦊</div>
+                <div class="name">东北仙家</div>
+                <div class="desc">出马文化</div>
+            </a>
+            <a href="celebrity_cases.html" class="module-card">
+                <div class="icon">👤</div>
+                <div class="name">名人案例</div>
+                <div class="desc">八字解析</div>
+            </a>
+            <a href="healing_center.html" class="module-card">
+                <div class="icon">💆</div>
+                <div class="name">身心疗愈</div>
+                <div class="desc">能量调理</div>
+            </a>
+            <a href="tcm_health.html" class="module-card">
+                <div class="icon">🌿</div>
+                <div class="name">中医养生</div>
+                <div class="desc">健康之道</div>
+            </a>
+            <a href="crystals.html" class="module-card">
+                <div class="icon">💎</div>
+                <div class="name">水晶商城</div>
+                <div class="desc">能量好物</div>
+            </a>
+        </div>
+
+        <!-- 今日运势 -->
+        <div class="section-title">📅 今日运势</div>
+        <div class="fortune-card" id="fortune-card">
+            <div class="fortune-date" id="fortune-date"></div>
+            <div class="fortune-star" id="fortune-star"></div>
+            <div class="fortune-text" id="fortune-text"></div>
+        </div>
+
+        <!-- 八字排盘表单 -->
+        <div class="section-title" id="bazi-form">🔮 免费八字排盘</div>
+        <div class="bazi-form-card">
+            <div class="form-title">填写出生信息（公历）</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>出生年份</label>
+                    <select id="year"></select>
+                </div>
+                <div class="form-group">
+                    <label>月份</label>
+                    <select id="month">
+                        <option value="1">1月</option><option value="2">2月</option>
+                        <option value="3">3月</option><option value="4">4月</option>
+                        <option value="5">5月</option><option value="6">6月</option>
+                        <option value="7">7月</option><option value="8">8月</option>
+                        <option value="9">9月</option><option value="10">10月</option>
+                        <option value="11">11月</option><option value="12">12月</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>日期</label>
+                    <select id="day"></select>
+                </div>
+            </div>
+
+            <label style="font-size:0.85rem;color:#666;margin-bottom:8px;display:block;">出生时辰</label>
+            <div class="shichen-btns">
+                <div class="shichen-btn" data-hour="0" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌙</span>子时<br><small>23-1点</small>
+                </div>
+                <div class="shichen-btn" data-hour="1" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌙</span>丑时<br><small>1-3点</small>
+                </div>
+                <div class="shichen-btn" data-hour="3" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌅</span>寅时<br><small>3-5点</small>
+                </div>
+                <div class="shichen-btn" data-hour="5" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌅</span>卯时<br><small>5-7点</small>
+                </div>
+                <div class="shichen-btn" data-hour="7" onclick="selectShichen(this)">
+                    <span class="sc-icon">☀️</span>辰时<br><small>7-9点</small>
+                </div>
+                <div class="shichen-btn" data-hour="9" onclick="selectShichen(this)">
+                    <span class="sc-icon">☀️</span>巳时<br><small>9-11点</small>
+                </div>
+                <div class="shichen-btn" data-hour="11" onclick="selectShichen(this)">
+                    <span class="sc-icon">☀️</span>午时<br><small>11-13点</small>
+                </div>
+                <div class="shichen-btn" data-hour="13" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌇</span>未时<br><small>13-15点</small>
+                </div>
+                <div class="shichen-btn" data-hour="15" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌇</span>申时<br><small>15-17点</small>
+                </div>
+                <div class="shichen-btn" data-hour="17" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌆</span>酉时<br><small>17-19点</small>
+                </div>
+                <div class="shichen-btn" data-hour="19" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌆</span>戌时<br><small>19-21点</small>
+                </div>
+                <div class="shichen-btn" data-hour="21" onclick="selectShichen(this)">
+                    <span class="sc-icon">🌃</span>亥时<br><small>21-23点</small>
+                </div>
+            </div>
+
+            <label style="font-size:0.85rem;color:#666;margin-bottom:8px;display:block;">性别</label>
+            <div class="gender-row">
+                <div class="gender-btn active" data-gender="male" onclick="selectGender(this)">👦 男</div>
+                <div class="gender-btn" data-gender="female" onclick="selectGender(this)">👧 女</div>
+            </div>
+
+            <button class="submit-btn" onclick="calculateBazi()">🐉 立即免费排盘</button>
+        </div>
+
+        <!-- 排盘结果 -->
+        <div class="result-card" id="result-card">
+            <div class="result-header">
+                <h3>🐉 八字排盘结果</h3>
+                <p id="result-info" style="color:#888;font-size:0.9rem;margin-top:5px;"></p>
             </div>
             
-            <div class="input-panel">
-                <form id="baziForm" class="mobile-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>出生年份</label>
-                            <select id="year" required>
-                                <!-- 动态生�?926-2026 -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>月份</label>
-                            <select id="month" required>
-                                <option value="1">1�?/option>
-                                <option value="2">2�?/option>
-                                <option value="3">3�?/option>
-                                <option value="4">4�?/option>
-                                <option value="5">5�?/option>
-                                <option value="6">6�?/option>
-                                <option value="7">7�?/option>
-                                <option value="8">8�?/option>
-                                <option value="9">9�?/option>
-                                <option value="10">10�?/option>
-                                <option value="11">11�?/option>
-                                <option value="12">12�?/option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>日期</label>
-                            <select id="day" required>
-                                <!-- 动态生�?-31 -->
-                            </select>
-                        </div>
-                    </div>
+            <table class="bazi-table">
+                <thead>
+                    <tr>
+                        <th>四柱</th>
+                        <th>年柱</th>
+                        <th>月柱</th>
+                        <th>日柱</th>
+                        <th>时柱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:bold;color:#764ba2;">天干</td>
+                        <td><span class="tiangan" id="tg-year"></span></td>
+                        <td><span class="tiangan" id="tg-month"></span></td>
+                        <td><span class="tiangan" id="tg-day"></span></td>
+                        <td><span class="tiangan" id="tg-hour"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold;color:#e67e22;">地支</td>
+                        <td><span class="dizhi" id="dz-year"></span></td>
+                        <td><span class="dizhi" id="dz-month"></span></td>
+                        <td><span class="dizhi" id="dz-day"></span></td>
+                        <td><span class="dizhi" id="dz-hour"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold;color:#27ae60;">五行</td>
+                        <td id="wx-year"></td>
+                        <td id="wx-month"></td>
+                        <td id="wx-day"></td>
+                        <td id="wx-hour"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold;color:#2980b9;">纳音</td>
+                        <td id="ny-year"></td>
+                        <td id="ny-month"></td>
+                        <td id="ny-day"></td>
+                        <td id="ny-hour"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-                    <!-- 时辰简化为4时段 -->
-                    <div class="form-group">
-                        <label>出生时间�?/label>
-                        <div class="time-slots">
-                            <button type="button" class="time-slot" data-shi-chen="0">🌙 深夜 (23-01)</button>
-                            <button type="button" class="time-slot" data-shi-chen="1">🌅 凌晨 (01-05)</button>
-                            <button type="button" class="time-slot" data-shi-chen="3">☀�?上午 (05-11)</button>
-                            <button type="button" class="time-slot" data-shi-chen="6">🌇 下午 (11-17)</button>
-                            <button type="button" class="time-slot" data-shi-chen="9">🌆 傍晚 (17-21)</button>
-                            <button type="button" class="time-slot" data-shi-chen="11">🌃 晚上 (21-23)</button>
-                        </div>
-                        <input type="hidden" id="hour" value="0">
-                    </div>
+            <div class="analysis-box">
+                <h4>🎯 五行分析</h4>
+                <p id="wuxing-analysis"></p>
+            </div>
 
-                    <div class="form-group">
-                        <label>出生地点</label>
-                        <select id="location">
-                            <option value="beijing">北京（默认）</option>
-                            <option value="shanghai">上海</option>
-                            <option value="guangzhou">广州</option>
-                            <option value="shenzhen">深圳</option>
-                            <option value="xuzhou">徐州</option>
-                            <option value="other">其他城市</option>
-                        </select>
-                    </div>
+            <div class="analysis-box">
+                <h4>💡 日主分析</h4>
+                <p id="rizhu-analysis"></p>
+            </div>
 
-                    <div class="form-group">
-                        <label>性别</label>
-                        <div class="gender-select">
-                            <button type="button" class="gender-btn" data-gender="male">👦 �?/button>
-                            <button type="button" class="gender-btn active" data-gender="female">👧 �?/button>
-                        </div>
-                        <input type="hidden" id="gender" value="female">
-                    </div>
+            <div class="analysis-box">
+                <h4>🔮 简要解读</h4>
+                <p id="brief-analysis"></p>
+            </div>
 
-                    <button type="submit" class="btn-calc">
-                        🐉 立即免费排盘
-                    </button>
-                </form>
+            <div style="text-align:center;margin-top:20px;">
+                <p style="color:#888;font-size:0.85rem;">想要更详细的分析？</p>
+                <a href="shishen_analysis.html" style="display:inline-block;margin:8px;padding:10px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:20px;text-decoration:none;font-size:0.9rem;">十神深度分析</a>
+                <a href="career_analysis.html" style="display:inline-block;margin:8px;padding:10px 20px;background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;border-radius:20px;text-decoration:none;font-size:0.9rem;">事业财运分析</a>
+                <a href="marriage_analysis.html" style="display:inline-block;margin:8px;padding:10px 20px;background:linear-gradient(135deg,#e74c3c,#ff6b6b);color:white;border-radius:20px;text-decoration:none;font-size:0.9rem;">婚姻感情分析</a>
             </div>
-            
-            <!-- 排盘结果�?-->
-            <div id="result" class="result-panel" style="display:none;">
-                <!-- 基础信息 -->
-                <div class="result-header">
-                    <h3>📋 你的八字</h3>
-                    <button class="btn-copy" onclick="copyBazi()">📋 一键复�?/button>
-                </div>
-                <div class="bazi-display" id="baziTable">
-                    <!-- 四柱表格 -->
-                </div>
-                
-                <!-- 免费内容 -->
-                <div class="free-section">
-                    <h3>🆓 免费分析</h3>
-                    <div class="wuxing-stats" id="wuxingStats">
-                        <!-- 五行统计 -->
-                    </div>
-                    <div class="basic-info" id="basicInfo">
-                        <!-- 基本信息 -->
-                    </div>
-                </div>
-                
-                <!-- 付费解锁 -->
-                <div class="paid-section">
-                    <h3>🔒 深度解读（限时特惠）</h3>
-                    <div class="paid-items">
-                        <div class="paid-item">
-                            <span class="icon">�?/span>
-                            <span>十神详细分析</span>
-                        </div>
-                        <div class="paid-item">
-                            <span class="icon">�?/span>
-                            <span>神煞详解�?0+�?/span>
-                        </div>
-                        <div class="paid-item">
-                            <span class="icon">📈</span>
-                            <span>大运流年�?0年）</span>
-                        </div>
-                        <div class="paid-item">
-                            <span class="icon">💰</span>
-                            <span>财富/事业/健康</span>
-                        </div>
-                    </div>
-                    <div class="price-box">
-                        <span class="original-price">原价99�?/span>
-                        <span class="current-price">限时9.9�?/span>
-                    </div>
-                    <button class="btn-unlock" onclick="showPayment('basic')">
-                        💎 解锁完整命理分析
-                    </button>
-                    <p class="unlock-note">含专属水晶推�?+ PDF报告</p>
-                </div>
+        </div>
 
-                <!-- 分享区域 -->
-                <div class="share-section">
-                    <h4>📤 分享好友</h4>
-                    <button class="btn-share wechat" onclick="shareToWechat()">微信好友</button>
-                    <button class="btn-share moments" onclick="shareToMoments()">朋友�?/button>
-                    <button class="btn-share qq" onclick="shareToQQ()">QQ</button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 其他模块占位 -->
-        <section id="liuyao" class="section">
-            <div class="module-placeholder">
-                <h2>🔯 六爻占卜</h2>
-                <p>时间起卦 · 数字起卦 · 手动起卦</p>
-                <button class="btn-coming">即将上线</button>
-            </div>
-        </section>
-        
-        <section id="meihua" class="section">
-            <div class="module-placeholder">
-                <h2>🌸 梅花易数</h2>
-                <p>观物取象 · 随心起卦</p>
-                <button class="btn-coming">即将上线</button>
-            </div>
-        </section>
-        
-        <section id="qimen" class="section">
-            <div class="module-placeholder">
-                <h2>🎲 奇门遁甲</h2>
-                <p>九宫排盘 · 趋吉避凶</p>
-                <button class="btn-coming">即将上线</button>
-            </div>
-        </section>
-    </main>
-    
+    </div>
+
     <!-- 底部 -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>关于龙脉</h4>
-                <p>传承千年命理智慧</p>
-                <p>科技+玄学守护人生</p>
-            </div>
-            <div class="footer-section">
-                <h4>联系我们</h4>
-                <p>QQ�?039538204</p>
-                <p>微信公众号：龙脉文化LONGMAICULTURE</p>
-            </div>
-            <div class="footer-section">
-                <h4>友情链接</h4>
-                <a href="#">八字入门</a>
-                <a href="#">风水知识</a>
-            </div>
+    <footer class="footer">
+        <p><strong>🐉 龙脉文化</strong> — 中华传统文化一站式平台</p>
+        <div class="footer-links">
+            <a href="articles.html">文章中心</a>
+            <a href="user_agreement.html">用户协议</a>
+            <a href="privacy_policy.html">隐私政策</a>
+            <a href="disclaimer.html">免责声明</a>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 龙脉文化 longmai888.github.io/longmai-bazi | 传承千年智慧，开启灵动人�?/p>
-        </div>
+        <p>传承千年智慧 · 科技赋能玄学 · 守护灵动人生</p>
+        <p style="margin-top:8px;">联系QQ：1039538204 | 🌐 longmai-bazi.pages.dev</p>
     </footer>
 
-    <!-- 支付弹窗 -->
-    <div id="paymentModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>💎 解锁完整分析</h2>
-            <div class="payment-options">
-                <div class="option" data-tier="basic">
-                    <h3>基础解锁</h3>
-                    <div class="price">9.9�?/div>
-                    <ul>
-                        <li>十神详细分析</li>
-                        <li>神煞详解</li>
-                        <li>大运流年</li>
-                        <li>财富/事业/健康分析</li>
-                    </ul>
-                    <button class="btn-pay">立即支付</button>
-                </div>
-                <div class="option" data-tier="premium">
-                    <h3>深度解锁</h3>
-                    <div class="price">29.9�?/div>
-                    <ul>
-                        <li>包含基础版全�?/li>
-                        <li>紫微六爻奇门</li>
-                        <li>合婚配对</li>
-                        <li>流年月运</li>
-                        <li>PDF报告</li>
-                    </ul>
-                    <button class="btn-pay premium">立即支付</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+    // ===== 初始化 =====
+    // 年份下拉
+    var yearSel = document.getElementById('year');
+    for (var y = 2026; y >= 1926; y--) {
+        var opt = document.createElement('option');
+        opt.value = y; opt.textContent = y + '年';
+        if (y === 1990) opt.selected = true;
+        yearSel.appendChild(opt);
+    }
+    // 日期下拉
+    var daySel = document.getElementById('day');
+    for (var d = 1; d <= 31; d++) {
+        var opt = document.createElement('option');
+        opt.value = d; opt.textContent = d + '日';
+        daySel.appendChild(opt);
+    }
 
-    <script src="script.js"></script>
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>��������</h4>
-            <ul>
-                <li><a href="about.html">Ʒ�ƹ���</a></li>
-                <li><a href="about.html">�Ŷӽ���</a></li>
-                <li><a href="about.html">��ϵ����</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>��������</h4>
-            <ul>
-                <li><a href="user_agreement.html">�û�Э��</a></li>
-                <li><a href="privacy_policy.html">��˽����</a></li>
-                <li><a href="disclaimer.html">��������</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>��ϵ��ʽ</h4>
-            <ul>
-                <li>?? longmai@foxmail.com</li>
-                <li>?? 400-XXX-XXXX</li>
-                <li>?? ����ʡ������������</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
-        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
-        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
-        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
-    </div>
-</footer>
+    // 时辰选择
+    var selectedHour = -1;
+    function selectShichen(el) {
+        document.querySelectorAll('.shichen-btn').forEach(function(b) { b.classList.remove('active'); });
+        el.classList.add('active');
+        selectedHour = parseInt(el.getAttribute('data-hour'));
+    }
+
+    // 性别选择
+    var selectedGender = 'male';
+    function selectGender(el) {
+        document.querySelectorAll('.gender-btn').forEach(function(b) { b.classList.remove('active'); });
+        el.classList.add('active');
+        selectedGender = el.getAttribute('data-gender');
+    }
+
+    // ===== 天干地支数据 =====
+    var tianGan = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+    var diZhi = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    var wuXingTG = ['木','木','火','火','土','土','金','金','水','水'];
+    var wuXingDZ = ['水','土','木','木','土','火','火','土','金','金','土','水'];
+    var naYin = [
+        '海中金','炉中火','大林木','路旁土','剑锋金','山头火',
+        '涧下水','城头土','白蜡金','杨柳木','泉中水','屋上土',
+        '霹雳火','松柏木','长流水','沙中金','山下火','平地木',
+        '壁上土','金箔金','覆灯火','天河水','大驿土','钗钏金',
+        '桑柘木','大溪水','沙中土','天上火','石榴木','大海水'
+    ];
+    var shiChenName = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+
+    // 五行颜色标签
+    function wxTag(wx) {
+        var cls = {'金':'wx-jin','木':'wx-mu','水':'wx-shui','火':'wx-huo','土':'wx-tu'};
+        return '<span class="wuxing-tag ' + (cls[wx]||'') + '">' + wx + '</span>';
+    }
+
+    // ===== 核心排盘算法 =====
+    function calculateBazi() {
+        var year = parseInt(document.getElementById('year').value);
+        var month = parseInt(document.getElementById('month').value);
+        var day = parseInt(document.getElementById('day').value);
+        
+        if (selectedHour < 0) {
+            alert('请选择出生时辰');
+            return;
+        }
+
+        // 年柱
+        var yearTGIdx = (year - 4) % 10;
+        var yearDZIdx = (year - 4) % 12;
+
+        // 月柱（以节气为准的简化算法）
+        var monthDZIdx = (month + 1) % 12; // 寅月=1月(立春后)
+        var monthTGIdx = (yearTGIdx % 5) * 2 + monthDZIdx;
+        monthTGIdx = monthTGIdx % 10;
+
+        // 日柱（蔡勒公式简化版）
+        // 基准：1900年1月1日 = 甲子日（天干0，地支0）
+        var baseDate = new Date(1900, 0, 1);
+        var targetDate = new Date(year, month - 1, day);
+        var diffDays = Math.floor((targetDate - baseDate) / (1000 * 60 * 60 * 24));
+        var dayTGIdx = (diffDays % 10 + 10) % 10;
+        var dayDZIdx = (diffDays % 12 + 12) % 12;
+
+        // 时柱
+        var hourDZIdx = Math.floor((selectedHour + 1) / 2) % 12;
+        var hourTGIdx = (dayTGIdx % 5) * 2 + hourDZIdx;
+        hourTGIdx = hourTGIdx % 10;
+
+        // 纳音
+        var nyYear = naYin[Math.floor(((yearTGIdx % 10) * 12 + yearDZIdx) / 2) % 30];
+        var nyMonth = naYin[Math.floor(((monthTGIdx % 10) * 12 + monthDZIdx) / 2) % 30];
+        var nyDay = naYin[Math.floor(((dayTGIdx % 10) * 12 + dayDZIdx) / 2) % 30];
+        var nyHour = naYin[Math.floor(((hourTGIdx % 10) * 12 + hourDZIdx) / 2) % 30];
+
+        // 填充结果
+        document.getElementById('tg-year').textContent = tianGan[yearTGIdx];
+        document.getElementById('tg-month').textContent = tianGan[monthTGIdx];
+        document.getElementById('tg-day').textContent = tianGan[dayTGIdx];
+        document.getElementById('tg-hour').textContent = tianGan[hourTGIdx];
+
+        document.getElementById('dz-year').textContent = diZhi[yearDZIdx];
+        document.getElementById('dz-month').textContent = diZhi[monthDZIdx];
+        document.getElementById('dz-day').textContent = diZhi[dayDZIdx];
+        document.getElementById('dz-hour').textContent = diZhi[hourDZIdx];
+
+        // 五行
+        var wxY = wuXingTG[yearTGIdx] + ' ' + wuXingDZ[yearDZIdx];
+        var wxM = wuXingTG[monthTGIdx] + ' ' + wuXingDZ[monthDZIdx];
+        var wxD = wuXingTG[dayTGIdx] + ' ' + wuXingDZ[dayDZIdx];
+        var wxH = wuXingTG[hourTGIdx] + ' ' + wuXingDZ[hourDZIdx];
+        document.getElementById('wx-year').innerHTML = wxTag(wuXingTG[yearTGIdx]) + wxTag(wuXingDZ[yearDZIdx]);
+        document.getElementById('wx-month').innerHTML = wxTag(wuXingTG[monthTGIdx]) + wxTag(wuXingDZ[monthDZIdx]);
+        document.getElementById('wx-day').innerHTML = wxTag(wuXingTG[dayTGIdx]) + wxTag(wuXingDZ[dayDZIdx]);
+        document.getElementById('wx-hour').innerHTML = wxTag(wuXingTG[hourTGIdx]) + wxTag(wuXingDZ[hourDZIdx]);
+
+        // 纳音
+        document.getElementById('ny-year').textContent = nyYear;
+        document.getElementById('ny-month').textContent = nyMonth;
+        document.getElementById('ny-day').textContent = nyDay;
+        document.getElementById('ny-hour').textContent = nyHour;
+
+        // 出生信息
+        var genderText = selectedGender === 'male' ? '男' : '女';
+        var scName = shiChenName[hourDZIdx];
+        document.getElementById('result-info').textContent = year + '年' + month + '月' + day + '日 ' + scName + '时 ' + genderText + '命';
+
+        // 五行统计
+        var wxCount = {'金':0,'木':0,'水':0,'火':0,'土':0};
+        [yearTGIdx, monthTGIdx, dayTGIdx, hourTGIdx].forEach(function(i) { wxCount[wuXingTG[i]]++; });
+        [yearDZIdx, monthDZIdx, dayDZIdx, hourDZIdx].forEach(function(i) { wxCount[wuXingDZ[i]]++; });
+        
+        var wxText = '金' + wxCount['金'] + '个 · 木' + wxCount['木'] + '个 · 水' + wxCount['水'] + '个 · 火' + wxCount['火'] + '个 · 土' + wxCount['土'] + '个';
+        var missing = [];
+        for (var wx in wxCount) { if (wxCount[wx] === 0) missing.push(wx); }
+        if (missing.length > 0) {
+            wxText += '。五行缺' + missing.join('、') + '，建议通过佩戴水晶、调整风水等方式补充。';
+        } else {
+            wxText += '。五行俱全，命局平衡。';
+        }
+        document.getElementById('wuxing-analysis').textContent = wxText;
+
+        // 日主分析
+        var dayMaster = tianGan[dayTGIdx];
+        var dayWX = wuXingTG[dayTGIdx];
+        var dmDesc = {
+            '甲': '甲木为参天大树，性格正直、有担当、有领导力。适合管理、教育、法律等行业。',
+            '乙': '乙木为花草藤蔓，性格柔韧、善于适应、有艺术天赋。适合文艺、设计、咨询等行业。',
+            '丙': '丙火为太阳之火，性格热情、开朗、有感染力。适合演艺、销售、公关等行业。',
+            '丁': '丁火为灯烛之火，性格温和、细腻、有洞察力。适合研究、写作、心理咨询等行业。',
+            '戊': '戊土为高山大地，性格稳重、诚信、有包容力。适合房地产、农业、金融等行业。',
+            '己': '己土为田园之土，性格温厚、务实、善于理财。适合财务、餐饮、服务等行业。',
+            '庚': '庚金为刀剑之金，性格刚毅、果断、有魄力。适合军警、外科、金融等行业。',
+            '辛': '辛金为珠宝之金，性格精致、敏锐、有品味。适合珠宝、美容、科技等行业。',
+            '壬': '壬水为江河大海，性格智慧、灵活、有远见。适合贸易、物流、IT等行业。',
+            '癸': '癸水为雨露之水，性格聪慧、内敛、有直觉力。适合学术、医疗、玄学等行业。'
+        };
+        document.getElementById('rizhu-analysis').textContent = '日主为' + dayMaster + '（' + dayWX + '），' + (dmDesc[dayMaster] || '');
+
+        // 简要解读
+        var briefTexts = [
+            '此命格整体运势平稳，中年后渐入佳境。建议把握机遇，稳中求进。',
+            '命中带有贵人相助之象，事业发展有望得到他人提携。注意维护人际关系。',
+            '财运方面有正财格局，适合稳扎稳打，不宜投机冒险。理财意识强。',
+            '感情方面桃花运尚可，注意把握正缘，避免烂桃花干扰。',
+            '健康方面需注意脾胃和肝胆，保持规律作息和适当运动。'
+        ];
+        document.getElementById('brief-analysis').textContent = briefTexts.join('');
+
+        // 显示结果
+        document.getElementById('result-card').classList.add('show');
+        document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ===== 今日运势 =====
+    (function() {
+        var now = new Date();
+        var y = now.getFullYear(), m = now.getMonth() + 1, d = now.getDate();
+        var baseDate = new Date(1900, 0, 1);
+        var diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
+        var tgIdx = (diffDays % 10 + 10) % 10;
+        var dzIdx = (diffDays % 12 + 12) % 12;
+        
+        document.getElementById('fortune-date').textContent = y + '年' + m + '月' + d + '日 · ' + tianGan[tgIdx] + diZhi[dzIdx] + '日';
+        
+        var stars = ['⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐'];
+        document.getElementById('fortune-star').textContent = '综合运势：' + stars[diffDays % 5];
+        
+        var fortunes = [
+            '今日宜静不宜动，适合思考规划，不宜做重大决定。',
+            '今日贵人运旺，适合社交、谈判、签约。把握机会！',
+            '今日财运亨通，适合理财投资。但切忌贪心，见好就收。',
+            '今日桃花运佳，单身者有望遇到心仪对象。已有伴侣者注意沟通。',
+            '今日学习运强，适合考试、学习新技能、阅读充电。'
+        ];
+        document.getElementById('fortune-text').textContent = fortunes[diffDays % 5];
+    })();
+    </script>
+
 </body>
 </html>
