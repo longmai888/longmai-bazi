@@ -592,6 +592,13 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td style="font-weight:bold;color:#e74c3c;font-size:0.85rem;">十神</td>
+                        <td id="ss-year" style="color:#e74c3c;font-size:0.9rem;"></td>
+                        <td id="ss-month" style="color:#e74c3c;font-size:0.9rem;"></td>
+                        <td id="ss-day" style="color:#e74c3c;font-size:0.9rem;"></td>
+                        <td id="ss-hour" style="color:#e74c3c;font-size:0.9rem;"></td>
+                    </tr>
+                    <tr>
                         <td style="font-weight:bold;color:#764ba2;">天干</td>
                         <td><span class="tiangan" id="tg-year"></span></td>
                         <td><span class="tiangan" id="tg-month"></span></td>
@@ -604,6 +611,13 @@
                         <td><span class="dizhi" id="dz-month"></span></td>
                         <td><span class="dizhi" id="dz-day"></span></td>
                         <td><span class="dizhi" id="dz-hour"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold;color:#555;font-size:0.8rem;">藏干</td>
+                        <td id="cg-year" style="font-size:0.75rem;color:#555;"></td>
+                        <td id="cg-month" style="font-size:0.75rem;color:#555;"></td>
+                        <td id="cg-day" style="font-size:0.75rem;color:#555;"></td>
+                        <td id="cg-hour" style="font-size:0.75rem;color:#555;"></td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold;color:#27ae60;">五行</td>
@@ -619,8 +633,21 @@
                         <td id="ny-day"></td>
                         <td id="ny-hour"></td>
                     </tr>
+                    <tr>
+                        <td style="font-weight:bold;color:#8e44ad;font-size:0.85rem;">长生</td>
+                        <td id="cs-year" style="font-size:0.85rem;color:#8e44ad;"></td>
+                        <td id="cs-month" style="font-size:0.85rem;color:#8e44ad;"></td>
+                        <td id="cs-day" style="font-size:0.85rem;color:#8e44ad;"></td>
+                        <td id="cs-hour" style="font-size:0.85rem;color:#8e44ad;"></td>
+                    </tr>
                 </tbody>
             </table>
+
+            <!-- 大运 -->
+            <div class="analysis-box" style="background:#f0e6ff;">
+                <h4>🔄 大运排盘</h4>
+                <div id="dayun-content" style="display:flex;gap:8px;overflow-x:auto;padding:10px 0;flex-wrap:wrap;justify-content:center;"></div>
+            </div>
 
             <div class="analysis-box">
                 <h4>🎯 五行分析</h4>
@@ -794,7 +821,107 @@
             }
         }
 
-        // 五行统计
+        // ===== 十神计算 =====
+        var shiShenName = ['比肩','劫财','食神','伤官','偏财','正财','七杀','正官','偏印','正印'];
+        // 十神：以日干为基准，其他天干与日干的关系
+        function getShiShen(dayTG, otherTG) {
+            var diff = (otherTG - dayTG + 10) % 10;
+            return shiShenName[diff];
+        }
+        // 地支藏干
+        var dzCangGan = {
+            '子':['癸'], '丑':['己','癸','辛'], '寅':['甲','丙','戊'], '卯':['乙'],
+            '辰':['戊','乙','癸'], '巳':['丙','庚','戊'], '午':['丁','己'], '未':['己','丁','乙'],
+            '申':['庚','壬','戊'], '酉':['辛'], '戌':['戊','辛','丁'], '亥':['壬','甲']
+        };
+        // 十二长生
+        var changShengOrder = ['长生','沐浴','冠带','临官','帝旺','衰','病','死','墓','绝','胎','养'];
+        var changShengStart = {'甲':11,'乙':6,'丙':2,'丁':9,'戊':2,'己':9,'庚':5,'辛':0,'壬':8,'癸':3};
+
+        function getChangSheng(dayTGChar, dzIdx) {
+            var start = changShengStart[dayTGChar];
+            var idx = (dzIdx - start + 12) % 12;
+            return changShengOrder[idx];
+        }
+
+        // 计算十神
+        var ssYear = getShiShen(dayTGIdx, yearTGIdx);
+        var ssMonth = getShiShen(dayTGIdx, monthTGIdx);
+        var ssDay = '日主';
+        var ssHour = getShiShen(dayTGIdx, hourTGIdx);
+
+        // 藏干
+        var cgYear = dzCangGan[diZhi[yearDZIdx]] || [];
+        var cgMonth = dzCangGan[diZhi[monthDZIdx]] || [];
+        var cgDay = dzCangGan[diZhi[dayDZIdx]] || [];
+        var cgHour = dzCangGan[diZhi[hourDZIdx]] || [];
+
+        function formatCangGan(cg, dayTGI) {
+            return cg.map(function(g) {
+                var gIdx = tianGan.indexOf(g);
+                var ss = getShiShen(dayTGI, gIdx);
+                return g + '(' + ss + ')';
+            }).join(' ');
+        }
+
+        // 十二长生
+        var csYear = getChangSheng(tianGan[dayTGIdx], yearDZIdx);
+        var csMonth = getChangSheng(tianGan[dayTGIdx], monthDZIdx);
+        var csDay = getChangSheng(tianGan[dayTGIdx], dayDZIdx);
+        var csHour = getChangSheng(tianGan[dayTGIdx], hourDZIdx);
+
+        // ===== 大运计算 =====
+        var isYangNianNan = (yearTGIdx % 2 === 0 && selectedGender === 'male');
+        var isYinNianNv = (yearTGIdx % 2 === 1 && selectedGender === 'female');
+        var daYunShun = isYangNianNan || isYinNianNv; // 顺排
+
+        var daYunList = [];
+        var dyTGStart = monthTGIdx;
+        var dyDZStart = monthDZIdx;
+        for (var du = 0; du < 8; du++) {
+            var step = daYunShun ? (du + 1) : -(du + 1);
+            var duTG = ((dyTGStart + step) % 10 + 10) % 10;
+            var duDZ = ((dyDZStart + step) % 12 + 12) % 12;
+            var duAge = 1 + (du + 1) * 10; // 简化起运年龄
+            var duCS = getChangSheng(tianGan[dayTGIdx], duDZ);
+            daYunList.push({
+                ganZhi: tianGan[duTG] + diZhi[duDZ],
+                shiShen: getShiShen(dayTGIdx, duTG),
+                age: (du * 10 + 3) + '-' + (du * 10 + 12),
+                changSheng: duCS
+            });
+        }
+
+        // ===== 填充专业结果 =====
+        // 十神行
+        document.getElementById('ss-year').textContent = ssYear;
+        document.getElementById('ss-month').textContent = ssMonth;
+        document.getElementById('ss-day').textContent = ssDay;
+        document.getElementById('ss-hour').textContent = ssHour;
+
+        // 藏干行
+        document.getElementById('cg-year').innerHTML = formatCangGan(cgYear, dayTGIdx);
+        document.getElementById('cg-month').innerHTML = formatCangGan(cgMonth, dayTGIdx);
+        document.getElementById('cg-day').innerHTML = formatCangGan(cgDay, dayTGIdx);
+        document.getElementById('cg-hour').innerHTML = formatCangGan(cgHour, dayTGIdx);
+
+        // 十二长生行
+        document.getElementById('cs-year').textContent = csYear;
+        document.getElementById('cs-month').textContent = csMonth;
+        document.getElementById('cs-day').textContent = csDay;
+        document.getElementById('cs-hour').textContent = csHour;
+
+        // 大运表
+        var dyHtml = '';
+        daYunList.forEach(function(d) {
+            dyHtml += '<div style="text-align:center;min-width:70px;">';
+            dyHtml += '<div style="font-size:0.75rem;color:#888;">' + d.shiShen + '</div>';
+            dyHtml += '<div style="font-size:1.1rem;font-weight:bold;color:#764ba2;">' + d.ganZhi + '</div>';
+            dyHtml += '<div style="font-size:0.75rem;color:#27ae60;">' + d.changSheng + '</div>';
+            dyHtml += '<div style="font-size:0.7rem;color:#888;">' + d.age + '岁</div>';
+            dyHtml += '</div>';
+        });
+        document.getElementById('dayun-content').innerHTML = dyHtml;
         var wxCount = {'金':0,'木':0,'水':0,'火':0,'土':0};
         [yearTGIdx, monthTGIdx, dayTGIdx, hourTGIdx].forEach(function(i) { wxCount[wuXingTG[i]]++; });
         [yearDZIdx, monthDZIdx, dayDZIdx, hourDZIdx].forEach(function(i) { wxCount[wuXingDZ[i]]++; });
