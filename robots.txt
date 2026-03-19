@@ -1,0 +1,13 @@
+# 龙脉文化 - robots.txt
+# 允许所有搜索引擎抓取
+
+User-agent: *
+Allow: /
+
+# 禁止抓取管理后台
+Disallow: /admin_dashboard.html
+Disallow: /master_dashboard.html
+Disallow: /image_manager.html
+
+# 站点地图
+Sitemap: https://longmai-bazi.pages.dev/sitemap.xml
