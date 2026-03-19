@@ -643,6 +643,24 @@
                 </tbody>
             </table>
 
+            <!-- 神煞 -->
+            <div class="analysis-box" style="background:#fff5f5;">
+                <h4>⭐ 命带神煞</h4>
+                <div id="shensha-content" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+            </div>
+
+            <!-- 小运 -->
+            <div class="analysis-box" style="background:#f5fff5;">
+                <h4>👶 小运（0-11岁）</h4>
+                <div id="xiaoyun-content" style="display:flex;gap:8px;overflow-x:auto;padding:10px 0;flex-wrap:wrap;justify-content:center;"></div>
+            </div>
+
+            <!-- 流年 -->
+            <div class="analysis-box" style="background:#fff9f0;">
+                <h4>📅 流年运势（前后2年）</h4>
+                <div id="liunian-content" style="display:flex;gap:8px;overflow-x:auto;padding:10px 0;flex-wrap:wrap;justify-content:center;"></div>
+            </div>
+
             <!-- 大运 -->
             <div class="analysis-box" style="background:#f0e6ff;">
                 <h4>🔄 大运排盘</h4>
@@ -870,6 +888,129 @@
         var csDay = getChangSheng(tianGan[dayTGIdx], dayDZIdx);
         var csHour = getChangSheng(tianGan[dayTGIdx], hourDZIdx);
 
+        // ===== 神煞计算 =====
+        function getShenSha(dayTGIdx, dayDZIdx, yearDZIdx) {
+            var shenShaList = [];
+            var dayTG = tianGan[dayTGIdx];
+            var dayDZ = diZhi[dayDZIdx];
+            
+            // 天乙贵人（以日干查）
+            var tianYiGuiRen = {
+                '甲': '丑未', '乙': '子申', '丙': '亥酉', '丁': '亥酉', '戊': '丑未',
+                '己': '子申', '庚': '丑未', '辛': '寅午', '壬': '卯巳', '癸': '卯巳'
+            };
+            if (tianYiGuiRen[dayTG]) {
+                shenShaList.push({name: '天乙贵人', desc: '逢凶化吉，贵人相助', icon: '👑'});
+            }
+            
+            // 文昌贵人（以日干查）
+            var wenChang = {'甲': '巳', '乙': '午', '丙': '申', '丁': '酉', '戊': '申',
+                           '己': '酉', '庚': '亥', '辛': '子', '壬': '寅', '癸': '卯'};
+            if (wenChang[dayTG]) {
+                shenShaList.push({name: '文昌贵人', desc: '聪明好学，文采出众', icon: '📚'});
+            }
+            
+            // 驿马星（以日支查）
+            var yiMa = {'申': '寅', '子': '寅', '辰': '寅', '寅': '申', '午': '申', '戌': '申',
+                       '亥': '巳', '卯': '巳', '未': '巳', '巳': '亥', '酉': '亥', '丑': '亥'};
+            if (yiMa[dayDZ]) {
+                shenShaList.push({name: '驿马星', desc: '好动奔波，适合远行', icon: '🐎'});
+            }
+            
+            // 桃花星（以日支查）
+            var taoHua = {'申': '酉', '子': '酉', '辰': '酉', '寅': '卯', '午': '卯', '戌': '卯',
+                         '亥': '子', '卯': '子', '未': '子', '巳': '午', '酉': '午', '丑': '午'};
+            if (taoHua[dayDZ]) {
+                shenShaList.push({name: '桃花星', desc: '人缘好，异性缘佳', icon: '🌸'});
+            }
+            
+            // 将星（以日支查）
+            var jiangXing = {'申': '子', '子': '子', '辰': '子', '寅': '午', '午': '午', '戌': '午',
+                            '亥': '卯', '卯': '卯', '未': '卯', '巳': '酉', '酉': '酉', '丑': '酉'};
+            if (jiangXing[dayDZ]) {
+                shenShaList.push({name: '将星', desc: '有领导才能，权威', icon: '⭐'});
+            }
+            
+            // 华盖（以日支查）
+            var huaGai = {'申': '辰', '子': '辰', '辰': '辰', '寅': '戌', '午': '戌', '戌': '戌',
+                         '亥': '未', '卯': '未', '未': '未', '巳': '丑', '酉': '丑', '丑': '丑'};
+            if (huaGai[dayDZ]) {
+                shenShaList.push({name: '华盖', desc: '聪明孤独，喜玄学', icon: '☂️'});
+            }
+            
+            // 羊刃（以日干查）
+            var yangRen = {'甲': '卯', '乙': '寅', '丙': '午', '丁': '巳', '戊': '午',
+                          '己': '巳', '庚': '酉', '辛': '申', '壬': '子', '癸': '亥'};
+            if (yangRen[dayTG]) {
+                shenShaList.push({name: '羊刃', desc: '性格刚强，易冲动', icon: '⚔️'});
+            }
+            
+            // 空亡（以日柱查）
+            var kongWang = {
+                '甲子': '戌亥', '甲戌': '申酉', '甲申': '午未', '甲午': '辰巳', '甲辰': '寅卯', '甲寅': '子丑',
+                '乙丑': '戌亥', '乙亥': '申酉', '乙酉': '午未', '乙未': '辰巳', '乙巳': '寅卯', '乙卯': '子丑'
+            };
+            var dayGZ = dayTG + dayDZ;
+            if (kongWang[dayGZ]) {
+                shenShaList.push({name: '空亡', desc: '做事易成空，宜宗教', icon: '⭕'});
+            }
+            
+            return shenShaList;
+        }
+
+        var shenShaList = getShenSha(dayTGIdx, dayDZIdx, yearDZIdx);
+
+        // ===== 小运计算 =====
+        function getXiaoYun(dayTGIdx, dayDZIdx, selectedGender, yearTGIdx) {
+            var xiaoYunList = [];
+            var isYangNianNan = (yearTGIdx % 2 === 0 && selectedGender === 'male');
+            var isYinNianNv = (yearTGIdx % 2 === 1 && selectedGender === 'female');
+            var xiaoYunShun = isYangNianNan || isYinNianNv;
+            
+            var startTG = dayTGIdx;
+            var startDZ = dayDZIdx;
+            
+            for (var i = 0; i < 12; i++) {
+                var step = xiaoYunShun ? i : -i;
+                var xyTG = ((startTG + step) % 10 + 10) % 10;
+                var xyDZ = ((startDZ + step) % 12 + 12) % 12;
+                var age = i; // 0-11岁
+                xiaoYunList.push({
+                    ganZhi: tianGan[xyTG] + diZhi[xyDZ],
+                    shiShen: getShiShen(dayTGIdx, xyTG),
+                    age: age + '岁'
+                });
+            }
+            return xiaoYunList;
+        }
+
+        var xiaoYunList = getXiaoYun(dayTGIdx, dayDZIdx, selectedGender, yearTGIdx);
+
+        // ===== 流年计算（当年及前后各2年） =====
+        function getLiuNian(dayTGIdx, currentYear) {
+            var liuNianList = [];
+            var startYear = currentYear - 2;
+            
+            for (var i = 0; i < 5; i++) {
+                var year = startYear + i;
+                var yearGZ = getYearGanZhi(year);
+                var yearTG = tianGan.indexOf(yearGZ[0]);
+                var yearDZ = diZhi.indexOf(yearGZ[1]);
+                
+                liuNianList.push({
+                    year: year,
+                    ganZhi: yearGZ,
+                    shiShen: getShiShen(dayTGIdx, yearTG),
+                    shengXiao: shengXiao[yearDZ],
+                    isCurrent: year === currentYear
+                });
+            }
+            return liuNianList;
+        }
+
+        var currentYear = new Date().getFullYear();
+        var liuNianList = getLiuNian(dayTGIdx, currentYear);
+
         // ===== 大运计算 =====
         var isYangNianNan = (yearTGIdx % 2 === 0 && selectedGender === 'male');
         var isYinNianNv = (yearTGIdx % 2 === 1 && selectedGender === 'female');
@@ -922,6 +1063,41 @@
             dyHtml += '</div>';
         });
         document.getElementById('dayun-content').innerHTML = dyHtml;
+
+        // 神煞显示
+        var ssHtml = '';
+        shenShaList.forEach(function(s) {
+            ssHtml += '<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:8px 12px;border-radius:20px;font-size:0.85rem;display:flex;align-items:center;gap:5px;">';
+            ssHtml += '<span>' + s.icon + '</span>';
+            ssHtml += '<span><b>' + s.name + '</b></span>';
+            ssHtml += '</div>';
+        });
+        document.getElementById('shensha-content').innerHTML = ssHtml || '<span style="color:#888;">暂无特殊神煞</span>';
+
+        // 小运显示
+        var xyHtml = '';
+        xiaoYunList.forEach(function(x) {
+            xyHtml += '<div style="text-align:center;min-width:60px;padding:8px;background:white;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);">';
+            xyHtml += '<div style="font-size:0.7rem;color:#888;">' + x.shiShen + '</div>';
+            xyHtml += '<div style="font-size:1rem;font-weight:bold;color:#27ae60;">' + x.ganZhi + '</div>';
+            xyHtml += '<div style="font-size:0.7rem;color:#888;">' + x.age + '</div>';
+            xyHtml += '</div>';
+        });
+        document.getElementById('xiaoyun-content').innerHTML = xyHtml;
+
+        // 流年显示
+        var lnHtml = '';
+        liuNianList.forEach(function(l) {
+            var bgStyle = l.isCurrent ? 'background:linear-gradient(135deg,#FFD700,#FFA500);color:white;' : 'background:white;';
+            lnHtml += '<div style="text-align:center;min-width:70px;padding:10px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);' + bgStyle + '">';
+            lnHtml += '<div style="font-size:0.75rem;">' + l.year + '</div>';
+            lnHtml += '<div style="font-size:0.85rem;">' + l.shengXiao + '</div>';
+            lnHtml += '<div style="font-size:1rem;font-weight:bold;">' + l.ganZhi + '</div>';
+            lnHtml += '<div style="font-size:0.7rem;">' + l.shiShen + '</div>';
+            if (l.isCurrent) lnHtml += '<div style="font-size:0.65rem;margin-top:2px;">📍今年</div>';
+            lnHtml += '</div>';
+        });
+        document.getElementById('liunian-content').innerHTML = lnHtml;
         var wxCount = {'金':0,'木':0,'水':0,'火':0,'土':0};
         [yearTGIdx, monthTGIdx, dayTGIdx, hourTGIdx].forEach(function(i) { wxCount[wuXingTG[i]]++; });
         [yearDZIdx, monthDZIdx, dayDZIdx, hourDZIdx].forEach(function(i) { wxCount[wuXingDZ[i]]++; });
