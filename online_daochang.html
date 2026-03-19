@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线道场 - 龙脉文化 | 供香祈福 诵经修行</title>
+    <meta name="description" content="龙脉文化在线道场，提供在线供香、供灯、祈福、诵经打卡、功德记录等服务。足不出户，即可虔诚礼佛，积累功德，净化心灵。">
+    <meta name="keywords" content="在线道场,供香,供灯,祈福,诵经打卡,功德记录,佛教,修行,龙脉文化">
+    <meta name="author" content="龙脉文化">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/online_daochang.html">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* 导航 */
+        .nav {
+            background: rgba(0,0,0,0.3);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-decoration: none;
+        }
+        .nav a {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Hero区域 */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, rgba(255,215,0,0.1) 0%, transparent 100%);
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+        }
+
+        /* 功能标签页 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 25px;
+            color: #FFD700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        .tab:hover, .tab.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a2e;
+            border-color: #FFD700;
+        }
+
+        /* 内容区域 */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 卡片 */
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 供香区域 */
+        .incense-area {
+            text-align: center;
+            padding: 30px;
+        }
+        .incense-display {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: burn 3s ease-in-out infinite;
+        }
+        @keyframes burn {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        .incense-smoke {
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .blessing-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            font-size: 1rem;
+            margin: 15px 0;
+        }
+        .blessing-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a2e;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+        }
+
+        /* 供灯区域 */
+        .lamp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .lamp-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .lamp-item:hover, .lamp-item.selected {
+            border-color: #FFD700;
+            background: rgba(255,215,0,0.1);
+        }
+        .lamp-item .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .lamp-item .name {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        .lamp-item .desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 5px;
+        }
+
+        /* 诵经打卡 */
+        .sutra-list {
+            display: grid;
+            gap: 12px;
+        }
+        .sutra-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .sutra-item:hover {
+            background: rgba(255,215,0,0.1);
+        }
+        .sutra-item.completed {
+            background: rgba(39,174,96,0.2);
+            border: 1px solid rgba(39,174,96,0.3);
+        }
+        .sutra-info h4 {
+            color: #FFD700;
+            margin-bottom: 3px;
+        }
+        .sutra-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .sutra-count {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .count-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,215,0,0.3);
+            background: transparent;
+            color: #FFD700;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .count-display {
+            font-size: 1.2rem;
+            color: #FFD700;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* 功德记录 */
+        .merit-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .merit-stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,215,0,0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        .merit-stat .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        .merit-stat .label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+        }
+        .merit-log {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .log-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .log-item:last-child {
+            border-bottom: none;
+        }
+        .log-time {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .log-action {
+            color: #FFD700;
+        }
+        .log-merit {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* 祈福墙 */
+        .prayer-wall {
+            display: grid;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .prayer-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #FFD700;
+        }
+        .prayer-content {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .prayer-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* 底部 */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .lamp-grid { grid-template-columns: repeat(2, 1fr); }
+            .merit-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">
+            <span>🐉</span>
+            <span>龙脉文化</span>
+        </a>
+        <a href="buddha_dao.html">佛道文化</a>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>🏛️ 在线道场</h1>
+        <p>虔诚礼佛 · 积累功德 · 净化心灵</p>
+    </div>
+
+    <!-- 功能标签 -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('incense')">🙏 在线供香</div>
+        <div class="tab" onclick="switchTab('lamp')">🕯️ 供灯祈福</div>
+        <div class="tab" onclick="switchTab('sutra')">📿 诵经打卡</div>
+        <div class="tab" onclick="switchTab('merit')">✨ 功德记录</div>
+        <div class="tab" onclick="switchTab('prayer')">💫 祈福墙</div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="content">
+        <!-- 在线供香 -->
+        <div id="incense" class="tab-content active">
+            <div class="card">
+                <div class="card-title">🙏 虔诚供香</div>
+                <div class="incense-area">
+                    <div class="incense-smoke">💨</div>
+                    <div class="incense-display">🕯️</div>
+                    <div class="incense-smoke">💨</div>
+                    <p style="color:rgba(255,255,255,0.7);margin:15px 0;">
+                        一炷清香，三分诚意<br>
+                        心诚则灵，福泽绵长
+                    </p>
+                    <input type="text" class="blessing-input" id="incense-wish" placeholder="请输入您的祈愿（如：愿家人平安健康）">
+                    <button class="btn-primary" onclick="offerIncense()">🙏 上香祈福</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">📊 今日供香统计</div>
+                <div class="merit-stats">
+                    <div class="merit-stat">
+                        <div class="number" id="today-incense">0</div>
+                        <div class="label">今日上香</div>
+                    </div>
+                    <div class="merit-stat">
+                        <div class="number" id="total-incense">0</div>
+                        <div class="label">累计上香</div>
+                    </div>
+                    <div class="merit-stat">
+                        <div class="number" id="online-users">1</div>
+                        <div class="label">在线善信</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 供灯祈福 -->
+        <div id="lamp" class="tab-content">
+            <div class="card">
+                <div class="card-title">🕯️ 点亮心灯</div>
+                <p style="color:rgba(255,255,255,0.7);margin-bottom:15px;">
+                    选择您想供奉的明灯，为家人朋友祈福
+                </p>
+                <div class="lamp-grid">
+                    <div class="lamp-item" onclick="selectLamp(this, '平安灯')">
+                        <div class="icon">🕯️</div>
+                        <div class="name">平安灯</div>
+                        <div class="desc">祈求平安顺遂</div>
+                    </div>
+                    <div class="lamp-item" onclick="selectLamp(this, '健康灯')">
+                        <div class="icon">💡</div>
+                        <div class="name">健康灯</div>
+                        <div class="desc">祈求身体健康</div>
+                    </div>
+                    <div class="lamp-item" onclick="selectLamp(this, '事业灯')">
+                        <div class="icon">🏮</div>
+                        <div class="name">事业灯</div>
+                        <div class="desc">祈求事业顺利</div>
+                    </div>
+                    <div class="lamp-item" onclick="selectLamp(this, '姻缘灯')">
+                        <div class="icon">💝</div>
+                        <div class="name">姻缘灯</div>
+                        <div class="desc">祈求姻缘美满</div>
+                    </div>
+                    <div class="lamp-item" onclick="selectLamp(this, '财运灯')">
+                        <div class="icon">💰</div>
+                        <div class="name">财运灯</div>
+                        <div class="desc">祈求财源广进</div>
+                    </div>
+                    <div class="lamp-item" onclick="selectLamp(this, '智慧灯')">
+                        <div class="icon">📖</div>
+                        <div class="name">智慧灯</div>
+                        <div class="desc">祈求智慧增长</div>
+                    </div>
+                </div>
+                <input type="text" class="blessing-input" id="lamp-wish" placeholder="请输入供灯祈愿">
+                <button class="btn-primary" onclick="offerLamp()">🕯️ 点亮明灯</button>
+            </div>
+        </div>
+
+        <!-- 诵经打卡 -->
+        <div id="sutra" class="tab-content">
+            <div class="card">
+                <div class="card-title">📿 每日诵经</div>
+                <p style="color:rgba(255,255,255,0.7);margin-bottom:15px;">
+                    坚持诵经，净化心灵，积累功德
+                </p>
+                <div class="sutra-list">
+                    <div class="sutra-item" id="sutra-1">
+                        <div class="sutra-info">
+                            <h4>📖 心经</h4>
+                            <p>般若波罗蜜多心经 · 260字</p>
+                        </div>
+                        <div class="sutra-count">
+                            <button class="count-btn" onclick="changeCount('sutra-1', -1)">-</button>
+                            <span class="count-display" id="count-sutra-1">0</span>
+                            <button class="count-btn" onclick="changeCount('sutra-1', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="sutra-item" id="sutra-2">
+                        <div class="sutra-info">
+                            <h4>🙏 大悲咒</h4>
+                            <p>千手千眼观世音菩萨广大圆满无碍大悲心陀罗尼</p>
+                        </div>
+                        <div class="sutra-count">
+                            <button class="count-btn" onclick="changeCount('sutra-2', -1)">-</button>
+                            <span class="count-display" id="count-sutra-2">0</span>
+                            <button class="count-btn" onclick="changeCount('sutra-2', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="sutra-item" id="sutra-3">
+                        <div class="sutra-info">
+                            <h4>⭐ 金刚经</h4>
+                            <p>能断金刚般若波罗蜜多经</p>
+                        </div>
+                        <div class="sutra-count">
+                            <button class="count-btn" onclick="changeCount('sutra-3', -1)">-</button>
+                            <span class="count-display" id="count-sutra-3">0</span>
+                            <button class="count-btn" onclick="changeCount('sutra-3', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="sutra-item" id="sutra-4">
+                        <div class="sutra-info">
+                            <h4>🌸 阿弥陀经</h4>
+                            <p>佛说阿弥陀经</p>
+                        </div>
+                        <div class="sutra-count">
+                            <button class="count-btn" onclick="changeCount('sutra-4', -1)">-</button>
+                            <span class="count-display" id="count-sutra-4">0</span>
+                            <button class="count-btn" onclick="changeCount('sutra-4', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="sutra-item" id="sutra-5">
+                        <div class="sutra-info">
+                            <h4>☸️ 地藏经</h4>
+                            <p>地藏菩萨本愿经</p>
+                        </div>
+                        <div class="sutra-count">
+                            <button class="count-btn" onclick="changeCount('sutra-5', -1)">-</button>
+                            <span class="count-display" id="count-sutra-5">0</span>
+                            <button class="count-btn" onclick="changeCount('sutra-5', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-primary" style="margin-top:20px;" onclick="submitSutra()">✅ 提交今日诵经</button>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">📅 诵经日历</div>
+                <div id="sutra-calendar" style="text-align:center;padding:20px;">
+                    <p style="color:rgba(255,255,255,0.5);">本月已诵经 <span id="month-days" style="color:#FFD700;font-size:1.5rem;">0</span> 天</p>
+                    <p style="color:rgba(255,255,255,0.5);margin-top:10px;">连续打卡 <span id="streak-days" style="color:#27ae60;font-size:1.5rem;">0</span> 天</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 功德记录 -->
+        <div id="merit" class="tab-content">
+            <div class="card">
+                <div class="card-title">✨ 我的功德</div>
+                <div class="merit-stats">
+                    <div class="merit-stat">
+                        <div class="number" id="total-merit">0</div>
+                        <div class="label">总功德值</div>
+                    </div>
+                    <div class="merit-stat">
+                        <div class="number" id="today-merit">0</div>
+                        <div class="label">今日功德</div>
+                    </div>
+                    <div class="merit-stat">
+                        <div class="number" id="merit-rank">-</div>
+                        <div class="label">功德排名</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">📜 功德记录</div>
+                <div class="merit-log" id="merit-log">
+                    <p style="color:rgba(255,255,255,0.5);text-align:center;">暂无记录，开始修行吧</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 祈福墙 -->
+        <div id="prayer" class="tab-content">
+            <div class="card">
+                <div class="card-title">💫 祈福墙</div>
+                <p style="color:rgba(255,255,255,0.7);margin-bottom:15px;">
+                    写下您的心愿，与众善信共同祈福
+                </p>
+                <input type="text" class="blessing-input" id="prayer-input" placeholder="写下您的心愿...">
+                <button class="btn-primary" onclick="addPrayer()">💫 发布祈福</button>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">🙏 善信祈愿</div>
+                <div class="prayer-wall" id="prayer-wall">
+                    <div class="prayer-item">
+                        <div class="prayer-content">愿家人平安健康，事业顺利</div>
+                        <div class="prayer-meta">
+                            <span>善信 · 刚刚</span>
+                            <span>❤️ 12</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item">
+                        <div class="prayer-content">祈求孩子学业进步，金榜题名</div>
+                        <div class="prayer-meta">
+                            <span>善信 · 5分钟前</span>
+                            <span>❤️ 8</span>
+                        </div>
+                    </div>
+                    <div class="prayer-item">
+                        <div class="prayer-content">愿父母身体健康，长命百岁</div>
+                        <div class="prayer-meta">
+                            <span>善信 · 10分钟前</span>
+                            <span>❤️ 15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        <p>🙏 心诚则灵 · 功德无量 🙏</p>
+        <p style="font-size:0.85rem;">龙脉文化在线道场</p>
+    </div>
+
+    <script>
+        // 标签切换
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // 本地存储数据
+        var daochangData = JSON.parse(localStorage.getItem('daochangData') || '{}');
+        if (!daochangData.incense) daochangData.incense = { today: 0, total: 0 };
+        if (!daochangData.merit) daochangData.merit = { total: 0, today: 0, log: [] };
+        if (!daochangData.sutra) daochangData.sutra = {};
+        if (!daochangData.prayers) daochangData.prayers = [];
+
+        // 供香
+        function offerIncense() {
+            var wish = document.getElementById('incense-wish').value;
+            if (!wish) {
+                alert('请输入您的祈愿');
+                return;
+            }
+            daochangData.incense.today++;
+            daochangData.incense.total++;
+            daochangData.merit.total += 10;
+            daochangData.merit.today += 10;
+            daochangData.merit.log.unshift({
+                time: new Date().toLocaleString(),
+                action: '上香祈福：' + wish,
+                merit: '+10'
+            });
+            saveData();
+            updateDisplay();
+            alert('🙏 上香成功！功德+10');
+            document.getElementById('incense-wish').value = '';
+        }
+
+        // 供灯
+        var selectedLamp = '';
+        function selectLamp(el, name) {
+            document.querySelectorAll('.lamp-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedLamp = name;
+        }
+        function offerLamp() {
+            var wish = document.getElementById('lamp-wish').value;
+            if (!selectedLamp) {
+                alert('请选择要供奉的明灯');
+                return;
+            }
+            daochangData.merit.total += 20;
+            daochangData.merit.today += 20;
+            daochangData.merit.log.unshift({
+                time: new Date().toLocaleString(),
+                action: '供奉' + selectedLamp + '：' + wish,
+                merit: '+20'
+            });
+            saveData();
+            updateDisplay();
+            alert('🕯️ 供灯成功！功德+20');
+            document.getElementById('lamp-wish').value = '';
+            document.querySelectorAll('.lamp-item').forEach(i => i.classList.remove('selected'));
+            selectedLamp = '';
+        }
+
+        // 诵经计数
+        function changeCount(id, delta) {
+            var countEl = document.getElementById('count-' + id);
+            var count = parseInt(countEl.textContent) + delta;
+            if (count < 0) count = 0;
+            countEl.textContent = count;
+            if (count > 0) {
+                document.getElementById(id).classList.add('completed');
+            } else {
+                document.getElementById(id).classList.remove('completed');
+            }
+        }
+        function submitSutra() {
+            var total = 0;
+            for (var i = 1; i <= 5; i++) {
+                var count = parseInt(document.getElementById('count-sutra-' + i).textContent);
+                total += count;
+            }
+            if (total === 0) {
+                alert('请先选择诵经数量');
+                return;
+            }
+            var merit = total * 5;
+            daochangData.merit.total += merit;
+            daochangData.merit.today += merit;
+            daochangData.merit.log.unshift({
+                time: new Date().toLocaleString(),
+                action: '诵经' + total + '部',
+                merit: '+' + merit
+            });
+            saveData();
+            updateDisplay();
+            alert('📿 诵经打卡成功！功德+' + merit);
+            // 重置计数
+            for (var i = 1; i <= 5; i++) {
+                document.getElementById('count-sutra-' + i).textContent = '0';
+                document.getElementById('sutra-' + i).classList.remove('completed');
+            }
+        }
+
+        // 添加祈福
+        function addPrayer() {
+            var content = document.getElementById('prayer-input').value;
+            if (!content) {
+                alert('请输入您的心愿');
+                return;
+            }
+            var prayer = {
+                content: content,
+                time: '刚刚',
+                likes: 0
+            };
+            daochangData.prayers.unshift(prayer);
+            saveData();
+            renderPrayers();
+            document.getElementById('prayer-input').value = '';
+            alert('💫 祈福发布成功！');
+        }
+
+        // 渲染祈福墙
+        function renderPrayers() {
+            var html = '';
+            daochangData.prayers.forEach(function(p) {
+                html += '<div class="prayer-item">';
+                html += '<div class="prayer-content">' + p.content + '</div>';
+                html += '<div class="prayer-meta">';
+                html += '<span>善信 · ' + p.time + '</span>';
+                html += '<span>❤️ ' + p.likes + '</span>';
+                html += '</div></div>';
+            });
+            // 添加默认示例
+            if (daochangData.prayers.length === 0) {
+                html += '<div class="prayer-item"><div class="prayer-content">愿家人平安健康，事业顺利</div><div class="prayer-meta"><span>善信 · 刚刚</span><span>❤️ 12</span></div></div>';
+                html += '<div class="prayer-item"><div class="prayer-content">祈求孩子学业进步，金榜题名</div><div class="prayer-meta"><span>善信 · 5分钟前</span><span>❤️ 8</span></div></div>';
+                html += '<div class="prayer-item"><div class="prayer-content">愿父母身体健康，长命百岁</div><div class="prayer-meta"><span>善信 · 10分钟前</span><span>❤️ 15</span></div></div>';
+            }
+            document.getElementById('prayer-wall').innerHTML = html;
+        }
+
+        // 保存数据
+        function saveData() {
+            localStorage.setItem('daochangData', JSON.stringify(daochangData));
+        }
+
+        // 更新显示
+        function updateDisplay() {
+            document.getElementById('today-incense').textContent = daochangData.incense.today;
+            document.getElementById('total-incense').textContent = daochangData.incense.total;
+            document.getElementById('total-merit').textContent = daochangData.merit.total;
+            document.getElementById('today-merit').textContent = daochangData.merit.today;
+            
+            // 功德记录
+            var logHtml = '';
+            if (daochangData.merit.log.length === 0) {
+                logHtml = '<p style="color:rgba(255,255,255,0.5);text-align:center;">暂无记录，开始修行吧</p>';
+            } else {
+                daochangData.merit.log.slice(0, 20).forEach(function(l) {
+                    logHtml += '<div class="log-item">';
+                    logHtml += '<div><div class="log-action">' + l.action + '</div><div class="log-time">' + l.time + '</div></div>';
+                    logHtml += '<div class="log-merit">' + l.merit + '</div>';
+                    logHtml += '</div>';
+                });
+            }
+            document.getElementById('merit-log').innerHTML = logHtml;
+        }
+
+        // 初始化
+        updateDisplay();
+        renderPrayers();
+    </script>
+</body>
+</html>
