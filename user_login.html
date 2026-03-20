@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录 - 龙脉文化网上祭祀平台</title>
+    <meta name="description" content="登录龙脉文化网上祭祀平台，创建纪念馆，进行在线祭祀，管理个人账号。">
+    <meta name="keywords" content="登录,注册,网上祭祀,龙脉文化,用户中心">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/user_login.html">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .login-header .logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .login-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .login-tab.active {
+            background: white;
+            color: #764ba2;
+            font-weight: bold;
+            border-bottom: 2px solid #764ba2;
+        }
+        
+        .login-form {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #764ba2;
+            outline: none;
+        }
+        
+        .form-group input::placeholder {
+            color: #999;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .forgot-password {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            color: #999;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-btn:hover {
+            border-color: #764ba2;
+            transform: translateY(-3px);
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .login-footer a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        /* 注册表单特殊样式 */
+        .register-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .verify-code {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .verify-code input {
+            flex: 1;
+        }
+        
+        .btn-verify {
+            padding: 15px 20px;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .btn-verify:hover {
+            background: #e0e0e0;
+        }
+        
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .agreement input {
+            margin-top: 3px;
+        }
+        
+        .agreement a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .login-container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .register-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- 头部 -->
+        <div class="login-header">
+            <div class="logo">🐉</div>
+            <h1>龙脉文化</h1>
+            <p>传承孝道文化，让思念跨越时空</p>
+        </div>
+        
+        <!-- 切换标签 -->
+        <div class="login-tabs">
+            <button class="login-tab active" onclick="switchTab('login')">登录</button>
+            <button class="login-tab" onclick="switchTab('register')">注册</button>
+        </div>
+        
+        <!-- 登录表单 -->
+        <form class="login-form" id="login-form">
+            <div class="form-group">
+                <label>手机号/邮箱</label>
+                <input type="text" id="login-account" placeholder="请输入手机号或邮箱">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码">
+            </div>
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <span>记住我</span>
+                </label>
+                <a href="#" class="forgot-password" onclick="forgotPassword()">忘记密码？</a>
+            </div>
+            <button type="button" class="btn-login" onclick="doLogin()">登 录</button>
+            
+            <div class="divider">
+                <span>其他登录方式</span>
+            </div>
+            
+            <div class="social-login">
+                <button type="button" class="social-btn" onclick="socialLogin('wechat')" title="微信登录">💬</button>
+                <button type="button" class="social-btn" onclick="socialLogin('qq')" title="QQ登录">🐧</button>
+                <button type="button" class="social-btn" onclick="socialLogin('weibo')" title="微博登录">👁️</button>
+            </div>
+        </form>
+        
+        <!-- 注册表单 -->
+        <form class="login-form register-form" id="register-form" style="display: none;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" id="reg-name" placeholder="真实姓名">
+                </div>
+                <div class="form-group">
+                    <label>性别</label>
+                    <input type="text" id="reg-gender" placeholder="男/女">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>手机号</label>
+                <input type="tel" id="reg-phone" placeholder="请输入手机号">
+            </div>
+            <div class="form-group">
+                <label>验证码</label>
+                <div class="verify-code">
+                    <input type="text" id="reg-code" placeholder="请输入验证码">
+                    <button type="button" class="btn-verify" onclick="sendCode()">获取验证码</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>设置密码</label>
+                <input type="password" id="reg-password" placeholder="6-20位字母数字组合">
+            </div>
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="reg-confirm" placeholder="请再次输入密码">
+            </div>
+            <div class="agreement">
+                <input type="checkbox" id="agree">
+                <span>我已阅读并同意<a href="terms.html" target="_blank">《用户协议》</a>和<a href="privacy.html" target="_blank">《隐私政策》</a></span>
+            </div>
+            <button type="button" class="btn-login" onclick="doRegister()">注 册</button>
+        </form>
+        
+        <!-- 底部 -->
+        <div class="login-footer">
+            <p>还没有账号？<a href="#" onclick="switchTab('register')">立即注册</a></p>
+        </div>
+    </div>
+
+    <script>
+        // 切换标签
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.login-tab');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (type === 'login') {
+                tabs[0].classList.add('active');
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                tabs[1].classList.add('active');
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+        
+        // 登录
+        function doLogin() {
+            const account = document.getElementById('login-account').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!account || !password) {
+                alert('请填写账号和密码');
+                return;
+            }
+            
+            // 模拟登录成功
+            localStorage.setItem('userInfo', JSON.stringify({
+                name: '张三',
+                phone: account,
+                isLogin: true
+            }));
+            
+            alert('登录成功！');
+            window.location.href = 'user_center.html';
+        }
+        
+        // 注册
+        function doRegister() {
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            const code = document.getElementById('reg-code').value;
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            const agree = document.getElementById('agree').checked;
+            
+            if (!name || !phone || !code || !password) {
+                alert('请填写完整信息');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('两次密码输入不一致');
+                return;
+            }
+            
+            if (!agree) {
+                alert('请同意用户协议和隐私政策');
+                return;
+            }
+            
+            alert('注册成功！请登录');
+            switchTab('login');
+        }
+        
+        // 发送验证码
+        function sendCode() {
+            const phone = document.getElementById('reg-phone').value;
+            if (!phone) {
+                alert('请先输入手机号');
+                return;
+            }
+            alert('验证码已发送：123456');
+        }
+        
+        // 忘记密码
+        function forgotPassword() {
+            alert('找回密码功能：\n\n1. 输入手机号\n2. 获取验证码\n3. 设置新密码');
+        }
+        
+        // 第三方登录
+        function socialLogin(type) {
+            const names = {
+                wechat: '微信',
+                qq: 'QQ',
+                weibo: '微博'
+            };
+            alert(`正在唤起${names[type]}登录...`);
+        }
+        
+        // 检查是否已登录
+        window.onload = function() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                if (user.isLogin) {
+                    // 已登录，跳转到个人中心
+                    // window.location.href = 'user_center.html';
+                }
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 龙脉文化网上祭祀平台</title>
+    <meta name="description" content="龙脉文化个人中心，管理您的纪念馆、查看祭祀记录、编辑个人资料。">
+    <meta name="keywords" content="个人中心,纪念馆管理,祭祀记录,龙脉文化">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/user_center.html">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* 导航栏 */
+        .nav {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        /* 用户信息区 */
+        .user-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .user-info {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+        
+        .user-details h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .user-details p {
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .user-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 快捷操作 */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .action-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .action-card h3 {
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+        
+        .action-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 内容区块 */
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #764ba2;
+        }
+        
+        .btn-more {
+            color: #764ba2;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        /* 我的纪念馆 */
+        .memorial-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .memorial-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .memorial-card:hover {
+            border-color: #764ba2;
+            transform: translateY(-3px);
+        }
+        
+        .memorial-cover {
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .memorial-info {
+            padding: 20px;
+        }
+        
+        .memorial-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .memorial-date {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .memorial-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .memorial-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn-small {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-small:hover {
+            background: #f0f0f0;
+        }
+        
+        .btn-small.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+        
+        .btn-small.primary:hover {
+            opacity: 0.9;
+        }
+        
+        /* 创建纪念馆按钮 */
+        .create-card {
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+        
+        .create-card:hover {
+            border-color: #764ba2;
+            background: #f8f4ff;
+        }
+        
+        .create-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .create-card h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        
+        .create-card p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* 祭祀记录 */
+        .record-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .record-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .record-icon {
+            font-size: 1.5rem;
+        }
+        
+        .record-info {
+            flex: 1;
+        }
+        
+        .record-memorial {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .record-action {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .record-time {
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        /* 设置菜单 */
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        
+        .settings-item:hover {
+            background: #f8f9fa;
+            margin: 0 -30px;
+            padding: 20px 30px;
+        }
+        
+        .settings-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .settings-icon {
+            font-size: 1.5rem;
+        }
+        
+        .settings-title {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .settings-desc {
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        .settings-arrow {
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-stats {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">
+            <span>🐉</span> 龙脉文化
+        </a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="jisi_platform.html">网上祭祀</a>
+            <a href="bazi_professional.html">专业八字</a>
+            <a href="articles.html">文章</a>
+        </div>
+        <div class="nav-user">
+            <span>张三</span>
+            <div class="nav-avatar">👤</div>
+        </div>
+    </nav>
+
+    <!-- 用户信息区 -->
+    <header class="user-header">
+        <div class="user-info">
+            <div class="user-avatar">👤</div>
+            <div class="user-details">
+                <h1>张三</h1>
+                <p>📱 138****8888</p>
+                <p>📧 zhangsan@example.com</p>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">我的纪念馆</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">128</div>
+                        <div class="stat-label">祭祀次数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">56</div>
+                        <div class="stat-label">留言</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2026-03-20</div>
+                        <div class="stat-label">注册时间</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 快捷操作 -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="createMemorial()">
+                <div class="action-icon">🏛️</div>
+                <h3>创建纪念馆</h3>
+                <p>为逝去的亲人创建纪念馆</p>
+            </div>
+            <div class="action-card" onclick="onlineWorship()">
+                <div class="action-icon">🌸</div>
+                <h3>在线祭祀</h3>
+                <p>虚拟献花点烛，表达思念</p>
+            </div>
+            <div class="action-card" onclick="daikeService()">
+                <div class="action-icon">🌼</div>
+                <h3>代客祭扫</h3>
+                <p>预约专业祭扫服务</p>
+            </div>
+            <div class="action-card" onclick="familyTree()">
+                <div class="action-icon">🌳</div>
+                <h3>家族追思</h3>
+                <p>建立家族树，传承家族文化</p>
+            </div>
+        </div>
+
+        <!-- 我的纪念馆 -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">🏛️ 我的纪念馆</h2>
+                <a href="#" class="btn-more">查看全部 →</a>
+            </div>
+            <div class="memorial-list">
+                <div class="memorial-card" onclick="enterMemorial('张公纪念馆')">
+                    <div class="memorial-cover">🕯️</div>
+                    <div class="memorial-info">
+                        <div class="memorial-name">张公纪念馆</div>
+                        <div class="memorial-date">1940-03-15 ~ 2020-08-20</div>
+                        <div class="memorial-stats">
+                            <span>👁️ 3,456</span>
+                            <span>🙏 1,234</span>
+                            <span>💬 567</span>
+                        </div>
+                        <div class="memorial-actions">
+                            <button class="btn-small" onclick="event.stopPropagation();editMemorial('张公纪念馆')">编辑</button>
+                            <button class="btn-small primary" onclick="event.stopPropagation();enterMemorial('张公纪念馆')">进入</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="memorial-card" onclick="enterMemorial('李氏宗祠')">
+                    <div class="memorial-cover">🕯️</div>
+                    <div class="memorial-info">
+                        <div class="memorial-name">李氏宗祠</div>
+                        <div class="memorial-date">家族宗祠</div>
+                        <div class="memorial-stats">
+                            <span>👁️ 892</span>
+                            <span>🙏 423</span>
+                            <span>💬 189</span>
+                        </div>
+                        <div class="memorial-actions">
+                            <button class="btn-small" onclick="event.stopPropagation();editMemorial('李氏宗祠')">编辑</button>
+                            <button class="btn-small primary" onclick="event.stopPropagation();enterMemorial('李氏宗祠')">进入</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-card" onclick="createMemorial()">
+                    <div class="create-icon">➕</div>
+                    <h3>创建新纪念馆</h3>
+                    <p>点击创建新的纪念馆</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最近祭祀记录 -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">📜 最近祭祀记录</h2>
+                <a href="#" class="btn-more">查看全部 →</a>
+            </div>
+            <div class="record-list">
+                <div class="record-item">
+                    <span class="record-icon">🌸</span>
+                    <div class="record-info">
+                        <div class="record-memorial">张公纪念馆</div>
+                        <div class="record-action">献花祭拜</div>
+                    </div>
+                    <span class="record-time">10分钟前</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">🕯️</span>
+                    <div class="record-info">
+                        <div class="record-memorial">李氏宗祠</div>
+                        <div class="record-action">点烛祈福</div>
+                    </div>
+                    <span class="record-time">昨天</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">🙏</span>
+                    <div class="record-info">
+                        <div class="record-memorial">张公纪念馆</div>
+                        <div class="record-action">上香祭拜</div>
+                    </div>
+                    <span class="record-time">3天前</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">💬</span>
+                    <div class="record-info">
+                        <div class="record-memorial">王氏纪念堂</div>
+                        <div class="record-action">留言追思</div>
+                    </div>
+                    <span class="record-time">1周前</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 设置 -->
+        <section class="section">
+            <h2 class="section-title">⚙️ 设置</h2>
+            <div class="settings-list">
+                <div class="settings-item" onclick="editProfile()">
+                    <div class="settings-left">
+                        <span class="settings-icon">👤</span>
+                        <div>
+                            <div class="settings-title">个人资料</div>
+                            <div class="settings-desc">修改头像、昵称、联系方式</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+                <div class="settings-item" onclick="securitySettings()">
+                    <div class="settings-left">
+                        <span class="settings-icon">🔒</span>
+                        <div>
+                            <div class="settings-title">账号安全</div>
+                            <div class="settings-desc">修改密码、绑定手机、实名认证</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+                <div class="settings-item" onclick="notificationSettings()">
+                    <div class="settings-left">
+                        <span class="settings-icon">🔔</span>
+                        <div>
+                            <div class="settings-title">消息通知</div>
+                            <div class="settings-desc">祭祀提醒、留言通知、系统消息</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+                <div class="settings-item" onclick="privacySettings()">
+                    <div class="settings-left">
+                        <span class="settings-icon">🛡️</span>
+                        <div>
+                            <div class="settings-title">隐私设置</div>
+                            <div class="settings-desc">纪念馆可见性、留言审核、黑名单</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+                <div class="settings-item" onclick="helpCenter()">
+                    <div class="settings-left">
+                        <span class="settings-icon">❓</span>
+                        <div>
+                            <div class="settings-title">帮助中心</div>
+                            <div class="settings-desc">使用指南、常见问题、联系客服</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+                <div class="settings-item" onclick="logout()">
+                    <div class="settings-left">
+                        <span class="settings-icon">🚪</span>
+                        <div>
+                            <div class="settings-title">退出登录</div>
+                            <div class="settings-desc">退出当前账号</div>
+                        </div>
+                    </div>
+                    <span class="settings-arrow">›</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 功能函数
+        function createMemorial() {
+            alert('创建纪念馆功能：\n\n1. 填写逝者信息\n2. 上传照片\n3. 选择模板\n4. 设置隐私');
+        }
+        
+        function onlineWorship() {
+            window.location.href = 'jisi_platform.html';
+        }
+        
+        function daikeService() {
+            window.location.href = 'jisi_platform.html#service';
+        }
+        
+        function familyTree() {
+            alert('家族追思功能：\n\n1. 建立家族树\n2. 添加家族成员\n3. 上传家族照片\n4. 记录家族故事');
+        }
+        
+        function enterMemorial(name) {
+            window.location.href = 'memorial_detail.html';
+        }
+        
+        function editMemorial(name) {
+            alert(`编辑 ${name}\n\n可编辑内容：\n• 逝者信息\n• 照片\n• 生平介绍\n• 隐私设置`);
+        }
+        
+        function editProfile() {
+            alert('编辑个人资料：\n\n• 修改头像\n• 修改昵称\n• 修改手机号\n• 修改邮箱');
+        }
+        
+        function securitySettings() {
+            alert('账号安全设置：\n\n• 修改密码\n• 绑定手机\n• 实名认证\n• 登录设备管理');
+        }
+        
+        function notificationSettings() {
+            alert('消息通知设置：\n\n• 祭祀提醒\n• 留言通知\n• 系统消息\n• 邮件通知');
+        }
+        
+        function privacySettings() {
+            alert('隐私设置：\n\n• 纪念馆可见性\n• 留言审核\n• 黑名单管理\n• 数据导出');
+        }
+        
+        function helpCenter() {
+            alert('帮助中心：\n\n• 使用指南\n• 常见问题\n• 联系客服\n• 意见反馈');
+        }
+        
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                localStorage.removeItem('userInfo');
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // 检查登录状态
+        window.onload = function() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                // 未登录，跳转到登录页
+                // window.location.href = 'user_login.html';
+            }
+        };
+    </script>
+</body>
+</html>
