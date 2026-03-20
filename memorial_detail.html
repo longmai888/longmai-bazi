@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张公纪念馆 - 龙脉文化网上祭祀平台</title>
+    <meta name="description" content="张公纪念馆 - 龙脉文化网上祭祀平台。在线缅怀逝者，虚拟献花点烛，留言追思，传承孝道文化。">
+    <meta name="keywords" content="张公纪念馆,网上祭祀,虚拟献花,追思留言,龙脉文化">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/memorial_detail.html">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* 导航栏 */
+        .nav {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        /* 头部区域 */
+        .memorial-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .memorial-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.3);
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .memorial-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .memorial-dates {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .memorial-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 3D墓园区 */
+        .tomb-section {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .tomb-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tomb-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .tomb-tab.active {
+            background: white;
+            color: #764ba2;
+            font-weight: bold;
+            border-bottom: 2px solid #764ba2;
+        }
+        
+        .tomb-content {
+            position: relative;
+            height: 400px;
+        }
+        
+        #canvas-3d {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .tomb-2d {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            height: 100%;
+        }
+        
+        .tomb-2d.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tombstone-2d {
+            font-size: 8rem;
+            margin-bottom: 20px;
+        }
+        
+        /* 祭祀按钮区 */
+        .worship-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .worship-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .worship-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 20px 30px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
+        
+        .worship-btn:hover {
+            border-color: #764ba2;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.2);
+        }
+        
+        .worship-btn .icon {
+            font-size: 2.5rem;
+        }
+        
+        .worship-btn .text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .worship-btn .count {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        /* 生平介绍 */
+        .bio-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .bio-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .bio-content p {
+            margin-bottom: 15px;
+        }
+        
+        /* 留言墙 */
+        .message-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .message-form {
+            margin-bottom: 30px;
+        }
+        
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 15px;
+        }
+        
+        .message-input:focus {
+            border-color: #764ba2;
+            outline: none;
+        }
+        
+        .message-submit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .message-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .message-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            color: #764ba2;
+        }
+        
+        .message-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .message-content {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 祭祀记录 */
+        .record-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .record-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .record-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .record-icon {
+            font-size: 1.5rem;
+        }
+        
+        .record-info {
+            flex: 1;
+        }
+        
+        .record-user {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .record-action {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .record-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        /* 家族成员 */
+        .family-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .family-member {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .family-member:hover {
+            background: #e8e8e8;
+        }
+        
+        .family-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.5rem;
+        }
+        
+        .family-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .family-relation {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* 底部操作栏 */
+        .action-bar {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: sticky;
+            bottom: 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .action-btn.share {
+            background: #f0f0f0;
+            color: #555;
+        }
+        
+        .action-btn.manage {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .memorial-name {
+                font-size: 1.5rem;
+            }
+            
+            .worship-buttons {
+                gap: 10px;
+            }
+            
+            .worship-btn {
+                padding: 15px 20px;
+                min-width: 80px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">
+            <span>🐉</span> 龙脉文化
+        </a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="jisi_platform.html">网上祭祀</a>
+            <a href="bazi_professional.html">专业八字</a>
+            <a href="articles.html">文章</a>
+        </div>
+    </nav>
+
+    <!-- 头部区域 -->
+    <header class="memorial-header">
+        <div class="memorial-avatar">👤</div>
+        <h1 class="memorial-name">张公纪念馆</h1>
+        <p class="memorial-dates">1940年3月15日 - 2020年8月20日</p>
+        <div class="memorial-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="stat-visits">3,456</div>
+                <div class="stat-label">访问量</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-offerings">1,234</div>
+                <div class="stat-label">祭祀次数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-messages">567</div>
+                <div class="stat-label">留言</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 3D墓园区 -->
+        <section class="tomb-section">
+            <div class="tomb-tabs">
+                <button class="tomb-tab active" onclick="switchTab('3d')">3D墓园</button>
+                <button class="tomb-tab" onclick="switchTab('2d')">2D视图</button>
+            </div>
+            <div class="tomb-content">
+                <canvas id="canvas-3d"></canvas>
+                <div class="tomb-2d" id="tomb-2d">
+                    <div class="tombstone-2d">🪦</div>
+                    <p>张公之墓</p>
+                    <p style="color: #666; margin-top: 10px;">1940 - 2020</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 祭祀按钮区 -->
+        <section class="worship-section">
+            <h2 class="section-title">🙏 在线祭祀</h2>
+            <div class="worship-buttons">
+                <button class="worship-btn" onclick="worship('flower')">
+                    <span class="icon">🌸</span>
+                    <span class="text">献花</span>
+                    <span class="count">已有 234 人</span>
+                </button>
+                <button class="worship-btn" onclick="worship('candle')">
+                    <span class="icon">🕯️</span>
+                    <span class="text">点烛</span>
+                    <span class="count">已有 189 人</span>
+                </button>
+                <button class="worship-btn" onclick="worship('incense')">
+                    <span class="icon">🙏</span>
+                    <span class="text">上香</span>
+                    <span class="count">已有 312 人</span>
+                </button>
+                <button class="worship-btn" onclick="worship('wreath')">
+                    <span class="icon">🌼</span>
+                    <span class="text">花圈</span>
+                    <span class="count">已有 56 人</span>
+                </button>
+                <button class="worship-btn" onclick="worship('money')">
+                    <span class="icon">💰</span>
+                    <span class="text">献金</span>
+                    <span class="count">已有 78 人</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 生平介绍 -->
+        <section class="bio-section">
+            <h2 class="section-title">📖 生平介绍</h2>
+            <div class="bio-content">
+                <p>张公，讳某某，生于1940年3月15日，卒于2020年8月20日，享年80岁。</p>
+                <p>张公一生勤劳朴实，为人正直善良。早年从事教育工作，桃李满天下。退休后热心公益事业，积极参与社区活动，深受邻里爱戴。</p>
+                <p>张公育有二子一女，家庭和睦，子孙孝顺。晚年生活幸福，含饴弄孙，享天伦之乐。</p>
+                <p>张公一生光明磊落，乐于助人，其高尚品德将永远铭记在我们心中。</p>
+            </div>
+        </section>
+
+        <!-- 留言墙 -->
+        <section class="message-section">
+            <h2 class="section-title">💬 追思留言</h2>
+            <div class="message-form">
+                <textarea class="message-input" id="message-input" placeholder="写下您的思念与祝福..."></textarea>
+                <button class="message-submit" onclick="submitMessage()">发表留言</button>
+            </div>
+            <div class="message-list" id="message-list">
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-author">张三</span>
+                        <span class="message-time">2026-03-20 10:30</span>
+                    </div>
+                    <div class="message-content">父亲，您离开我们已经六年了，但您的音容笑貌依然清晰如昨。愿您在天堂安好，我们会照顾好母亲，请您放心。</div>
+                </div>
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-author">李四</span>
+                        <span class="message-time">2026-03-19 15:20</span>
+                    </div>
+                    <div class="message-content">张叔叔，感谢您当年的教诲，您的智慧一直指引着我前行。清明将至，特来祭拜。</div>
+                </div>
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-author">王五</span>
+                        <span class="message-time">2026-03-18 09:15</span>
+                    </div>
+                    <div class="message-content">老张，咱们相识五十载，你的离去让我悲痛万分。愿来世再做兄弟！</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 祭祀记录 -->
+        <section class="record-section">
+            <h2 class="section-title">📜 祭祀记录</h2>
+            <div class="record-list">
+                <div class="record-item">
+                    <span class="record-icon">🌸</span>
+                    <div class="record-info">
+                        <div class="record-user">张三</div>
+                        <div class="record-action">献花祭拜</div>
+                    </div>
+                    <span class="record-time">10分钟前</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">🕯️</span>
+                    <div class="record-info">
+                        <div class="record-user">李四</div>
+                        <div class="record-action">点烛祈福</div>
+                    </div>
+                    <span class="record-time">1小时前</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">🙏</span>
+                    <div class="record-info">
+                        <div class="record-user">王五</div>
+                        <div class="record-action">上香祭拜</div>
+                    </div>
+                    <span class="record-time">3小时前</span>
+                </div>
+                <div class="record-item">
+                    <span class="record-icon">💬</span>
+                    <div class="record-info">
+                        <div class="record-user">赵六</div>
+                        <div class="record-action">留言追思</div>
+                    </div>
+                    <span class="record-time">昨天</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 家族成员 -->
+        <section class="family-section">
+            <h2 class="section-title">👨‍👩‍👧‍👦 家族成员</h2>
+            <div class="family-grid">
+                <div class="family-member">
+                    <div class="family-avatar">👵</div>
+                    <div class="family-name">张母</div>
+                    <div class="family-relation">配偶</div>
+                </div>
+                <div class="family-member">
+                    <div class="family-avatar">👨</div>
+                    <div class="family-name">张强</div>
+                    <div class="family-relation">长子</div>
+                </div>
+                <div class="family-member">
+                    <div class="family-avatar">👩</div>
+                    <div class="family-name">张丽</div>
+                    <div class="family-relation">长女</div>
+                </div>
+                <div class="family-member">
+                    <div class="family-avatar">👨</div>
+                    <div class="family-name">张军</div>
+                    <div class="family-relation">次子</div>
+                </div>
+                <div class="family-member">
+                    <div class="family-avatar">👶</div>
+                    <div class="family-name">张小明</div>
+                    <div class="family-relation">孙子</div>
+                </div>
+                <div class="family-member">
+                    <div class="family-avatar">👶</div>
+                    <div class="family-name">张小红</div>
+                    <div class="family-relation">孙女</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+        <button class="action-btn share" onclick="shareMemorial()">
+            <span>📤</span> 分享纪念馆
+        </button>
+        <button class="action-btn manage" onclick="manageMemorial()">
+            <span>⚙️</span> 管理纪念馆
+        </button>
+    </div>
+
+    <script>
+        // 切换3D/2D视图
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.tomb-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const canvas3d = document.getElementById('canvas-3d');
+            const tomb2d = document.getElementById('tomb-2d');
+            
+            if (type === '3d') {
+                canvas3d.style.display = 'block';
+                tomb2d.classList.remove('active');
+            } else {
+                canvas3d.style.display = 'none';
+                tomb2d.classList.add('active');
+            }
+        }
+        
+        // 祭祀功能
+        function worship(type) {
+            const names = {
+                flower: '献花',
+                candle: '点烛',
+                incense: '上香',
+                wreath: '花圈',
+                money: '献金'
+            };
+            alert(`已${names[type]}成功！\n\n您的祭祀已记录，感谢您对逝者的缅怀。`);
+        }
+        
+        // 提交留言
+        function submitMessage() {
+            const input = document.getElementById('message-input');
+            const content = input.value.trim();
+            
+            if (!content) {
+                alert('请输入留言内容');
+                return;
+            }
+            
+            const list = document.getElementById('message-list');
+            const newMessage = document.createElement('div');
+            newMessage.className = 'message-item';
+            newMessage.innerHTML = `
+                <div class="message-header">
+                    <span class="message-author">访客</span>
+                    <span class="message-time">刚刚</span>
+                </div>
+                <div class="message-content">${content}</div>
+            `;
+            list.insertBefore(newMessage, list.firstChild);
+            input.value = '';
+            alert('留言发表成功！');
+        }
+        
+        // 分享
+        function shareMemorial() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: '张公纪念馆 - 龙脉文化',
+                    text: '诚邀您来祭拜张公，表达哀思',
+                    url: url
+                });
+            } else {
+                alert('分享链接已复制：\n' + url);
+            }
+        }
+        
+        // 管理
+        function manageMemorial() {
+            alert('管理功能：\n\n• 编辑逝者信息\n• 上传照片\n• 管理留言\n• 查看统计\n• 设置隐私');
+        }
+        
+        // 简化的3D场景
+        function init3D() {
+            const canvas = document.getElementById('canvas-3d');
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87CEEB);
+            
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            camera.position.set(0, 5, 10);
+            
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            
+            // 光照
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(5, 10, 5);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0x404040));
+            
+            // 地面
+            const groundGeometry = new THREE.PlaneGeometry(20, 20);
+            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x3d5c3d });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            scene.add(ground);
+            
+            // 墓碑
+            const stoneGeometry = new THREE.BoxGeometry(1.5, 2, 0.5);
+            const stoneMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
+            const stone = new THREE.Mesh(stoneGeometry, stoneMaterial);
+            stone.position.y = 1;
+            scene.add(stone);
+            
+            // 动画
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+        
+        // 初始化
+        window.onload = function() {
+            init3D();
+        };
+    </script>
+</body>
+</html>
