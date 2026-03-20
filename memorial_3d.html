@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D虚拟墓园 - 龙脉文化 | 沉浸式网上祭祀</title>
+    <meta name="description" content="龙脉文化3D虚拟墓园，使用WebGL技术打造沉浸式网上祭祀体验。虚拟献花、点烛、上香，360度查看墓园，让思念更真实。">
+    <meta name="keywords" content="3D虚拟墓园,网上祭祀,虚拟献花,WebGL墓园,云祭扫,龙脉文化">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/memorial_3d.html">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #1a1a2e;
+            color: white;
+            overflow: hidden;
+        }
+        
+        /* 导航栏 */
+        .nav {
+            background: rgba(0,0,0,0.8);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+        
+        /* 3D画布容器 */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* 控制面板 */
+        .control-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 20px 30px;
+            border-radius: 15px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 90%;
+        }
+        
+        .control-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .control-btn.active {
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+        }
+        
+        /* 信息面板 */
+        .info-panel {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 15px;
+            width: 280px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-panel h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .info-panel p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .info-panel .name {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .info-panel .dates {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 操作提示 */
+        .tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            z-index: 200;
+            display: none;
+        }
+        
+        /* 加载界面 */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            color: #ccc;
+            font-size: 1rem;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .info-panel {
+                width: calc(100% - 40px);
+                top: 70px;
+            }
+            
+            .control-panel {
+                bottom: 10px;
+                padding: 15px;
+            }
+            
+            .control-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载界面 -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在加载3D虚拟墓园...</div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">
+            <span>🐉</span> 龙脉文化
+        </a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="jisi_platform.html">网上祭祀</a>
+            <a href="bazi_professional.html">专业八字</a>
+            <a href="articles.html">文章</a>
+        </div>
+    </nav>
+
+    <!-- 3D画布 -->
+    <div id="canvas-container"></div>
+
+    <!-- 信息面板 -->
+    <div class="info-panel">
+        <div class="name">张公纪念馆</div>
+        <div class="dates">1940年 - 2020年</div>
+        <p>🙏 点击墓碑可进行祭拜</p>
+        <p>🌸 点击下方按钮献花点烛</p>
+        <p>🖱️ 拖拽旋转视角，滚轮缩放</p>
+    </div>
+
+    <!-- 控制面板 -->
+    <div class="control-panel">
+        <button class="control-btn" onclick="addFlower()">
+            <span>🌸</span> 献花
+        </button>
+        <button class="control-btn" onclick="addCandle()">
+            <span>🕯️</span> 点烛
+        </button>
+        <button class="control-btn" onclick="addIncense()">
+            <span>🙏</span> 上香
+        </button>
+        <button class="control-btn" onclick="addWreath()">
+            <span>🌼</span> 花圈
+        </button>
+        <button class="control-btn" onclick="clearOfferings()">
+            <span>🔄</span> 重置
+        </button>
+    </div>
+
+    <!-- 提示框 -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Three.js 场景设置
+        let scene, camera, renderer, controls;
+        let tombstone, offerings = [];
+        let raycaster, mouse;
+        
+        // 初始化
+        function init() {
+            // 场景
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            scene.fog = new THREE.Fog(0x1a1a2e, 10, 50);
+            
+            // 相机
+            camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0, 5, 10);
+            
+            // 渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            // 控制器
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxPolarAngle = Math.PI / 2 - 0.1;
+            controls.minDistance = 5;
+            controls.maxDistance = 20;
+            
+            // 光照
+            setupLighting();
+            
+            // 创建场景元素
+            createGround();
+            createTombstone();
+            createEnvironment();
+            
+            // 射线检测
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            
+            // 事件监听
+            window.addEventListener('resize', onWindowResize);
+            renderer.domElement.addEventListener('click', onMouseClick);
+            renderer.domElement.addEventListener('mousemove', onMouseMove);
+            
+            // 隐藏加载界面
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1500);
+            
+            // 动画循环
+            animate();
+        }
+        
+        // 设置光照
+        function setupLighting() {
+            // 环境光
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+            scene.add(ambientLight);
+            
+            // 月光
+            const moonLight = new THREE.DirectionalLight(0x6666ff, 0.5);
+            moonLight.position.set(10, 20, 10);
+            moonLight.castShadow = true;
+            moonLight.shadow.mapSize.width = 2048;
+            moonLight.shadow.mapSize.height = 2048;
+            scene.add(moonLight);
+            
+            // 墓碑聚光灯
+            const spotLight = new THREE.SpotLight(0xffaa00, 0.8);
+            spotLight.position.set(0, 10, 5);
+            spotLight.target.position.set(0, 0, 0);
+            spotLight.castShadow = true;
+            scene.add(spotLight);
+            scene.add(spotLight.target);
+        }
+        
+        // 创建地面
+        function createGround() {
+            const geometry = new THREE.PlaneGeometry(50, 50);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x2d4a3e,
+                roughness: 0.8,
+                metalness: 0.1
+            });
+            const ground = new THREE.Mesh(geometry, material);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+            
+            // 添加草地纹理（简化版）
+            for (let i = 0; i < 100; i++) {
+                const grassGeometry = new THREE.ConeGeometry(0.05, 0.2, 4);
+                const grassMaterial = new THREE.MeshStandardMaterial({
+                    color: new THREE.Color().setHSL(0.25, 0.5, 0.3 + Math.random() * 0.2)
+                });
+                const grass = new THREE.Mesh(grassGeometry, grassMaterial);
+                grass.position.set(
+                    (Math.random() - 0.5) * 30,
+                    0.1,
+                    (Math.random() - 0.5) * 30
+                );
+                grass.rotation.y = Math.random() * Math.PI;
+                scene.add(grass);
+            }
+        }
+        
+        // 创建墓碑
+        function createTombstone() {
+            const group = new THREE.Group();
+            
+            // 碑座
+            const baseGeometry = new THREE.BoxGeometry(2.2, 0.3, 1.2);
+            const baseMaterial = new THREE.MeshStandardMaterial({
+                color: 0x4a4a4a,
+                roughness: 0.6,
+                metalness: 0.2
+            });
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            base.position.y = 0.15;
+            base.castShadow = true;
+            base.receiveShadow = true;
+            group.add(base);
+            
+            // 碑身
+            const stoneGeometry = new THREE.BoxGeometry(1.8, 2.5, 0.8);
+            const stoneMaterial = new THREE.MeshStandardMaterial({
+                color: 0x5a5a5a,
+                roughness: 0.5,
+                metalness: 0.1
+            });
+            const stone = new THREE.Mesh(stoneGeometry, stoneMaterial);
+            stone.position.y = 1.55;
+            stone.castShadow = true;
+            stone.receiveShadow = true;
+            group.add(stone);
+            
+            // 碑顶
+            const topGeometry = new THREE.ConeGeometry(1.2, 0.5, 4);
+            const topMaterial = new THREE.MeshStandardMaterial({
+                color: 0x5a5a5a,
+                roughness: 0.5
+            });
+            const top = new THREE.Mesh(topGeometry, topMaterial);
+            top.position.y = 3.05;
+            top.rotation.y = Math.PI / 4;
+            top.castShadow = true;
+            group.add(top);
+            
+            // 文字平面（简化版）
+            const textGeometry = new THREE.PlaneGeometry(1.4, 1.8);
+            const textMaterial = new THREE.MeshBasicMaterial({
+                color: 0x222222
+            });
+            const textPlane = new THREE.Mesh(textGeometry, textMaterial);
+            textPlane.position.set(0, 1.6, 0.41);
+            group.add(textPlane);
+            
+            tombstone = group;
+            scene.add(tombstone);
+        }
+        
+        // 创建环境
+        function createEnvironment() {
+            // 树木
+            for (let i = 0; i < 8; i++) {
+                createTree(
+                    (Math.random() - 0.5) * 25,
+                    (Math.random() - 0.5) * 25
+                );
+            }
+            
+            // 石头
+            for (let i = 0; i < 5; i++) {
+                createRock(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+            }
+        }
+        
+        // 创建树
+        function createTree(x, z) {
+            const group = new THREE.Group();
+            
+            // 树干
+            const trunkGeometry = new THREE.CylinderGeometry(0.2, 0.3, 2, 8);
+            const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x4a3728 });
+            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+            trunk.position.y = 1;
+            trunk.castShadow = true;
+            group.add(trunk);
+            
+            // 树冠
+            const leavesGeometry = new THREE.ConeGeometry(1.5, 3, 8);
+            const leavesMaterial = new THREE.MeshStandardMaterial({
+                color: 0x2d5a3e,
+                roughness: 0.8
+            });
+            const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+            leaves.position.y = 3;
+            leaves.castShadow = true;
+            group.add(leaves);
+            
+            group.position.set(x, 0, z);
+            scene.add(group);
+        }
+        
+        // 创建石头
+        function createRock(x, z) {
+            const geometry = new THREE.DodecahedronGeometry(0.3 + Math.random() * 0.3);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x6a6a6a,
+                roughness: 0.9
+            });
+            const rock = new THREE.Mesh(geometry, material);
+            rock.position.set(x, 0.2, z);
+            rock.rotation.set(Math.random(), Math.random(), Math.random());
+            rock.castShadow = true;
+            scene.add(rock);
+        }
+        
+        // 添加鲜花
+        function addFlower() {
+            const group = new THREE.Group();
+            
+            // 花茎
+            const stemGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.5);
+            const stemMaterial = new THREE.MeshStandardMaterial({ color: 0x2d5a3e });
+            const stem = new THREE.Mesh(stemGeometry, stemMaterial);
+            stem.position.y = 0.25;
+            group.add(stem);
+            
+            // 花朵
+            const flowerGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+            const flowerMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffd700,
+                emissive: 0xffaa00,
+                emissiveIntensity: 0.2
+            });
+            const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+            flower.position.y = 0.5;
+            group.add(flower);
+            
+            // 随机位置
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 1.5 + Math.random() * 1;
+            group.position.set(
+                Math.cos(angle) * radius,
+                0,
+                Math.sin(angle) * radius
+            );
+            
+            scene.add(group);
+            offerings.push(group);
+            
+            showTooltip('已献花 🌸');
+        }
+        
+        // 添加蜡烛
+        function addCandle() {
+            const group = new THREE.Group();
+            
+            // 烛台
+            const holderGeometry = new THREE.CylinderGeometry(0.08, 0.1, 0.15);
+            const holderMaterial = new THREE.MeshStandardMaterial({
+                color: 0xc0c0c0,
+                metalness: 0.8,
+                roughness: 0.2
+            });
+            const holder = new THREE.Mesh(holderGeometry, holderMaterial);
+            holder.position.y = 0.075;
+            group.add(holder);
+            
+            // 蜡烛
+            const candleGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.2);
+            const candleMaterial = new THREE.MeshStandardMaterial({ color: 0xfff8dc });
+            const candle = new THREE.Mesh(candleGeometry, candleMaterial);
+            candle.position.y = 0.275;
+            group.add(candle);
+            
+            // 火焰
+            const flameGeometry = new THREE.SphereGeometry(0.04, 8, 8);
+            const flameMaterial = new THREE.MeshBasicMaterial({
+                color: 0xff6600
+            });
+            const flame = new THREE.Mesh(flameGeometry, flameMaterial);
+            flame.position.y = 0.42;
+            group.add(flame);
+            
+            // 火光
+            const light = new THREE.PointLight(0xffaa00, 0.5, 3);
+            light.position.y = 0.5;
+            group.add(light);
+            
+            // 位置
+            group.position.set(-0.8, 0, 1.2);
+            
+            scene.add(group);
+            offerings.push(group);
+            
+            showTooltip('已点烛 🕯️');
+        }
+        
+        // 添加香
+        function addIncense() {
+            const group = new THREE.Group();
+            
+            // 香炉
+            const burnerGeometry = new THREE.CylinderGeometry(0.15, 0.12, 0.2);
+            const burnerMaterial = new THREE.MeshStandardMaterial({
+                color: 0x8b4513,
+                roughness: 0.6
+            });
+            const burner = new THREE.Mesh(burnerGeometry, burnerMaterial);
+            burner.position.y = 0.1;
+            group.add(burner);
+            
+            // 香
+            for (let i = 0; i < 3; i++) {
+                const incenseGeometry = new THREE.CylinderGeometry(0.005, 0.005, 0.4);
+                const incenseMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+                const incense = new THREE.Mesh(incenseGeometry, incenseMaterial);
+                incense.position.set((i - 1) * 0.03, 0.3, 0);
+                incense.rotation.z = (i - 1) * 0.1;
+                group.add(incense);
+                
+                // 香烟
+                const smokeGeometry = new THREE.SphereGeometry(0.02, 6, 6);
+                const smokeMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xaaaaaa,
+                    transparent: true,
+                    opacity: 0.5
+                });
+                const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial);
+                smoke.position.set((i - 1) * 0.03, 0.55, 0);
+                group.add(smoke);
+            }
+            
+            group.position.set(0.8, 0, 1.2);
+            
+            scene.add(group);
+            offerings.push(group);
+            
+            showTooltip('已上香 🙏');
+        }
+        
+        // 添加花圈
+        function addWreath() {
+            const group = new THREE.Group();
+            
+            // 花圈环
+            const ringGeometry = new THREE.TorusGeometry(0.4, 0.08, 8, 20);
+            const ringMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffffff,
+                roughness: 0.5
+            });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.position.y = 0.6;
+            ring.rotation.x = -Math.PI / 2;
+            group.add(ring);
+            
+            // 花朵装饰
+            for (let i = 0; i < 12; i++) {
+                const angle = (i / 12) * Math.PI * 2;
+                const flowerGeometry = new THREE.SphereGeometry(0.06, 6, 6);
+                const flowerMaterial = new THREE.MeshStandardMaterial({
+                    color: i % 2 === 0 ? 0xffd700 : 0xffffff
+                });
+                const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+                flower.position.set(
+                    Math.cos(angle) * 0.4,
+                    0.6,
+                    Math.sin(angle) * 0.4
+                );
+                group.add(flower);
+            }
+            
+            // 支架
+            const standGeometry = new THREE.BoxGeometry(0.05, 0.6, 0.3);
+            const standMaterial = new THREE.MeshStandardMaterial({ color: 0x4a4a4a });
+            const stand = new THREE.Mesh(standGeometry, standMaterial);
+            stand.position.y = 0.3;
+            group.add(stand);
+            
+            group.position.set(0, 0, 2.5);
+            
+            scene.add(group);
+            offerings.push(group);
+            
+            showTooltip('已献花圈 🌼');
+        }
+        
+        // 清除祭品
+        function clearOfferings() {
+            offerings.forEach(offering => {
+                scene.remove(offering);
+            });
+            offerings = [];
+            showTooltip('已重置');
+        }
+        
+        // 显示提示
+        function showTooltip(text) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.textContent = text;
+            tooltip.style.display = 'block';
+            tooltip.style.left = '50%';
+            tooltip.style.top = '50%';
+            tooltip.style.transform = 'translate(-50%, -50%)';
+            
+            setTimeout(() => {
+                tooltip.style.display = 'none';
+            }, 1500);
+        }
+        
+        // 鼠标点击
+        function onMouseClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(tombstone.children);
+            
+            if (intersects.length > 0) {
+                showTooltip('🙏 祭拜祖先，福泽绵长');
+            }
+        }
+        
+        // 鼠标移动
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+        
+        // 窗口调整
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        // 启动
+        init();
+    </script>
+</body>
+</html>
