@@ -1,12 +1,68 @@
 /* ====================================
-   龙脉文化 - 统一手机端适配样式
+   龙脉文化 - 统一手机端适配样式（紫金配色版）
    创建时间：2026年3月17日
+   更新时间：2026年3月21日
    用途：所有页面统一引用，确保手机端完美显示
    ==================================== */
 
-/* 基础响应式设置 */
+/* ========== 手机端底部导航栏 ========== */
+.mobile-nav {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(26, 26, 46, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(243, 156, 18, 0.5);
+        padding: 8px 0;
+        z-index: 1000;
+        justify-content: space-around;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    }
     
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.65rem;
+        gap: 4px;
+        padding: 5px 10px;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    }
+    
+    .mobile-nav-item:hover {
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .mobile-nav-item.active {
+        color: #f5b041;
+        background: rgba(243, 156, 18, 0.1);
+    }
+    
+    .mobile-nav-icon {
+        font-size: 1.4rem;
+        filter: drop-shadow(0 0 5px rgba(243, 156, 18, 0.3));
+    }
+    
+    .mobile-nav-item.active .mobile-nav-icon {
+        filter: drop-shadow(0 0 8px rgba(243, 156, 18, 0.6));
+    }
+    
+    body {
+        padding-bottom: 70px;
+    }
+
     /* 全局设置 */
     body {
         font-size: 14px;

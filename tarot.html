@@ -7,16 +7,51 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d1b4e 50%, #4a148c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #fff;
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #fff;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #fff;
+        }
         .tarot-hero {
-            background: linear-gradient(135deg, #FFB6C1 0%, #9966CC 100%);
+            background: linear-gradient(135deg, #4a148c 0%, #764ba2 50%, #f5b041 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 60px 20px;
             text-align: center;
             margin-bottom: 40px;
+            border-bottom: 2px solid rgba(243, 156, 18, 0.5);
         }
-        .tarot-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .tarot-hero p { font-size: 1.1rem; opacity: 0.9; }
-        .tarot-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        .tarot-hero h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 10px; 
+            background: linear-gradient(135deg, #ffffff 0%, #f5b041 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .tarot-hero p { font-size: 1.1rem; opacity: 0.9; color: rgba(255,255,255,0.85); }
+        .tarot-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px 60px; 
+        }
+        .tarot-content h2 {
+            color: #f5b041;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+        .tarot-content p {
+            color: rgba(255, 255, 255, 0.85);
+        }
         .spread-selector {
             display: flex;
             justify-content: center;
@@ -26,21 +61,25 @@
         }
         .spread-btn {
             padding: 15px 30px;
-            background: white;
-            border: 2px solid #ddd;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(243, 156, 18, 0.5);
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.1rem;
+            color: #f5b041;
         }
         .spread-btn:hover {
-            border-color: #9966CC;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #f5b041;
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.3);
         }
         .spread-btn.active {
-            background: linear-gradient(135deg, #FFB6C1, #9966CC);
+            background: linear-gradient(135deg, #764ba2, #f5b041);
             color: white;
-            border-color: #9966CC;
+            border-color: #f5b041;
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.4);
         }
         .card-deck {
             display: grid;
