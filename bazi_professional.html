@@ -567,7 +567,11 @@
                 break-inside: avoid;
             }
         }
-    </style>
+    
+        .date-switch { display: flex; gap: 10px; margin: 10px 0; }
+        .date-switch button { padding: 8px 16px; background: rgba(118, 75, 162, 0.3); border: 1px solid rgba(243, 156, 18, 0.5); color: #fff; border-radius: 20px; cursor: pointer; }
+        .date-switch button.active { background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%); }
+</style>
 </head>
 <body>
     <nav class="nav">
