@@ -41,7 +41,7 @@
         }
         
         .benefit-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             padding: 30px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
@@ -87,7 +87,7 @@
         .form-container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             padding: 40px;
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-lg);
@@ -211,7 +211,7 @@
         
         .process-section {
             padding: 60px 20px;
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
         }
         
         .process-steps {
@@ -265,7 +265,7 @@
         }
         
         .faq-item {
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             border-radius: var(--radius-md);
             margin-bottom: 15px;
             overflow: hidden;
@@ -320,7 +320,23 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-    </style>
+    
+        .btn-primary {
+            background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
+        }
+</style>
 </head>
 <body>
     <!-- 顶部导航 -->

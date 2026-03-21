@@ -11,14 +11,14 @@
             max-width: 500px;
             margin: 50px auto;
             padding: 40px;
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         .auth-title {
             text-align: center;
             font-size: 2rem;
-            color: #764ba2;
+            color: #f5b041;
             margin-bottom: 30px;
         }
         .form-group {
@@ -28,7 +28,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #555;
+            color: rgba(255, 255, 255, 0.85);
         }
         .form-group input {
             width: 100%;
@@ -38,7 +38,7 @@
             font-size: 1rem;
         }
         .form-group input:focus {
-            border-color: #764ba2;
+            border-color: #f5b041;
             outline: none;
         }
         .login-options {
@@ -49,7 +49,7 @@
             font-size: 0.9rem;
         }
         .login-options a {
-            color: #764ba2;
+            color: #f5b041;
             text-decoration: none;
         }
         .btn-primary {
@@ -97,7 +97,7 @@
             height: 50px;
             border-radius: 50%;
             border: 2px solid #ddd;
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             cursor: pointer;
             font-size: 1.5rem;
             transition: all 0.3s;
@@ -110,7 +110,7 @@
             margin-top: 20px;
         }
         .auth-links a {
-            color: #764ba2;
+            color: #f5b041;
             text-decoration: none;
         }
         .agreement-notice {
@@ -119,11 +119,11 @@
             background: #f5f7fa;
             border-radius: 10px;
             font-size: 0.85rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
         .agreement-notice a {
-            color: #764ba2;
+            color: #f5b041;
             text-decoration: none;
         }
     </style>
@@ -135,18 +135,18 @@
         <form id="loginForm" onsubmit="return handleLogin(event)">
             <div class="form-group">
                 <label>æ‰‹æœºå·ç </label>
-                <input type="tel" id="phone" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç ? maxlength="11" required>
+                <input type="tel" id="phone" placeholder="è¯·è¾“å…¥æ‰‹æœºå·? maxlength="11" required>
             </div>
             
             <div class="form-group">
                 <label>å¯†ç </label>
-                <input type="password" id="password" placeholder="è¯·è¾“å…¥å¯†ç ? required>
+                <input type="password" id="password" placeholder="è¯·è¾“å…¥å¯†? required>
             </div>
             
             <div class="login-options">
                 <label>
-                    <input type="checkbox" id="remember"> è®°ä½æˆ?                </label>
-                <a href="forgot_password.html">å¿˜è®°å¯†ç ï¼?/a>
+                    <input type="checkbox" id="remember"> è®°ä½?                </label>
+                <a href="forgot_password.html">å¿˜è®°å¯†ç ?/a>
             </div>
             
             <button type="submit" class="btn-primary">ç™»å½•</button>
@@ -161,8 +161,8 @@
         </div>
         
         <div class="agreement-notice">
-            ç™»å½•å³è¡¨ç¤ºæ‚¨åŒæ„ <a href="user_agreement.html" target="_blank">ã€Šç”¨æˆ·åè®®ã€?/a>ã€?            <a href="privacy_policy.html" target="_blank">ã€Šéšç§æ”¿ç­–ã€?/a> å’?
-            <a href="disclaimer.html" target="_blank">ã€Šå…è´£å£°æ˜ã€?/a>ã€?            å¦‚æ‚¨æœªæ³¨å†Œï¼Œç™»å½•å°†è‡ªåŠ¨åˆ›å»ºè´¦å·ã€?        </div>
+            ç™»å½•å³è¡¨ç¤ºæ‚¨åŒæ„ <a href="user_agreement.html" target="_blank">ã€Šç”¨æˆ·åè®®?/a>?            <a href="privacy_policy.html" target="_blank">ã€Šéšç§æ”¿ç­–?/a> ?
+            <a href="disclaimer.html" target="_blank">ã€Šå…è´£å£°æ˜?/a>?            å¦‚æ‚¨æœªæ³¨å†Œï¼Œç™»å½•å°†è‡ªåŠ¨åˆ›å»ºè´¦å·?        </div>
         
         <div class="auth-links">
             <p>è¿˜æ²¡æœ‰è´¦å·ï¼Ÿ<a href="register.html">ç«‹å³æ³¨å†Œ</a></p>
@@ -204,10 +204,10 @@
                 loginHistory.push(loginLog);
                 localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
                 
-                alert('ç™»å½•æˆåŠŸï¼?);
+                alert('ç™»å½•æˆåŠŸ?);
                 window.location.href = 'index.html';
             } else {
-                alert('æ‰‹æœºå·æˆ–å¯†ç é”™è¯¯ï¼?);
+                alert('æ‰‹æœºå·æˆ–å¯†ç é”™è¯¯?);
             }
             
             return false;
@@ -235,35 +235,35 @@
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
-            <h4>¹ØÓÚÎÒÃÇ</h4>
+            <h4></h4>
             <ul>
-                <li><a href="about.html">Æ·ÅÆ¹ÊÊÂ</a></li>
-                <li><a href="about.html">ÍÅ¶Ó½éÉÜ</a></li>
-                <li><a href="about.html">ÁªÏµÎÒÃÇ</a></li>
+                <li><a href="about.html">Æ·Æ¹</a></li>
+                <li><a href="about.html">Å¶Ó½</a></li>
+                <li><a href="about.html">Ïµ</a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>·¨ÂÉÉùÃ÷</h4>
+            <h4></h4>
             <ul>
-                <li><a href="user_agreement.html">ÓÃ»§Ğ­Òé</a></li>
-                <li><a href="privacy_policy.html">ÒşË½Õş²ß</a></li>
-                <li><a href="disclaimer.html">ÃâÔğÉùÃ÷</a></li>
+                <li><a href="user_agreement.html">Ã»Ğ­</a></li>
+                <li><a href="privacy_policy.html">Ë½</a></li>
+                <li><a href="disclaimer.html"></a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>ÁªÏµ·½Ê½</h4>
+            <h4>ÏµÊ½</h4>
             <ul>
                 <li>?? longmai@foxmail.com</li>
                 <li>?? 400-XXX-XXXX</li>
-                <li>?? ½­ËÕÊ¡ĞìÖİÊĞĞÂÒÊÊĞ</li>
+                <li>?? Ê¡</li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>?? ±¾ÍøÕ¾ËùÓĞÄÚÈİ½ö¹©ÓéÀÖ²Î¿¼£¬²»¹¹³ÉÈÎºÎĞÎÊ½µÄ½¨Òé»ò³ĞÅµ</p>
-        <p>?? ÃüÀíĞşÑ§ÊôÓÚ´«Í³ÎÄ»¯·¶³ë£¬ÇëÀíĞÔ¿´´ı</p>
-        <p>?? ×îÖÕ½âÊÍÈ¨¹éÁúÂöÎÄ»¯Æ½Ì¨ËùÓĞ</p>
-        <p>? 2026 ÁúÂöÎÄ»¯ °æÈ¨ËùÓĞ | ¾©ICP±¸XXXXXXXXºÅ</p>
+        <p>?? Õ¾İ½Ö²Î¿ÎºÊ½Ä½Åµ</p>
+        <p>?? Ñ§Ú´Í³Ä»ë£¬Ô¿</p>
+        <p>?? Õ½È¨Ä»Æ½Ì¨</p>
+        <p>? 2026 Ä» È¨ | ICPXXXXXXXX</p>
     </div>
 </footer>
 </body>

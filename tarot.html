@@ -100,19 +100,19 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         .tarot-card.revealed {
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             
             border: 2px solid #9966CC;
         }
         .reading-area {
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .reading-area h3 {
-            color: #764ba2;
+            color: #f5b041;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -123,7 +123,7 @@
         }
         .card-position .position-name {
             font-size: 0.9rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             margin-top: 10px;
         }
         .instruction {
@@ -134,18 +134,34 @@
             text-align: center;
         }
         .instruction h3 {
-            color: #764ba2;
+            color: #f5b041;
             margin-bottom: 10px;
         }
         .instruction p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
         }
         @media (max-width: 768px) {
             .tarot-hero h1 { font-size: 2rem; }
             .spread-btn { padding: 12px 20px; font-size: 1rem; }
             .card-deck { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
         }
-    </style>
+    
+        .btn-primary {
+            background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
+        }
+</style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -214,7 +230,7 @@
                 <p>邮箱：longmai@foxmail.com | 电话：400-XXX-XXXX</p>
                 <p>地址：中国</p>
             </div>
-            <p style="margin-top: 20px; color: #666;">&copy; 2026 龙脉文化 版权所有</p>
+            <p style="margin-top: 20px; color: rgba(255, 255, 255, 0.8);">&copy; 2026 龙脉文化 版权所有</p>
         </div>
     </footer>
 
@@ -344,10 +360,10 @@
                         <div style="font-size: 1.2rem; margin-bottom: 10px;">
                             <strong>${item.card.name}</strong> (${item.card.nameEn})
                         </div>
-                        <div style="color: #666; margin-bottom: 5px;">
+                        <div style="color: rgba(255, 255, 255, 0.8); margin-bottom: 5px;">
                             <strong>位置：</strong>${position}
                         </div>
-                        <div style="color: #764ba2; margin-bottom: 10px;">
+                        <div style="color: #f5b041; margin-bottom: 10px;">
                             <strong>含义：</strong>${item.card.meaning}
                         </div>
                         <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: left;">

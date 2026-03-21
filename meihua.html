@@ -17,15 +17,15 @@
         .meihua-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
         .meihua-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
         .method-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
-        .method-tab { padding: 15px 30px; background: white; border: 2px solid #ddd; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; }
-        .method-tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #764ba2; }
+        .method-tab { padding: 15px 30px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); border: 2px solid #ddd; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; }
+        .method-tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #f5b041; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .qigua-section { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .qigua-section { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); border-radius: 15px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; display: block; margin: 20px auto; transition: transform 0.3s; }
         .btn-primary:hover { transform: scale(1.05); }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: rgba(255, 255, 255, 0.85); }
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
     </style>
 </head>
@@ -43,8 +43,8 @@
         </div>
         <div id="time-method" class="tab-content active">
             <div class="qigua-section">
-                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">�?时间起卦�?/h3>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">根据年月日时起卦</p>
+                <h3 style="text-align: center; color: #f5b041; margin-bottom: 20px;">�?时间起卦�?/h3>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">根据年月日时起卦</p>
                 <div class="form-group">
                     <label>选择时间</label>
                     <input type="datetime-local" id="time-input">
@@ -55,8 +55,8 @@
         </div>
         <div id="number-method" class="tab-content">
             <div class="qigua-section">
-                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">🔢 数字起卦�?/h3>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">输入两个数字起卦</p>
+                <h3 style="text-align: center; color: #f5b041; margin-bottom: 20px;">🔢 数字起卦�?/h3>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">输入两个数字起卦</p>
                 <div class="form-group">
                     <label>上卦数字�?-8�?/label>
                     <input type="number" id="upper-number" min="1" max="8" placeholder="1-8">
@@ -71,8 +71,8 @@
         </div>
         <div id="word-method" class="tab-content">
             <div class="qigua-section">
-                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">📝 测字起卦�?/h3>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">输入汉字起卦</p>
+                <h3 style="text-align: center; color: #f5b041; margin-bottom: 20px;">📝 测字起卦�?/h3>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">输入汉字起卦</p>
                 <div class="form-group">
                     <label>输入汉字</label>
                     <input type="text" id="word-input" placeholder="请输入汉�?>
@@ -83,8 +83,8 @@
         </div>
         <div id="object-method" class="tab-content">
             <div class="qigua-section">
-                <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">🎯 物象起卦�?/h3>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">根据所见物象起�?/p>
+                <h3 style="text-align: center; color: #f5b041; margin-bottom: 20px;">🎯 物象起卦�?/h3>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">根据所见物象起�?/p>
                 <div class="form-group">
                     <label>选择物象</label>
                     <select id="object-select">

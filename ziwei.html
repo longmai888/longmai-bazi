@@ -8,21 +8,21 @@
     <link rel="stylesheet" href="mobile.css">
     <style>
         .ziwei-hero { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; }
-        .ziwei-hero h1 { font-size: 2.5rem; margin-bottom: 10px; color: #764ba2; }
+        .ziwei-hero h1 { font-size: 2.5rem; margin-bottom: 10px; color: #f5b041; }
         .ziwei-content { max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; }
         .ziwei-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 30px 0; }
-        .ziwei-cell { aspect-ratio: 1; background: white; border: 2px solid #764ba2; border-radius: 10px; padding: 10px; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ziwei-cell { aspect-ratio: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); border: 2px solid #764ba2; border-radius: 10px; padding: 10px; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .ziwei-cell.highlight { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; display: block; margin: 20px auto; }
-        .form-group { margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-group { margin-bottom: 20px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); padding: 20px; border-radius: 12px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: rgba(255, 255, 255, 0.85); }
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
     </style>
 </head>
 <body>
     <div class="ziwei-hero">
         <h1>⭐ 紫微斗数</h1>
-        <p class="subtitle" style="color: #764ba2;">帝王之术 · 命理精髓 · 一生运势</p>
+        <p class="subtitle" style="color: #f5b041;">帝王之术 · 命理精髓 · 一生运势</p>
     </div>
     <div class="ziwei-content">
         <div class="form-group">
@@ -56,13 +56,13 @@
         </div>
         <button class="btn-primary" onclick="ziweiPaipan()">开始排�?/button>
         <div id="ziwei-result" style="display: none;">
-            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">紫微命盘</h3>
+            <h3 style="text-align: center; color: #f5b041; margin: 30px 0;">紫微命盘</h3>
             <div class="ziwei-grid" id="ziwei-grid">
                 <!-- 12宫格将在这里生成 -->
             </div>
-            <div id="interpretation" style="background: white; padding: 25px; border-radius: 12px; margin-top: 30px;">
-                <h4 style="color: #764ba2; margin-bottom: 15px;">命盘解析</h4>
-                <p style="line-height: 1.8; color: #555;">紫微斗数解析内容...</p>
+            <div id="interpretation" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); padding: 25px; border-radius: 12px; margin-top: 30px;">
+                <h4 style="color: #f5b041; margin-bottom: 15px;">命盘解析</h4>
+                <p style="line-height: 1.8; color: rgba(255, 255, 255, 0.85);">紫微斗数解析内容...</p>
             </div>
         </div>
     </div>

@@ -124,7 +124,23 @@
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
-    </style>
+    
+        .btn-primary {
+            background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
+        }
+</style>
 </head>
 <body>
     <div class="dream-hero">
@@ -143,37 +159,37 @@
             <div class="category-card" onclick="showCategory('animal')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🐍</div>
                 <h3>动物</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
             <div class="category-card" onclick="showCategory('person')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">👤</div>
                 <h3>人物</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
             <div class="category-card" onclick="showCategory('nature')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🌊</div>
                 <h3>自然</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
             <div class="category-card" onclick="showCategory('object')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">💎</div>
                 <h3>物品</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
             <div class="category-card" onclick="showCategory('action')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🏃</div>
                 <h3>行为</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
             <div class="category-card" onclick="showCategory('scene')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🏰</div>
                 <h3>场景</h3>
-                <p style="color: #666; font-size: 0.9rem;">100种</p>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">100种</p>
             </div>
         </div>
 
         <div class="dream-list" id="dreamList">
-            <h2 style="color: #764ba2; margin-bottom: 20px;">热门梦境解析</h2>
+            <h2 style="color: #f5b041; margin-bottom: 20px;">热门梦境解析</h2>
             
             <div class="dream-item" onclick="showDreamDetail('snake')">
                 <div class="dream-title">梦见蛇</div>

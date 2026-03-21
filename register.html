@@ -11,14 +11,14 @@
             max-width: 500px;
             margin: 50px auto;
             padding: 40px;
-            background: white;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3);
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         .auth-title {
             text-align: center;
             font-size: 2rem;
-            color: #764ba2;
+            color: #f5b041;
             margin-bottom: 30px;
         }
         .form-group {
@@ -28,7 +28,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #555;
+            color: rgba(255, 255, 255, 0.85);
         }
         .form-group input {
             width: 100%;
@@ -38,7 +38,7 @@
             font-size: 1rem;
         }
         .form-group input:focus {
-            border-color: #764ba2;
+            border-color: #f5b041;
             outline: none;
         }
         .agreement-section {
@@ -59,11 +59,11 @@
         .checkbox-item label {
             flex: 1;
             font-size: 0.9rem;
-            color: #555;
+            color: rgba(255, 255, 255, 0.85);
             line-height: 1.5;
         }
         .checkbox-item label a {
-            color: #764ba2;
+            color: #f5b041;
             text-decoration: none;
         }
         .checkbox-item label a:hover {
@@ -89,7 +89,7 @@
             margin-top: 20px;
         }
         .auth-links a {
-            color: #764ba2;
+            color: #f5b041;
             text-decoration: none;
         }
         .error-message {
@@ -107,54 +107,54 @@
         <form id="registerForm" onsubmit="return handleRegister(event)">
             <div class="form-group">
                 <label>æ‰‹æœºå·ç  *</label>
-                <input type="tel" id="phone" placeholder="è¯·è¾“å…¥æ‰‹æœºå·ç ? maxlength="11" required>
+                <input type="tel" id="phone" placeholder="è¯·è¾“å…¥æ‰‹æœºå·? maxlength="11" required>
                 <div class="error-message" id="phone-error">è¯·è¾“å…¥æ­£ç¡®çš„æ‰‹æœºå·ç </div>
             </div>
             
             <div class="form-group">
-                <label>éªŒè¯ç ?*</label>
+                <label>éªŒè¯?*</label>
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="code" placeholder="è¯·è¾“å…¥éªŒè¯ç " maxlength="6" style="flex: 1;" required>
-                    <button type="button" class="btn-primary" style="width: 120px; margin-top: 0;" onclick="sendCode()" id="sendCodeBtn">è·å–éªŒè¯ç ?/button>
+                    <button type="button" class="btn-primary" style="width: 120px; margin-top: 0;" onclick="sendCode()" id="sendCodeBtn">è·å–éªŒè¯?/button>
                 </div>
             </div>
             
             <div class="form-group">
                 <label>è®¾ç½®å¯†ç  *</label>
-                <input type="password" id="password" placeholder="è¯·è®¾ç½?-20ä½å¯†ç ? minlength="6" maxlength="20" required>
-                <div class="error-message" id="password-error">å¯†ç é•¿åº¦éœ€åœ?-20ä½ä¹‹é—?/div>
+                <input type="password" id="password" placeholder="è¯·è®¾?-20ä½å¯†? minlength="6" maxlength="20" required>
+                <div class="error-message" id="password-error">å¯†ç é•¿åº¦éœ€?-20ä½ä¹‹?/div>
             </div>
             
             <div class="form-group">
                 <label>ç¡®è®¤å¯†ç  *</label>
-                <input type="password" id="confirmPassword" placeholder="è¯·å†æ¬¡è¾“å…¥å¯†ç ? required>
-                <div class="error-message" id="confirm-error">ä¸¤æ¬¡è¾“å…¥çš„å¯†ç ä¸ä¸€è‡?/div>
+                <input type="password" id="confirmPassword" placeholder="è¯·å†æ¬¡è¾“å…¥å¯†? required>
+                <div class="error-message" id="confirm-error">ä¸¤æ¬¡è¾“å…¥çš„å¯†ç ä¸ä¸€?/div>
             </div>
             
             <div class="agreement-section">
                 <div class="checkbox-item">
                     <input type="checkbox" id="agreeAll" onchange="toggleAllAgreements()">
-                    <label for="agreeAll"><strong>æˆ‘å·²é˜…è¯»å¹¶åŒæ„ä»¥ä¸‹å…¨éƒ¨åè®?/strong></label>
+                    <label for="agreeAll"><strong>æˆ‘å·²é˜…è¯»å¹¶åŒæ„ä»¥ä¸‹å…¨éƒ¨å?/strong></label>
                 </div>
                 
                 <div class="checkbox-item">
                     <input type="checkbox" id="agreeUser" class="agreement-checkbox" required>
                     <label for="agreeUser">
-                        æˆ‘å·²é˜…è¯»å¹¶åŒæ„?<a href="user_agreement.html" target="_blank">ã€Šç”¨æˆ·åè®®ã€?/a> *
+                        æˆ‘å·²é˜…è¯»å¹¶åŒ?<a href="user_agreement.html" target="_blank">ã€Šç”¨æˆ·åè®®?/a> *
                     </label>
                 </div>
                 
                 <div class="checkbox-item">
                     <input type="checkbox" id="agreePrivacy" class="agreement-checkbox" required>
                     <label for="agreePrivacy">
-                        æˆ‘å·²é˜…è¯»å¹¶åŒæ„?<a href="privacy_policy.html" target="_blank">ã€Šéšç§æ”¿ç­–ã€?/a> *
+                        æˆ‘å·²é˜…è¯»å¹¶åŒ?<a href="privacy_policy.html" target="_blank">ã€Šéšç§æ”¿ç­–?/a> *
                     </label>
                 </div>
                 
                 <div class="checkbox-item">
                     <input type="checkbox" id="agreeDisclaimer" class="agreement-checkbox" required>
                     <label for="agreeDisclaimer">
-                        æˆ‘å·²é˜…è¯»å¹¶åŒæ„?<a href="disclaimer.html" target="_blank">ã€Šå…è´£å£°æ˜ã€?/a> *
+                        æˆ‘å·²é˜…è¯»å¹¶åŒ?<a href="disclaimer.html" target="_blank">ã€Šå…è´£å£°æ˜?/a> *
                     </label>
                 </div>
                 
@@ -170,12 +170,12 @@
         </form>
         
         <div class="auth-links">
-            <p>å·²æœ‰è´¦å·ï¼?a href="login.html">ç«‹å³ç™»å½•</a></p>
+            <p>å·²æœ‰è´¦å·?a href="login.html">ç«‹å³ç™»å½•</a></p>
         </div>
     </div>
     
     <script>
-        // æ£€æŸ¥æ‰€æœ‰åè®®æ˜¯å¦å‹¾é€?        function checkAllAgreements() {
+        // æ£€æŸ¥æ‰€æœ‰åè®®æ˜¯å¦å‹¾?        function checkAllAgreements() {
             const agreeUser = document.getElementById('agreeUser').checked;
             const agreePrivacy = document.getElementById('agreePrivacy').checked;
             const agreeDisclaimer = document.getElementById('agreeDisclaimer').checked;
@@ -198,7 +198,7 @@
             checkbox.addEventListener('change', checkAllAgreements);
         });
         
-        // å…¨é€?å–æ¶ˆå…¨é€?        function toggleAllAgreements() {
+        // å…¨?å–æ¶ˆå…¨?        function toggleAllAgreements() {
             const agreeAll = document.getElementById('agreeAll').checked;
             document.querySelectorAll('.agreement-checkbox').forEach(checkbox => {
                 checkbox.checked = agreeAll;
@@ -226,11 +226,11 @@
                 if (countdown < 0) {
                     clearInterval(timer);
                     btn.disabled = false;
-                    btn.textContent = 'è·å–éªŒè¯ç ?;
+                    btn.textContent = 'è·å–éªŒè¯?;
                 }
             }, 1000);
             
-            alert('éªŒè¯ç å·²å‘é€ï¼š123456ï¼ˆæ¼”ç¤ºç”¨ï¼?);
+            alert('éªŒè¯ç å·²å‘é€ï¼š123456ï¼ˆæ¼”ç¤ºç”¨?);
         }
         
         // å¤„ç†æ³¨å†Œ
@@ -242,7 +242,7 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
-            // éªŒè¯æ‰‹æœºå?            if (!phone || phone.length !== 11) {
+            // éªŒè¯æ‰‹æœº?            if (!phone || phone.length !== 11) {
                 document.getElementById('phone-error').style.display = 'block';
                 return false;
             }
@@ -264,7 +264,7 @@
                 !document.getElementById('agreePrivacy').checked ||
                 !document.getElementById('agreeDisclaimer').checked ||
                 !document.getElementById('agreeSensitive').checked) {
-                alert('è¯·é˜…è¯»å¹¶åŒæ„æ‰€æœ‰åè®?);
+                alert('è¯·é˜…è¯»å¹¶åŒæ„æ‰€æœ‰å?);
                 return false;
             }
             
@@ -285,7 +285,7 @@
             localStorage.setItem('userData', JSON.stringify(userData));
             localStorage.setItem('isLoggedIn', 'true');
             
-            alert('æ³¨å†ŒæˆåŠŸï¼?);
+            alert('æ³¨å†ŒæˆåŠŸ?);
             window.location.href = 'index.html';
             
             return false;
@@ -294,35 +294,35 @@
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
-            <h4>¹ØÓÚÎÒÃÇ</h4>
+            <h4></h4>
             <ul>
-                <li><a href="about.html">Æ·ÅÆ¹ÊÊÂ</a></li>
-                <li><a href="about.html">ÍÅ¶Ó½éÉÜ</a></li>
-                <li><a href="about.html">ÁªÏµÎÒÃÇ</a></li>
+                <li><a href="about.html">Æ·Æ¹</a></li>
+                <li><a href="about.html">Å¶Ó½</a></li>
+                <li><a href="about.html">Ïµ</a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>·¨ÂÉÉùÃ÷</h4>
+            <h4></h4>
             <ul>
-                <li><a href="user_agreement.html">ÓÃ»§Ğ­Òé</a></li>
-                <li><a href="privacy_policy.html">ÒşË½Õş²ß</a></li>
-                <li><a href="disclaimer.html">ÃâÔğÉùÃ÷</a></li>
+                <li><a href="user_agreement.html">Ã»Ğ­</a></li>
+                <li><a href="privacy_policy.html">Ë½</a></li>
+                <li><a href="disclaimer.html"></a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>ÁªÏµ·½Ê½</h4>
+            <h4>ÏµÊ½</h4>
             <ul>
                 <li>?? longmai@foxmail.com</li>
                 <li>?? 400-XXX-XXXX</li>
-                <li>?? ½­ËÕÊ¡ĞìÖİÊĞĞÂÒÊÊĞ</li>
+                <li>?? Ê¡</li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>?? ±¾ÍøÕ¾ËùÓĞÄÚÈİ½ö¹©ÓéÀÖ²Î¿¼£¬²»¹¹³ÉÈÎºÎĞÎÊ½µÄ½¨Òé»ò³ĞÅµ</p>
-        <p>?? ÃüÀíĞşÑ§ÊôÓÚ´«Í³ÎÄ»¯·¶³ë£¬ÇëÀíĞÔ¿´´ı</p>
-        <p>?? ×îÖÕ½âÊÍÈ¨¹éÁúÂöÎÄ»¯Æ½Ì¨ËùÓĞ</p>
-        <p>? 2026 ÁúÂöÎÄ»¯ °æÈ¨ËùÓĞ | ¾©ICP±¸XXXXXXXXºÅ</p>
+        <p>?? Õ¾İ½Ö²Î¿ÎºÊ½Ä½Åµ</p>
+        <p>?? Ñ§Ú´Í³Ä»ë£¬Ô¿</p>
+        <p>?? Õ½È¨Ä»Æ½Ì¨</p>
+        <p>? 2026 Ä» È¨ | ICPXXXXXXXX</p>
     </div>
 </footer>
 </body>
