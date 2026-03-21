@@ -310,6 +310,442 @@
         function generateReportHTML(report, birthData) {
             const { bazi, shiShen, naYin, wuXingCount, dayGanStrength, xiYongShen, shengXiao, xingZuo, xingXiu } = report;
             
+            // 辅助函数定义
+            function getGeJu(bazi, shiShen) {
+                const monthShiShen = shiShen.month;
+                if (monthShiShen.includes('官')) return '正官格';
+                if (monthShiShen.includes('杀')) return '七杀格';
+                if (monthShiShen.includes('印')) return '印绶格';
+                if (monthShiShen.includes('财')) return '财格';
+                return '普通格';
+            }
+            
+            function getLevel(strength, wuXing) {
+                const total = Object.values(wuXing).reduce((a, b) => a + b, 0);
+                if (total >= 7 && strength === '身强') return '上格';
+                if (total >= 5) return '中格';
+                return '下格';
+            }
+            
+            function getGeJuDescription(bazi, shiShen, strength) {
+                const geJu = getGeJu(bazi, shiShen);
+                return `您的八字为${geJu}。${geJu}之人，性格${strength === '身强' ? '刚毅果断' : '温和内敛'}，有${shiShen.month.includes('官') ? '领导才能' : '专业技能'}，适合在${shiShen.month.includes('官') ? '管理岗位' : '专业领域'}发展。`;
+            }
+            
+            function getFuGuiLevel(strength, wuXing) {
+                return strength === '身强' ? '★★★★☆ 中富之命' : '★★★☆☆ 小康之命';
+            }
+            
+            function getFuGuiDescription(strength, wuXing) {
+                return strength === '身强' 
+                    ? '您有发财的潜质，但需要付出努力。中年后财运渐佳，40-50岁是财富积累的黄金时期。建议稳扎稳打，不要急于求成。'
+                    : '您的财运较为平稳，适合稳健理财。通过持续努力，可以积累一定的财富。建议保守投资，避免高风险。';
+            }
+            
+            function getLifeSummary(bazi, shiShen, strength, xiYongShen) {
+                return `您是一个${strength === '身强' ? '有能力、有魄力' : '温和、有耐心'}的人，适合在${strength === '身强' ? '竞争中' : '稳定环境中'}成长。早年运势较为平淡，中年后运势渐佳，晚年安稳。一生贵人运不错，关键时刻有人相助。建议：把握中年黄金期，稳扎稳打，必有所成。`;
+            }
+            
+            function getTianGanXingGe(gan) {
+                const xingGe = {
+                    '甲': '仁慈、正直、有领导力，像大树一样稳重可靠',
+                    '乙': '温柔、细腻、善变通，像花草一样柔韧',
+                    '丙': '热情、开朗、有礼貌，像太阳一样温暖',
+                    '丁': '温和、细腻、有洞察力，像烛光一样温柔',
+                    '戊': '诚实、稳重、有包容心，像大地一样厚重',
+                    '己': '细心、谨慎、有耐心，像田园一样细腻',
+                    '庚': '刚毅、果断、有正义感，像钢铁一样坚强',
+                    '辛': '精致、敏感、有品位，像珠宝一样珍贵',
+                    '壬': '聪明、灵活、有智慧，像江河一样流动',
+                    '癸': '温柔、内敛、有灵性，像雨露一样细腻'
+                };
+                return xingGe[gan] || '性格独特';
+            }
+            
+            function getDiZhiXingGe(zhi) {
+                const xingGe = {
+                    '子': '聪明机智，善于思考',
+                    '丑': '稳重踏实，勤劳肯干',
+                    '寅': '勇敢果断，有进取心',
+                    '卯': '温柔善良，有艺术天赋',
+                    '辰': '包容大度，有领导才能',
+                    '巳': '热情机智，善于交际',
+                    '午': '开朗直率，有创造力',
+                    '未': '温和细腻，有耐心',
+                    '申': '聪明灵活，善于变通',
+                    '酉': '精致敏感，追求完美',
+                    '戌': '忠诚稳重，有责任感',
+                    '亥': '善良包容，有想象力'
+                };
+                return xingGe[zhi] || '性格独特';
+            }
+            
+            function getShiShenXingGe(shiShen) {
+                const xingGeMap = {
+                    '正官': '循规蹈矩，责任心强',
+                    '七杀': '胆大果决，有魄力',
+                    '正印': '智慧高雅，包容温厚',
+                    '偏印': '思维独特，直觉敏锐',
+                    '正财': '勤俭持家，稳健务实',
+                    '偏财': '交际广泛，敢于冒险',
+                    '食神': '乐观豁达，有才华',
+                    '伤官': '才华横溢，叛逆创新',
+                    '比肩': '独立自主，好胜心强',
+                    '劫财': '冲动冒险，好争斗'
+                };
+                
+                let html = '';
+                Object.values(shiShen).forEach(ss => {
+                    if (ss !== '日主' && xingGeMap[ss]) {
+                        html += `<li><strong>${ss}：</strong>${xingGeMap[ss]}</li>`;
+                    }
+                });
+                return html;
+            }
+            
+            function getYouDian(bazi, shiShen) {
+                return `
+                    <li>${bazi.day.gan}日主：${getTianGanXingGe(bazi.day.gan).split('、')[0]}</li>
+                    <li>做事有原则，有责任感</li>
+                    <li>独立自主，能力强</li>
+                    <li>聪明机智，反应快</li>
+                    <li>乐观豁达，心态好</li>
+                `;
+            }
+            
+            function getQueDian(bazi, shiShen) {
+                return `
+                    <li>有时过于固执</li>
+                    <li>容易急躁冲动</li>
+                    <li>自尊心太强</li>
+                    <li>有时过于冒险</li>
+                    <li>缺乏安全感</li>
+                `;
+            }
+            
+            function getShiHeZhiYe(bazi, shiShen, xiYongShen) {
+                return `您适合从事需要${bazi.day.gan === '庚' || bazi.day.gan === '辛' ? '决断力、领导力' : '创造力、专业技能'}的工作，如：企业管理、技术专家、金融分析、法律工作等。`;
+            }
+            
+            function getShiYeFangXiang(xiYongShen, shiShen) {
+                const hangYe = {
+                    '木': '教育、文化、出版、林业',
+                    '火': '电子、能源、餐饮、美容',
+                    '土': '房地产、建筑、农业、矿产',
+                    '金': '金融、机械、汽车、珠宝',
+                    '水': '物流、旅游、贸易、咨询'
+                };
+                
+                let html = '';
+                xiYongShen.forEach(wx => {
+                    if (hangYe[wx]) {
+                        html += `<li><strong>${wx}行业：</strong>${hangYe[wx]}</li>`;
+                    }
+                });
+                return html || '<li>根据喜用神选择适合的行业</li>';
+            }
+            
+            function getCaiYunType(shiShen) {
+                return shiShen.year.includes('财') || shiShen.month.includes('财') 
+                    ? '正财为主，偏财为辅' 
+                    : '偏财为主，正财为辅';
+            }
+            
+            function getQiuCaiFangShi(shiShen) {
+                return shiShen.year.includes('正财') || shiShen.month.includes('正财')
+                    ? '适合稳健投资，不适合投机'
+                    : '适合灵活投资，把握机会';
+            }
+            
+            function getCaiYunQiFu(strength) {
+                return strength === '身强' ? '中年后财运渐佳' : '财运平稳，需努力积累';
+            }
+            
+            function getShiHeTouZi(xiYongShen) {
+                const touZi = {
+                    '木': '房地产（长期持有）',
+                    '火': '股票基金（价值投资）',
+                    '土': '自己的事业（稳健发展）',
+                    '金': '金融产品（稳健理财）',
+                    '水': '流动性资产'
+                };
+                
+                let html = '';
+                xiYongShen.forEach(wx => {
+                    if (touZi[wx]) {
+                        html += `<li>${touZi[wx]}</li>`;
+                    }
+                });
+                return html || '<li>根据自己的专业领域投资</li>';
+            }
+            
+            function getBuShiHeTouZi(xiYongShen) {
+                return `
+                    <li>高风险投机（期货、虚拟货币）</li>
+                    <li>不熟悉领域的投资</li>
+                    <li>借贷投资</li>
+                    <li>盲目跟风投资</li>
+                `;
+            }
+            
+            function getPeiOuWaiMao(bazi, shiShen) {
+                return '中等身材，五官端正，气质优雅';
+            }
+            
+            function getPeiOuXingGe(bazi, shiShen) {
+                return '温柔体贴，善解人意，有包容心';
+            }
+            
+            function getPeiOuZhiYe(bazi, shiShen) {
+                return '教育、医疗、文化、艺术行业';
+            }
+            
+            function getZuiJiaShuXiang(shengXiao) {
+                const he = {
+                    '鼠': '牛、龙、猴',
+                    '牛': '鼠、蛇、鸡',
+                    '虎': '猪、马、狗',
+                    '兔': '狗、猪、羊',
+                    '龙': '鸡、鼠、猴',
+                    '蛇': '猴、鸡、牛',
+                    '马': '羊、虎、狗',
+                    '羊': '马、兔、猪',
+                    '猴': '蛇、鼠、龙',
+                    '鸡': '龙、蛇、牛',
+                    '狗': '兔、虎、马',
+                    '猪': '虎、兔、羊'
+                };
+                return he[shengXiao] || '根据八字合婚';
+            }
+            
+            function getXiangChongShuXiang(shengXiao) {
+                const chong = {
+                    '鼠': '马',
+                    '牛': '羊',
+                    '虎': '猴',
+                    '兔': '鸡',
+                    '龙': '狗',
+                    '蛇': '猪',
+                    '马': '鼠',
+                    '羊': '牛',
+                    '猴': '虎',
+                    '鸡': '兔',
+                    '狗': '龙',
+                    '猪': '蛇'
+                };
+                return chong[shengXiao] || '无';
+            }
+            
+            function getJieHunShiJian(bazi, shiShen) {
+                return '28-32岁为最佳结婚年龄';
+            }
+            
+            function getHunYinZhiLiang(bazi, shiShen) {
+                return shiShen.day.includes('官') || shiShen.day.includes('财')
+                    ? '中上等，夫妻感情较好'
+                    : '中等，需要用心经营';
+            }
+            
+            function getHunYinWeiJi(bazi, shiShen) {
+                return '40岁左右需注意沟通';
+            }
+            
+            function getLiHunFengXian(bazi, shiShen) {
+                return shiShen.day.includes('伤官') || shiShen.day.includes('劫财')
+                    ? '中等，需注意维护'
+                    : '较低';
+            }
+            
+            function getTaoHuaType(bazi, shiShen) {
+                return shiShen.year.includes('财') || shiShen.year.includes('官')
+                    ? '正桃花为主，偶有烂桃花'
+                    : '桃花较淡，需主动争取';
+            }
+            
+            function getTaoHuaNianFen(bazi) {
+                return '2026、2028、2032、2036年桃花较旺';
+            }
+            
+            function getHunYinJianYi(bazi, shiShen) {
+                return `
+                    <li>选择配偶时，注重性格相合</li>
+                    <li>婚后多沟通，避免冷战</li>
+                    <li>40岁左右是婚姻关键期，需特别注意</li>
+                    <li>与配偶共同成长，互相支持</li>
+                `;
+            }
+            
+            function generateDaYunHTML(bazi, birthData) {
+                const currentYear = new Date().getFullYear();
+                const age = currentYear - birthData.year;
+                const daYunIndex = Math.floor(age / 10);
+                
+                return `
+                    <div class="info-box">
+                        <h4>当前大运（${currentYear - (age % 10)}-${currentYear + (10 - age % 10)}岁）</h4>
+                        <p><strong>大运干支：</strong>${bazi.year.gan}${bazi.month.zhi}运</p>
+                        <p><strong>吉凶：</strong>★★★★☆ 吉运</p>
+                        <p><strong>事业：</strong>事业上升期，机会增多</p>
+                        <p><strong>财运：</strong>财运渐佳，收入增加</p>
+                    </div>
+                `;
+            }
+            
+            function getQuNianHuiGu(bazi) {
+                return '去年事业有进展，但压力较大。财运一般，有进有出。感情稳定，偶有争吵。健康状况良好。';
+            }
+            
+            function getJinNianYunShi(bazi, shiShen) {
+                return '今年运势较为平淡，事业上会有一些挑战和压力，需要保持冷静，稳扎稳打。财运方面需要谨慎，避免不必要的开支。感情方面需要多沟通，避免误会。';
+            }
+            
+            function getMingNianZhanWang(bazi, shiShen) {
+                return '明年运势明显好转，事业上会有新的机会，财运也会有所提升。是积极进取的一年，建议把握机会，主动出击。';
+            }
+            
+            function getQuNianPingJi(bazi) {
+                return '★★★☆☆';
+            }
+            
+            function getJinNianPingJi(bazi) {
+                return '★★★☆☆';
+            }
+            
+            function getMingNianPingJi(bazi) {
+                return '★★★★☆';
+            }
+            
+            function getJiShenHTML(bazi) {
+                return `
+                    <p><strong>★ 天乙贵人：</strong>关键时刻有贵人相助</p>
+                    <p><strong>★ 文昌贵人：</strong>聪明好学，考试顺利</p>
+                    <p><strong>★ 天德贵人：</strong>心地善良，逢凶化吉</p>
+                `;
+            }
+            
+            function getXiongShenHTML(bazi) {
+                return `
+                    <p><strong>⚠ 七杀：</strong>压力大，易遇小人</p>
+                    <p><strong>⚠ 劫财：</strong>易破财，被朋友拖累</p>
+                `;
+            }
+            
+            function getShenShaZongJie(bazi) {
+                return '吉神多，凶神有制，整体吉利。有贵人相助，逢凶化吉。注意控制脾气，避免冲动。';
+            }
+            
+            function getJuZhuFangWei(xiYongShen) {
+                const fangWei = {
+                    '木': '东方、东南方',
+                    '火': '南方',
+                    '土': '中央、西南方、东北方',
+                    '金': '西方、西北方',
+                    '水': '北方'
+                };
+                return xiYongShen.map(wx => fangWei[wx]).filter(Boolean).join('、') || '根据喜用神选择';
+            }
+            
+            function getWoShiBuJu(xiYongShen) {
+                return '床头朝' + (xiYongShen.includes('木') ? '东' : xiYongShen.includes('水') ? '北' : '吉方') + '，卧室颜色以' + xiYongShen[0] + '行颜色为主';
+            }
+            
+            function getBanGongShiBuJu(xiYongShen) {
+                return '座位朝' + (xiYongShen.includes('木') ? '东' : xiYongShen.includes('水') ? '北' : '吉方') + '，办公桌摆放绿植';
+            }
+            
+            function getYanSeXuanZe(xiYongShen) {
+                const yanSe = {
+                    '木': '绿色、青色',
+                    '火': '红色、紫色',
+                    '土': '黄色、棕色',
+                    '金': '白色、金色',
+                    '水': '黑色、蓝色'
+                };
+                return xiYongShen.map(wx => yanSe[wx]).filter(Boolean).join('、');
+            }
+            
+            function getXiYongShenBuJiu(xiYongShen) {
+                const buJiu = {
+                    '木': '佩戴绿幽灵、翡翠，多穿绿色衣服',
+                    '火': '佩戴红宝石、石榴石，多穿红色衣服',
+                    '土': '佩戴黄水晶、琥珀，多穿黄色衣服',
+                    '金': '佩戴白水晶、金银饰品，多穿白色衣服',
+                    '水': '佩戴黑曜石、蓝宝石，多穿黑色衣服'
+                };
+                
+                let html = '';
+                xiYongShen.forEach(wx => {
+                    if (buJiu[wx]) {
+                        html += `<li>${buJiu[wx]}</li>`;
+                    }
+                });
+                return html;
+            }
+            
+            function getJiShenBiMian(xiYongShen) {
+                const jiShen = {
+                    '木': '避免白色、金色过多',
+                    '火': '避免黑色、蓝色过多',
+                    '土': '避免绿色、青色过多',
+                    '金': '避免红色、紫色过多',
+                    '水': '避免黄色、棕色过多'
+                };
+                
+                // 返回与喜用神相克的颜色
+                let html = '';
+                const allWuXing = ['木', '火', '土', '金', '水'];
+                const jiShenList = allWuXing.filter(wx => !xiYongShen.includes(wx));
+                jiShenList.forEach(wx => {
+                    if (jiShen[wx]) {
+                        html += `<li>${jiShen[wx]}</li>`;
+                    }
+                });
+                return html;
+            }
+            
+            function getShengXiaoJiXiangWu(shengXiao) {
+                return shengXiao + '造型摆件、挂件';
+            }
+            
+            function getWuXingJiXiangWu(xiYongShen) {
+                const jiXiangWu = {
+                    '木': '木质摆件、绿色植物',
+                    '火': '红色摆件、蜡烛',
+                    '土': '陶瓷摆件、水晶',
+                    '金': '金属摆件、风铃',
+                    '水': '鱼缸、水景摆件'
+                };
+                return xiYongShen.map(wx => jiXiangWu[wx]).filter(Boolean).join('、');
+            }
+            
+            function getXingWeiJianYi(xiYongShen, shengXiao) {
+                return `
+                    <li>多与贵人属相的人交往</li>
+                    <li>去贵人方位发展</li>
+                    <li>保持谦虚低调，多行善积德</li>
+                    <li>定期祭拜祖先，感恩祖德</li>
+                    <li>保持积极心态，相信自己</li>
+                `;
+            }
+            
+            function getXuanZeDaYuNuLi(bazi, shiShen, strength) {
+                return `您是一个有能力的人，但选择比努力更重要。${strength === '身强' ? '运势上升期积极进取，运势平淡期保守稳健' : '适合稳健发展，不宜冒进'}。`;
+            }
+            
+            function getJiHuiBaWo(bazi) {
+                const currentYear = new Date().getFullYear();
+                return `
+                    <li>${currentYear + 1}年：事业转机，把握机会</li>
+                    <li>${currentYear + 2}年：财运好转，适合投资</li>
+                    <li>${currentYear + 5}年：贵人相助，事业上升</li>
+                    <li>${currentYear + 6}年：财运亨通，收获成果</li>
+                `;
+            }
+            
+            function getRenShengFangXiang(xiYongShen, shiShen) {
+                return `最适合您的方向：${getJuZhuFangWei(xiYongShen)}。选择适合自己的方向，事半功倍。`;
+            }
+            
             return `
                 <!-- 封面 -->
                 <div class="report-page cover-page">
@@ -485,17 +921,350 @@
                     </div>
                 </div>
                 
-                <!-- 更多页面... -->
+                <!-- 命局总论 -->
                 <div class="report-page">
-                    <h2 class="section-title">更 多 内 容</h2>
-                    <p style="text-align: center; padding: 50px 0;">
-                        完整版报告包含：命局总论、性格分析、事业财运、感情婚姻、<br>
-                        家庭六亲、健康分析、大运流年、神煞分析、贵人分析、<br>
-                        风险提示、改运建议、人生建议等详细内容。
+                    <h2 class="section-title">命 局 总 论</h2>
+                    
+                    <div class="subsection-title">格局定性</div>
+                    <div class="info-box">
+                        <p><strong>八字：</strong>${bazi.year.ganZhi} ${bazi.month.ganZhi} ${bazi.day.ganZhi} ${bazi.hour.ganZhi}</p>
+                        <p><strong>日主：</strong>${bazi.day.gan}（${dayGanStrength}）</p>
+                        <p><strong>格局：</strong>${getGeJu(bazi, shiShen)}</p>
+                        <p><strong>层次：</strong>${getLevel(dayGanStrength, wuXingCount)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">格局详解</div>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        ${getGeJuDescription(bazi, shiShen, dayGanStrength)}
                     </p>
-                    <p style="text-align: center; color: #764ba2; font-size: 1.2rem;">
-                        敬请期待完整版...
+                    
+                    <div class="subsection-title">富贵层次</div>
+                    <div class="rating" style="font-size: 2rem; text-align: center; margin: 20px 0;">
+                        ${getFuGuiLevel(dayGanStrength, wuXingCount)}
+                    </div>
+                    <p style="text-indent: 2em;">
+                        ${getFuGuiDescription(dayGanStrength, wuXingCount)}
                     </p>
+                    
+                    <div class="subsection-title">人生总评</div>
+                    <div class="info-box">
+                        <p style="text-indent: 2em;">
+                            ${getLifeSummary(bazi, shiShen, dayGanStrength, xiYongShen)}
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 性格分析 -->
+                <div class="report-page">
+                    <h2 class="section-title">性 格 分 析</h2>
+                    
+                    <div class="subsection-title">天干性格（外在表现）</div>
+                    <div class="info-box">
+                        <h4>${bazi.day.gan}日主性格</h4>
+                        <p style="text-indent: 2em;">
+                            ${getTianGanXingGe(bazi.day.gan)}
+                        </p>
+                    </div>
+                    
+                    <div class="subsection-title">地支性格（内在特质）</div>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        ${getDiZhiXingGe(bazi.day.zhi)}
+                    </p>
+                    
+                    <div class="subsection-title">十神性格（行为模式）</div>
+                    <ul class="feature-list">
+                        ${getShiShenXingGe(shiShen)}
+                    </ul>
+                    
+                    <div class="subsection-title">优点与缺点</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div class="info-box" style="border-left-color: #27ae60;">
+                            <h4 style="color: #27ae60;">优点</h4>
+                            <ul class="feature-list">
+                                ${getYouDian(bazi, shiShen)}
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left-color: #e74c3c;">
+                            <h4 style="color: #e74c3c;">缺点</h4>
+                            <ul class="feature-list warning-list">
+                                ${getQueDian(bazi, shiShen)}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">适合的职业性格</div>
+                    <p style="text-indent: 2em;">
+                        ${getShiHeZhiYe(bazi, shiShen, xiYongShen)}
+                    </p>
+                </div>
+                
+                <!-- 事业财运 -->
+                <div class="report-page">
+                    <h2 class="section-title">事 业 财 运</h2>
+                    
+                    <div class="subsection-title">事业方向</div>
+                    <div class="info-box">
+                        <h4>最适合的行业</h4>
+                        <ul class="feature-list">
+                            ${getShiYeFangXiang(xiYongShen, shiShen)}
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">事业发展</div>
+                    <table class="bazi-table">
+                        <tr>
+                            <th>年龄段</th>
+                            <th>运势</th>
+                            <th>建议</th>
+                        </tr>
+                        <tr>
+                            <td>25-35岁</td>
+                            <td>事业起步期</td>
+                            <td>积累经验，打基础</td>
+                        </tr>
+                        <tr>
+                            <td>35-45岁</td>
+                            <td>事业上升期</td>
+                            <td>机会增多，可创业</td>
+                        </tr>
+                        <tr>
+                            <td>45-55岁</td>
+                            <td>事业黄金期</td>
+                            <td>达到巅峰，收获成果</td>
+                        </tr>
+                        <tr>
+                            <td>55岁后</td>
+                            <td>事业稳定期</td>
+                            <td>守成为主，培养后辈</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="subsection-title">财运分析</div>
+                    <div class="info-box">
+                        <p><strong>财运类型：</strong>${getCaiYunType(shiShen)}</p>
+                        <p><strong>求财方式：</strong>${getQiuCaiFangShi(shiShen)}</p>
+                        <p><strong>财运起伏：</strong>${getCaiYunQiFu(dayGanStrength)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">投资理财建议</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="info-box" style="border-left-color: #27ae60;">
+                            <h4 style="color: #27ae60;">适合投资</h4>
+                            <ul class="feature-list">
+                                ${getShiHeTouZi(xiYongShen)}
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left-color: #e74c3c;">
+                            <h4 style="color: #e74c3c;">不适合投资</h4>
+                            <ul class="feature-list warning-list">
+                                ${getBuShiHeTouZi(xiYongShen)}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 感情婚姻 -->
+                <div class="report-page">
+                    <h2 class="section-title">感 情 婚 姻</h2>
+                    
+                    <div class="subsection-title">配偶特征</div>
+                    <div class="info-box">
+                        <p><strong>外貌特征：</strong>${getPeiOuWaiMao(bazi, shiShen)}</p>
+                        <p><strong>性格特点：</strong>${getPeiOuXingGe(bazi, shiShen)}</p>
+                        <p><strong>职业方向：</strong>${getPeiOuZhiYe(bazi, shiShen)}</p>
+                        <p><strong>最佳配偶属相：</strong>${getZuiJiaShuXiang(shengXiao)}</p>
+                        <p><strong>相冲属相：</strong>${getXiangChongShuXiang(shengXiao)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">婚姻状况</div>
+                    <table class="bazi-table">
+                        <tr>
+                            <th>项目</th>
+                            <th>分析</th>
+                        </tr>
+                        <tr>
+                            <td>结婚时间</td>
+                            <td>${getJieHunShiJian(bazi, shiShen)}</td>
+                        </tr>
+                        <tr>
+                            <td>婚姻质量</td>
+                            <td>${getHunYinZhiLiang(bazi, shiShen)}</td>
+                        </tr>
+                        <tr>
+                            <td>婚姻危机</td>
+                            <td>${getHunYinWeiJi(bazi, shiShen)}</td>
+                        </tr>
+                        <tr>
+                            <td>离婚风险</td>
+                            <td>${getLiHunFengXian(bazi, shiShen)}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="subsection-title">桃花运</div>
+                    <div class="info-box">
+                        <p><strong>桃花类型：</strong>${getTaoHuaType(bazi, shiShen)}</p>
+                        <p><strong>桃花年份：</strong>${getTaoHuaNianFen(bazi)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">婚姻建议</div>
+                    <ul class="feature-list">
+                        ${getHunYinJianYi(bazi, shiShen)}
+                    </ul>
+                </div>
+                
+                <!-- 大运流年 -->
+                <div class="report-page">
+                    <h2 class="section-title">大 运 流 年</h2>
+                    
+                    <div class="subsection-title">大运分析</div>
+                    ${generateDaYunHTML(bazi, birthData)}
+                    
+                    <div class="subsection-title">流年分析</div>
+                    <div class="info-box">
+                        <h4>去年回顾（${new Date().getFullYear()-1}年）</h4>
+                        <p style="text-indent: 2em;">
+                            ${getQuNianHuiGu(bazi)}
+                        </p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>今年运势（${new Date().getFullYear()}年）</h4>
+                        <p style="text-indent: 2em;">
+                            ${getJinNianYunShi(bazi, shiShen)}
+                        </p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>明年展望（${new Date().getFullYear()+1}年）</h4>
+                        <p style="text-indent: 2em;">
+                            ${getMingNianZhanWang(bazi, shiShen)}
+                        </p>
+                    </div>
+                    
+                    <div class="subsection-title">三年对比</div>
+                    <table class="bazi-table">
+                        <tr>
+                            <th>年份</th>
+                            <th>运势</th>
+                            <th>特点</th>
+                        </tr>
+                        <tr>
+                            <td>${new Date().getFullYear()-1}年</td>
+                            <td>${getQuNianPingJi(bazi)}</td>
+                            <td>打基础</td>
+                        </tr>
+                        <tr>
+                            <td>${new Date().getFullYear()}年</td>
+                            <td>${getJinNianPingJi(bazi)}</td>
+                            <td>需谨慎</td>
+                        </tr>
+                        <tr>
+                            <td>${new Date().getFullYear()+1}年</td>
+                            <td>${getMingNianPingJi(bazi)}</td>
+                            <td>可进取</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- 神煞分析 -->
+                <div class="report-page">
+                    <h2 class="section-title">神 煞 分 析</h2>
+                    
+                    <div class="subsection-title">吉神</div>
+                    <div class="info-box" style="border-left-color: #f39c12;">
+                        ${getJiShenHTML(bazi)}
+                    </div>
+                    
+                    <div class="subsection-title">凶神</div>
+                    <div class="info-box" style="border-left-color: #e74c3c;">
+                        ${getXiongShenHTML(bazi)}
+                    </div>
+                    
+                    <div class="subsection-title">神煞总结</div>
+                    <p style="text-indent: 2em;">
+                        ${getShenShaZongJie(bazi)}
+                    </p>
+                </div>
+                
+                <!-- 改运建议 -->
+                <div class="report-page">
+                    <h2 class="section-title">改 运 建 议</h2>
+                    
+                    <div class="subsection-title">风水调理</div>
+                    <div class="info-box">
+                        <p><strong>居住方位：</strong>${getJuZhuFangWei(xiYongShen)}</p>
+                        <p><strong>卧室布局：</strong>${getWoShiBuJu(xiYongShen)}</p>
+                        <p><strong>办公室布局：</strong>${getBanGongShiBuJu(xiYongShen)}</p>
+                        <p><strong>颜色选择：</strong>${getYanSeXuanZe(xiYongShen)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">五行补救</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="info-box">
+                            <h4>喜用神补救</h4>
+                            <ul class="feature-list">
+                                ${getXiYongShenBuJiu(xiYongShen)}
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h4>忌神避免</h4>
+                            <ul class="feature-list warning-list">
+                                ${getJiShenBiMian(xiYongShen)}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">吉祥物推荐</div>
+                    <div class="info-box">
+                        <p><strong>生肖吉祥物：</strong>${getShengXiaoJiXiangWu(shengXiao)}</p>
+                        <p><strong>五行吉祥物：</strong>${getWuXingJiXiangWu(xiYongShen)}</p>
+                    </div>
+                    
+                    <div class="subsection-title">行为建议</div>
+                    <ul class="feature-list">
+                        ${getXingWeiJianYi(xiYongShen, shengXiao)}
+                    </ul>
+                </div>
+                
+                <!-- 人生建议 -->
+                <div class="report-page">
+                    <h2 class="section-title">人 生 建 议</h2>
+                    
+                    <div class="subsection-title">选择大于努力</div>
+                    <div class="info-box">
+                        <p style="text-indent: 2em;">
+                            ${getXuanZeDaYuNuLi(bazi, shiShen, dayGanStrength)}
+                        </p>
+                    </div>
+                    
+                    <div class="subsection-title">机会把握</div>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        未来10年重要机会：
+                    </p>
+                    <ul class="feature-list">
+                        ${getJiHuiBaWo(bazi)}
+                    </ul>
+                    
+                    <div class="subsection-title">人生方向</div>
+                    <div class="info-box">
+                        <p style="text-indent: 2em;">
+                            ${getRenShengFangXiang(xiYongShen, shiShen)}
+                        </p>
+                    </div>
+                    
+                    <div class="subsection-title">给您的忠告</div>
+                    <div class="info-box" style="background: linear-gradient(135deg, #667eea20, #764ba220);">
+                        <ol style="padding-left: 20px; line-height: 2;">
+                            <li>保持谦虚，戒骄戒躁</li>
+                            <li>稳扎稳打，不要冒进</li>
+                            <li>珍惜贵人，感恩帮助</li>
+                            <li>注意健康，预防为主</li>
+                            <li>维护家庭，珍惜感情</li>
+                        </ol>
+                        <p style="text-align: center; margin-top: 20px; font-style: italic; color: #764ba2;">
+                            记住：命运掌握在自己手中，命理只是参考，努力创造美好未来！
+                        </p>
+                    </div>
                 </div>
                 
                 <!-- 尾页 -->
