@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化八字分析报告（专业版）</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/lunar-javascript/1.7.4/lunar.min.js"></script>
+    <script src="js/bazi-report-generator.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SimSun', '宋体', serif;
+            background: #f5f5f5;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .report-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .report-page {
+            padding: 40px;
+            min-height: 100vh;
+            page-break-after: always;
+        }
+        
+        /* 封面样式 */
+        .cover-page {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+        }
+        
+        .cover-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 10px;
+        }
+        
+        .cover-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cover-info {
+            margin-top: 60px;
+            font-size: 1rem;
+            line-height: 2;
+        }
+        
+        .cover-info p {
+            margin: 10px 0;
+        }
+        
+        .cover-decoration {
+            font-size: 4rem;
+            margin: 30px 0;
+        }
+        
+        /* 分隔线 */
+        .section-divider {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #764ba2, transparent);
+            margin: 30px 0;
+        }
+        
+        /* 标题样式 */
+        .section-title {
+            font-size: 1.8rem;
+            color: #764ba2;
+            text-align: center;
+            margin: 40px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px double #764ba2;
+        }
+        
+        .subsection-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        /* 表格样式 */
+        .bazi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+        
+        .bazi-table th,
+        .bazi-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .bazi-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .bazi-table .gan {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .bazi-table .zhi {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        /* 信息框 */
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        
+        /* 评分星星 */
+        .rating {
+            color: #f39c12;
+            font-size: 1.2rem;
+        }
+        
+        /* 列表样式 */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .warning-list li:before {
+            content: "⚠";
+            color: #e74c3c;
+        }
+        
+        /* 打印按钮 */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* 五行统计 */
+        .wuxing-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .wuxing-label {
+            width: 60px;
+            font-weight: bold;
+        }
+        
+        .wuxing-progress {
+            flex: 1;
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        
+        .wuxing-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        
+        .wuxing-jin { background: linear-gradient(90deg, #f39c12, #f1c40f); }
+        .wuxing-mu { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .wuxing-shui { background: linear-gradient(90deg, #3498db, #5dade2); }
+        .wuxing-huo { background: linear-gradient(90deg, #e74c3c, #ec7063); }
+        .wuxing-tu { background: linear-gradient(90deg, #8b4513, #a0522d); }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .report-page {
+                padding: 20px;
+            }
+            
+            .cover-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media print {
+            .print-btn {
+                display: none;
+            }
+            
+            .report-page {
+                page-break-after: always;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .report-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container" id="reportContainer">
+        <!-- 报告内容将通过JavaScript生成 -->
+    </div>
+    
+    <button class="print-btn" onclick="window.print()">🖨️ 打印报告</button>
+    
+    <script>
+        // 生成报告
+        function generateReport() {
+            // 从URL参数获取数据
+            const urlParams = new URLSearchParams(window.location.search);
+            const birthData = {
+                year: parseInt(urlParams.get('year')),
+                month: parseInt(urlParams.get('month')),
+                day: parseInt(urlParams.get('day')),
+                hour: parseInt(urlParams.get('hour')),
+                gender: urlParams.get('gender'),
+                name: urlParams.get('name') || '张先生'
+            };
+            
+            if (!birthData.year) {
+                document.getElementById('reportContainer').innerHTML = `
+                    <div class="report-page" style="text-align: center; padding-top: 100px;">
+                        <h2>请先进行八字排盘</h2>
+                        <p style="margin-top: 20px;">
+                            <a href="bazi_detail.html" style="color: #764ba2;">点击这里进行排盘</a>
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 生成八字数据
+            const generator = new BaziReportGenerator();
+            const report = generator.generateReport(birthData);
+            
+            // 生成报告HTML
+            const reportHTML = generateReportHTML(report, birthData);
+            document.getElementById('reportContainer').innerHTML = reportHTML;
+        }
+        
+        // 生成报告HTML
+        function generateReportHTML(report, birthData) {
+            const { bazi, shiShen, naYin, wuXingCount, dayGanStrength, xiYongShen, shengXiao, xingZuo, xingXiu } = report;
+            
+            return `
+                <!-- 封面 -->
+                <div class="report-page cover-page">
+                    <div class="cover-decoration">☯️</div>
+                    <h1 class="cover-title">龙脉文化</h1>
+                    <p class="cover-subtitle">八字命理分析报告</p>
+                    <div style="font-size: 2rem; margin: 20px 0;">【 专 业 版 】</div>
+                    <hr style="width: 200px; border: 2px solid white; margin: 30px auto;">
+                    <div class="cover-info">
+                        <p><strong>报告编号：</strong>LM-${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}${String(new Date().getDate()).padStart(2,'0')}-${Math.random().toString(36).substr(2,6).toUpperCase()}</p>
+                        <p><strong>分析日期：</strong>${new Date().getFullYear()}年${new Date().getMonth()+1}月${new Date().getDate()}日</p>
+                        <p><strong>分析师：</strong>龙脉文化命理研究院</p>
+                        <p><strong>客户姓名：</strong>${birthData.name}</p>
+                    </div>
+                </div>
+                
+                <!-- 报告说明 -->
+                <div class="report-page">
+                    <h2 class="section-title">报 告 说 明</h2>
+                    
+                    <div class="subsection-title">关于龙脉文化</div>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        龙脉文化命理研究院，传承千年易学精髓，融合现代科技手段，致力于为用户提供专业、精准、实用的命理分析服务。
+                    </p>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        我们的分析师均经过严格培训，精通八字命理、紫微斗数、风水布局等传统术数，累计服务用户超过10万人次。
+                    </p>
+                    
+                    <div class="subsection-title">报告内容</div>
+                    <p style="text-indent: 2em; margin-bottom: 15px;">
+                        本报告基于您的出生年月日时，运用传统八字命理学原理，结合大运流年分析，为您详细解读：
+                    </p>
+                    <ul class="feature-list">
+                        <li>命局格局与五行喜忌</li>
+                        <li>性格特点与天赋优势</li>
+                        <li>事业财运与发展方向</li>
+                        <li>感情婚姻与家庭关系</li>
+                        <li>健康状况与养生建议</li>
+                        <li>大运流年与人生规划</li>
+                        <li>贵人扶持与风险提示</li>
+                        <li>改运建议与风水调理</li>
+                    </ul>
+                    
+                    <div class="subsection-title">免责声明</div>
+                    <div class="info-box">
+                        <p style="text-indent: 2em;">
+                            本报告仅供参考，旨在帮助您更好地了解自己，规划人生。命理分析并非绝对，人生掌握在自己手中。建议您理性看待，积极面对，努力创造美好未来。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 客户信息 -->
+                <div class="report-page">
+                    <h2 class="section-title">客 户 信 息</h2>
+                    
+                    <div class="subsection-title">基本信息</div>
+                    <table class="bazi-table">
+                        <tr>
+                            <th>项目</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td>姓名</td>
+                            <td>${birthData.name}</td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td>${birthData.gender === 'male' ? '男' : '女'}</td>
+                        </tr>
+                        <tr>
+                            <td>出生日期（公历）</td>
+                            <td>${birthData.year}年${birthData.month}月${birthData.day}日</td>
+                        </tr>
+                        <tr>
+                            <td>出生时间</td>
+                            <td>${birthData.hour}:00</td>
+                        </tr>
+                        <tr>
+                            <td>生肖</td>
+                            <td>${shengXiao}</td>
+                        </tr>
+                        <tr>
+                            <td>星座</td>
+                            <td>${xingZuo}</td>
+                        </tr>
+                        <tr>
+                            <td>星宿</td>
+                            <td>${xingXiu}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="subsection-title">四柱八字</div>
+                    <table class="bazi-table">
+                        <tr>
+                            <th>柱</th>
+                            <th>天干</th>
+                            <th>地支</th>
+                            <th>纳音</th>
+                            <th>十神</th>
+                        </tr>
+                        <tr>
+                            <td>年柱</td>
+                            <td class="gan">${bazi.year.gan}</td>
+                            <td class="zhi">${bazi.year.zhi}</td>
+                            <td>${naYin.year}</td>
+                            <td>${shiShen.year}</td>
+                        </tr>
+                        <tr>
+                            <td>月柱</td>
+                            <td class="gan">${bazi.month.gan}</td>
+                            <td class="zhi">${bazi.month.zhi}</td>
+                            <td>${naYin.month}</td>
+                            <td>${shiShen.month}</td>
+                        </tr>
+                        <tr>
+                            <td>日柱</td>
+                            <td class="gan">${bazi.day.gan}</td>
+                            <td class="zhi">${bazi.day.zhi}</td>
+                            <td>${naYin.day}</td>
+                            <td>${shiShen.day}</td>
+                        </tr>
+                        <tr>
+                            <td>时柱</td>
+                            <td class="gan">${bazi.hour.gan}</td>
+                            <td class="zhi">${bazi.hour.zhi}</td>
+                            <td>${naYin.hour}</td>
+                            <td>${shiShen.hour}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="subsection-title">五行统计</div>
+                    <div class="wuxing-bar">
+                        <span class="wuxing-label">金</span>
+                        <div class="wuxing-progress">
+                            <div class="wuxing-fill wuxing-jin" style="width: ${wuXingCount['金'] * 10}%"></div>
+                        </div>
+                        <span>${wuXingCount['金']}个</span>
+                    </div>
+                    <div class="wuxing-bar">
+                        <span class="wuxing-label">木</span>
+                        <div class="wuxing-progress">
+                            <div class="wuxing-fill wuxing-mu" style="width: ${wuXingCount['木'] * 10}%"></div>
+                        </div>
+                        <span>${wuXingCount['木']}个</span>
+                    </div>
+                    <div class="wuxing-bar">
+                        <span class="wuxing-label">水</span>
+                        <div class="wuxing-progress">
+                            <div class="wuxing-fill wuxing-shui" style="width: ${wuXingCount['水'] * 10}%"></div>
+                        </div>
+                        <span>${wuXingCount['水']}个</span>
+                    </div>
+                    <div class="wuxing-bar">
+                        <span class="wuxing-label">火</span>
+                        <div class="wuxing-progress">
+                            <div class="wuxing-fill wuxing-huo" style="width: ${wuXingCount['火'] * 10}%"></div>
+                        </div>
+                        <span>${wuXingCount['火']}个</span>
+                    </div>
+                    <div class="wuxing-bar">
+                        <span class="wuxing-label">土</span>
+                        <div class="wuxing-progress">
+                            <div class="wuxing-fill wuxing-tu" style="width: ${wuXingCount['土'] * 10}%"></div>
+                        </div>
+                        <span>${wuXingCount['土']}个</span>
+                    </div>
+                    
+                    <div class="subsection-title">日主分析</div>
+                    <div class="info-box">
+                        <p><strong>日主：</strong>${bazi.day.gan}</p>
+                        <p><strong>日主强弱：</strong>${dayGanStrength}</p>
+                        <p><strong>喜用神：</strong>${xiYongShen.join('、')}</p>
+                    </div>
+                </div>
+                
+                <!-- 更多页面... -->
+                <div class="report-page">
+                    <h2 class="section-title">更 多 内 容</h2>
+                    <p style="text-align: center; padding: 50px 0;">
+                        完整版报告包含：命局总论、性格分析、事业财运、感情婚姻、<br>
+                        家庭六亲、健康分析、大运流年、神煞分析、贵人分析、<br>
+                        风险提示、改运建议、人生建议等详细内容。
+                    </p>
+                    <p style="text-align: center; color: #764ba2; font-size: 1.2rem;">
+                        敬请期待完整版...
+                    </p>
+                </div>
+                
+                <!-- 尾页 -->
+                <div class="report-page cover-page" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
+                    <div class="cover-decoration">☯️</div>
+                    <h2 style="font-size: 2rem; margin-bottom: 20px;">感 谢 您 的 信 任</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 40px;">专业命理分析 · 科学人生指导</p>
+                    <hr style="width: 200px; border: 2px solid white; margin: 30px auto;">
+                    <div style="line-height: 2;">
+                        <p>官方网站：longmai-bazi.pages.dev</p>
+                        <p>咨询热线：400-XXX-XXXX</p>
+                        <p>微信客服：longmai888</p>
+                    </div>
+                    <p style="margin-top: 60px; font-size: 0.9rem; opacity: 0.8;">
+                        © 2026 龙脉文化 版权所有
+                    </p>
+                </div>
+            `;
+        }
+        
+        // 页面加载时生成报告
+        document.addEventListener('DOMContentLoaded', generateReport);
+    </script>
+</body>
+</html>
