@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业八字排盘 - 龙脉文化 | 四柱十神大运流年详解</title>
+    <meta name="description" content="龙脉文化专业八字排盘系统，提供四柱八字、十神分析、地支藏干、纳音五行、胎元命宫、空亡查询、大运流年、神煞查询等完整命理分析。">
+    <meta name="keywords" content="八字排盘,四柱八字,十神,地支藏干,纳音五行,胎元命宫,空亡,大运流年,神煞,命理分析,龙脉文化">
+    <link rel="canonical" href="https://longmai-bazi.pages.dev/bazi_detail.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <!-- 引入农历库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/lunar-javascript/1.7.4/lunar.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        /* 导航栏 */
+        .nav {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+        
+        /* 主体内容 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 输入区域 */
+        .input-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #764ba2;
+            outline: none;
+        }
+        
+        .gender-group {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: transform 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* 结果显示区域 */
+        .result-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .result-section.active {
+            display: block;
+        }
+        
+        /* 八字卡片 */
+        .bazi-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .bazi-title {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .bazi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .bazi-item {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .bazi-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        
+        .bazi-gan {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .bazi-zhi {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        /* 详细信息 */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .detail-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .detail-title {
+            font-size: 1.1rem;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .detail-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* 农历信息 */
+        .lunar-info {
+            background: #fff3e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .lunar-title {
+            color: #e65100;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .lunar-content {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .bazi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">
+            <span>☯️</span>
+            <span>龙脉文化</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="bazi_professional.html">八字排盘</a>
+            <a href="ziwei.html">紫微斗数</a>
+            <a href="liuyao.html">六爻预测</a>
+            <a href="tarot.html">塔罗占卜</a>
+            <a href="fengshui.html">风水罗盘</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 输入区域 -->
+        <section class="input-section">
+            <h1 class="section-title">🔮 专业八字排盘</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                输入您的出生信息，获取精准的四柱八字分析
+            </p>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>出生日期（公历）</label>
+                    <input type="date" id="birthDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>出生时间</label>
+                    <input type="time" id="birthTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>性别</label>
+                    <div class="gender-group">
+                        <label class="gender-option">
+                            <input type="radio" name="gender" value="male" checked>
+                            <span>男</span>
+                        </label>
+                        <label class="gender-option">
+                            <input type="radio" name="gender" value="female">
+                            <span>女</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>出生地点（可选）</label>
+                    <input type="text" id="birthPlace" placeholder="如：北京市">
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="calculateBazi()">开始排盘</button>
+        </section>
+
+        <!-- 结果显示区域 -->
+        <section class="result-section" id="resultSection">
+            <!-- 农历信息 -->
+            <div class="lunar-info">
+                <div class="lunar-title">📅 农历信息</div>
+                <div class="lunar-content" id="lunarInfo"></div>
+            </div>
+            
+            <!-- 八字卡片 -->
+            <div class="bazi-card">
+                <div class="bazi-title">四柱八字</div>
+                <div class="bazi-grid">
+                    <div class="bazi-item">
+                        <div class="bazi-label">年柱</div>
+                        <div class="bazi-gan" id="yearGan"></div>
+                        <div class="bazi-zhi" id="yearZhi"></div>
+                    </div>
+                    <div class="bazi-item">
+                        <div class="bazi-label">月柱</div>
+                        <div class="bazi-gan" id="monthGan"></div>
+                        <div class="bazi-zhi" id="monthZhi"></div>
+                    </div>
+                    <div class="bazi-item">
+                        <div class="bazi-label">日柱</div>
+                        <div class="bazi-gan" id="dayGan"></div>
+                        <div class="bazi-zhi" id="dayZhi"></div>
+                    </div>
+                    <div class="bazi-item">
+                        <div class="bazi-label">时柱</div>
+                        <div class="bazi-gan" id="hourGan"></div>
+                        <div class="bazi-zhi" id="hourZhi"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 详细信息 -->
+            <div class="detail-grid">
+                <div class="detail-card">
+                    <div class="detail-title">🌟 十神分析</div>
+                    <div class="detail-content" id="shishenAnalysis"></div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-title">🌍 五行分析</div>
+                    <div class="detail-content" id="wuxingAnalysis"></div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-title">📊 纳音五行</div>
+                    <div class="detail-content" id="nayinAnalysis"></div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-title">🎯 地支藏干</div>
+                    <div class="detail-content" id="cangganAnalysis"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 天干
+        const tianGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+        
+        // 地支
+        const diZhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+        
+        // 地支藏干
+        const diZhiCangGan = {
+            '子': ['癸'],
+            '丑': ['己', '癸', '辛'],
+            '寅': ['甲', '丙', '戊'],
+            '卯': ['乙'],
+            '辰': ['戊', '乙', '癸'],
+            '巳': ['丙', '庚', '戊'],
+            '午': ['丁', '己'],
+            '未': ['己', '丁', '乙'],
+            '申': ['庚', '壬', '戊'],
+            '酉': ['辛'],
+            '戌': ['戊', '辛', '丁'],
+            '亥': ['壬', '甲']
+        };
+        
+        // 纳音五行
+        const naYinTable = {
+            '甲子': '海中金', '乙丑': '海中金',
+            '丙寅': '炉中火', '丁卯': '炉中火',
+            '戊辰': '大林木', '己巳': '大林木',
+            '庚午': '路旁土', '辛未': '路旁土',
+            '壬申': '剑锋金', '癸酉': '剑锋金',
+            '甲戌': '山头火', '乙亥': '山头火',
+            '丙子': '涧下水', '丁丑': '涧下水',
+            '戊寅': '城头土', '己卯': '城头土',
+            '庚辰': '白蜡金', '辛巳': '白蜡金',
+            '壬午': '杨柳木', '癸未': '杨柳木',
+            '甲申': '泉中水', '乙酉': '泉中水',
+            '丙戌': '屋上土', '丁亥': '屋上土',
+            '戊子': '霹雳火', '己丑': '霹雳火',
+            '庚寅': '松柏木', '辛卯': '松柏木',
+            '壬辰': '长流水', '癸巳': '长流水',
+            '甲午': '沙中金', '乙未': '沙中金',
+            '丙申': '山下火', '丁酉': '山下火',
+            '戊戌': '平地木', '己亥': '平地木',
+            '庚子': '壁上土', '辛丑': '壁上土',
+            '壬寅': '金箔金', '癸卯': '金箔金',
+            '甲辰': '覆灯火', '乙巳': '覆灯火',
+            '丙午': '天河水', '丁未': '天河水',
+            '戊申': '大驿土', '己酉': '大驿土',
+            '庚戌': '钗钏金', '辛亥': '钗钏金',
+            '壬子': '桑柘木', '癸丑': '桑柘木',
+            '甲寅': '大溪水', '乙卯': '大溪水',
+            '丙辰': '沙中土', '丁巳': '沙中土',
+            '戊午': '天上火', '己未': '天上火',
+            '庚申': '石榴木', '辛酉': '石榴木',
+            '壬戌': '大海水', '癸亥': '大海水'
+        };
+        
+        // 五行颜色
+        const wuxingColors = {
+            '金': '#FFD700',
+            '木': '#228B22',
+            '水': '#1E90FF',
+            '火': '#FF4500',
+            '土': '#8B4513'
+        };
+        
+        // 天干五行
+        const ganWuxing = {
+            '甲': '木', '乙': '木',
+            '丙': '火', '丁': '火',
+            '戊': '土', '己': '土',
+            '庚': '金', '辛': '金',
+            '壬': '水', '癸': '水'
+        };
+        
+        // 地支五行
+        const zhiWuxing = {
+            '子': '水', '丑': '土', '寅': '木', '卯': '木',
+            '辰': '土', '巳': '火', '午': '火', '未': '土',
+            '申': '金', '酉': '金', '戌': '土', '亥': '水'
+        };
+        
+        // 计算八字
+        function calculateBazi() {
+            const birthDate = document.getElementById('birthDate').value;
+            const birthTime = document.getElementById('birthTime').value;
+            
+            if (!birthDate || !birthTime) {
+                alert('请填写完整的出生日期和时间');
+                return;
+            }
+            
+            const date = new Date(birthDate + 'T' + birthTime);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours();
+            
+            // 使用 lunar-javascript 库进行转换
+            const lunar = Lunar.fromDate(date);
+            const lunarYear = lunar.getYear();
+            const lunarMonth = lunar.getMonth();
+            const lunarDay = lunar.getDay();
+            
+            // 显示农历信息
+            const lunarInfo = document.getElementById('lunarInfo');
+            lunarInfo.innerHTML = `
+                <strong>农历：</strong>${lunarYear}年${lunarMonth}月${lunarDay}日 ${lunar.getYearInGanZhi()}年<br>
+                <strong>生肖：</strong>${lunar.getYearShengXiao()}<br>
+                <strong>节气：</strong>${lunar.getJieQi() || '无'}
+            `;
+            
+            // 计算四柱
+            const yearGZ = lunar.getYearInGanZhi();
+            const monthGZ = lunar.getMonthInGanZhi();
+            const dayGZ = lunar.getDayInGanZhi();
+            const hourGZ = getHourGanZhi(dayGZ.charAt(0), hour);
+            
+            // 显示八字
+            document.getElementById('yearGan').textContent = yearGZ.charAt(0);
+            document.getElementById('yearZhi').textContent = yearGZ.charAt(1);
+            document.getElementById('monthGan').textContent = monthGZ.charAt(0);
+            document.getElementById('monthZhi').textContent = monthGZ.charAt(1);
+            document.getElementById('dayGan').textContent = dayGZ.charAt(0);
+            document.getElementById('dayZhi').textContent = dayGZ.charAt(1);
+            document.getElementById('hourGan').textContent = hourGZ.charAt(0);
+            document.getElementById('hourZhi').textContent = hourGZ.charAt(1);
+            
+            // 显示详细信息
+            showDetails(yearGZ, monthGZ, dayGZ, hourGZ);
+            
+            // 显示结果区域
+            document.getElementById('resultSection').classList.add('active');
+            
+            // 滚动到结果
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 计算时柱
+        function getHourGanZhi(dayGan, hour) {
+            const hourZhiIndex = Math.floor((hour + 1) / 2) % 12;
+            const hourZhi = diZhi[hourZhiIndex];
+            
+            // 时干计算：日干推时干
+            const dayGanIndex = tianGan.indexOf(dayGan);
+            const hourGanIndex = (dayGanIndex * 2 + hourZhiIndex) % 10;
+            const hourGan = tianGan[hourGanIndex];
+            
+            return hourGan + hourZhi;
+        }
+        
+        // 显示详细信息
+        function showDetails(yearGZ, monthGZ, dayGZ, hourGZ) {
+            // 十神分析（简化版）
+            const dayGan = dayGZ.charAt(0);
+            const shishenText = `
+                <p><strong>日主：</strong>${dayGan}（${ganWuxing[dayGan]}）</p>
+                <p><strong>年柱：</strong>${yearGZ} - ${getShiShen(dayGan, yearGZ.charAt(0))}</p>
+                <p><strong>月柱：</strong>${monthGZ} - ${getShiShen(dayGan, monthGZ.charAt(0))}</p>
+                <p><strong>时柱：</strong>${hourGZ} - ${getShiShen(dayGan, hourGZ.charAt(0))}</p>
+            `;
+            document.getElementById('shishenAnalysis').innerHTML = shishenText;
+            
+            // 五行分析
+            const allGanZhi = yearGZ + monthGZ + dayGZ + hourGZ;
+            const wuxingCount = { '金': 0, '木': 0, '水': 0, '火': 0, '土': 0 };
+            
+            for (let char of allGanZhi) {
+                if (ganWuxing[char]) wuxingCount[ganWuxing[char]]++;
+                if (zhiWuxing[char]) wuxingCount[zhiWuxing[char]]++;
+            }
+            
+            let wuxingText = '<p><strong>五行统计：</strong></p>';
+            for (let [wx, count] of Object.entries(wuxingCount)) {
+                if (count > 0) {
+                    wuxingText += `<p><span style="color: ${wuxingColors[wx]}">●</span> ${wx}：${count}个</p>`;
+                }
+            }
+            document.getElementById('wuxingAnalysis').innerHTML = wuxingText;
+            
+            // 纳音五行
+            const nayinText = `
+                <p><strong>年柱纳音：</strong>${naYinTable[yearGZ] || '未知'}</p>
+                <p><strong>月柱纳音：</strong>${naYinTable[monthGZ] || '未知'}</p>
+                <p><strong>日柱纳音：</strong>${naYinTable[dayGZ] || '未知'}</p>
+                <p><strong>时柱纳音：</strong>${naYinTable[hourGZ] || '未知'}</p>
+            `;
+            document.getElementById('nayinAnalysis').innerHTML = nayinText;
+            
+            // 地支藏干
+            const cangganText = `
+                <p><strong>年支${yearGZ.charAt(1)}藏：</strong>${diZhiCangGan[yearGZ.charAt(1)].join('、')}</p>
+                <p><strong>月支${monthGZ.charAt(1)}藏：</strong>${diZhiCangGan[monthGZ.charAt(1)].join('、')}</p>
+                <p><strong>日支${dayGZ.charAt(1)}藏：</strong>${diZhiCangGan[dayGZ.charAt(1)].join('、')}</p>
+                <p><strong>时支${hourGZ.charAt(1)}藏：</strong>${diZhiCangGan[hourGZ.charAt(1)].join('、')}</p>
+            `;
+            document.getElementById('cangganAnalysis').innerHTML = cangganText;
+        }
+        
+        // 获取十神（简化版）
+        function getShiShen(dayGan, targetGan) {
+            if (dayGan === targetGan) return '比肩';
+            
+            const dayIndex = tianGan.indexOf(dayGan);
+            const targetIndex = tianGan.indexOf(targetGan);
+            const dayWuxing = ganWuxing[dayGan];
+            const targetWuxing = ganWuxing[targetGan];
+            
+            // 同性为比肩/劫财/食神/伤官/偏财/正财/七杀/正官/偏印/正印
+            const isSameYinYang = (dayIndex % 2) === (targetIndex % 2);
+            
+            // 五行生克关系
+            const wuxingRelation = {
+                '金': { '生': '水', '克': '木', '被生': '土', '被克': '火' },
+                '木': { '生': '火', '克': '土', '被生': '水', '被克': '金' },
+                '水': { '生': '木', '克': '火', '被生': '金', '被克': '土' },
+                '火': { '生': '土', '克': '金', '被生': '木', '被克': '水' },
+                '土': { '生': '金', '克': '水', '被生': '火', '被克': '木' }
+            };
+            
+            if (targetWuxing === wuxingRelation[dayWuxing]['被生']) {
+                return isSameYinYang ? '偏印' : '正印';
+            } else if (targetWuxing === wuxingRelation[dayWuxing]['生']) {
+                return isSameYinYang ? '食神' : '伤官';
+            } else if (targetWuxing === wuxingRelation[dayWuxing]['被克']) {
+                return isSameYinYang ? '偏财' : '正财';
+            } else if (targetWuxing === wuxingRelation[dayWuxing]['克']) {
+                return isSameYinYang ? '七杀' : '正官';
+            } else {
+                return isSameYinYang ? '比肩' : '劫财';
+            }
+        }
+    </script>
+</body>
+</html>
