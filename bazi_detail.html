@@ -289,8 +289,37 @@
             
             <div class="form-grid">
                 <div class="form-group">
+                    <label>日期类型</label>
+                    <div class="gender-group">
+                        <label class="gender-option">
+                            <input type="radio" name="dateType" value="solar" checked onchange="toggleDateType()">
+                            <span>公历</span>
+                        </label>
+                        <label class="gender-option">
+                            <input type="radio" name="dateType" value="lunar" onchange="toggleDateType()">
+                            <span>农历</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="solarDateGroup">
                     <label>出生日期（公历）</label>
-                    <input type="date" id="birthDate" required>
+                    <input type="date" id="solarDate">
+                </div>
+                
+                <div class="form-group" id="lunarDateGroup" style="display: none;">
+                    <label>出生日期（农历）</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                        <select id="lunarYear">
+                            <option value="">年</option>
+                        </select>
+                        <select id="lunarMonth">
+                            <option value="">月</option>
+                        </select>
+                        <select id="lunarDay">
+                            <option value="">日</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -463,17 +492,105 @@
             '申': '金', '酉': '金', '戌': '土', '亥': '水'
         };
         
+        // 切换日期类型
+        function toggleDateType() {
+            const dateType = document.querySelector('input[name="dateType"]:checked').value;
+            const solarGroup = document.getElementById('solarDateGroup');
+            const lunarGroup = document.getElementById('lunarDateGroup');
+            
+            if (dateType === 'solar') {
+                solarGroup.style.display = 'block';
+                lunarGroup.style.display = 'none';
+                document.getElementById('solarDate').required = true;
+                document.getElementById('lunarYear').required = false;
+            } else {
+                solarGroup.style.display = 'none';
+                lunarGroup.style.display = 'block';
+                document.getElementById('solarDate').required = false;
+                document.getElementById('lunarYear').required = true;
+            }
+        }
+        
+        // 初始化农历日期选择器
+        function initLunarDatePicker() {
+            const yearSelect = document.getElementById('lunarYear');
+            const monthSelect = document.getElementById('lunarMonth');
+            const daySelect = document.getElementById('lunarDay');
+            
+            // 年份：1900-2100
+            for (let y = 1900; y <= 2100; y++) {
+                const option = document.createElement('option');
+                option.value = y;
+                option.textContent = y + '年';
+                yearSelect.appendChild(option);
+            }
+            
+            // 月份：1-12月 + 闰月
+            const months = ['正月', '二月', '三月', '四月', '五月', '六月', 
+                           '七月', '八月', '九月', '十月', '冬月', '腊月'];
+            for (let m = 1; m <= 12; m++) {
+                const option = document.createElement('option');
+                option.value = m;
+                option.textContent = months[m-1];
+                monthSelect.appendChild(option);
+            }
+            
+            // 日期：1-30日
+            for (let d = 1; d <= 30; d++) {
+                const option = document.createElement('option');
+                option.value = d;
+                option.textContent = d + '日';
+                daySelect.appendChild(option);
+            }
+            
+            // 默认选择今天
+            const today = new Date();
+            yearSelect.value = today.getFullYear();
+            monthSelect.value = today.getMonth() + 1;
+            daySelect.value = today.getDate();
+        }
+        
         // 计算八字
         function calculateBazi() {
-            const birthDate = document.getElementById('birthDate').value;
+            const dateType = document.querySelector('input[name="dateType"]:checked').value;
             const birthTime = document.getElementById('birthTime').value;
             
-            if (!birthDate || !birthTime) {
-                alert('请填写完整的出生日期和时间');
+            if (!birthTime) {
+                alert('请填写出生时间');
                 return;
             }
             
-            const date = new Date(birthDate + 'T' + birthTime);
+            let date;
+            
+            if (dateType === 'solar') {
+                // 公历输入
+                const solarDate = document.getElementById('solarDate').value;
+                if (!solarDate) {
+                    alert('请选择公历出生日期');
+                    return;
+                }
+                date = new Date(solarDate + 'T' + birthTime);
+            } else {
+                // 农历输入
+                const lunarYear = parseInt(document.getElementById('lunarYear').value);
+                const lunarMonth = parseInt(document.getElementById('lunarMonth').value);
+                const lunarDay = parseInt(document.getElementById('lunarDay').value);
+                
+                if (!lunarYear || !lunarMonth || !lunarDay) {
+                    alert('请选择农历出生日期');
+                    return;
+                }
+                
+                // 农历转公历
+                const lunar = Lunar.fromYmd(lunarYear, lunarMonth, lunarDay);
+                const solar = lunar.getSolar();
+                date = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
+                
+                // 设置时间
+                const [hours, minutes] = birthTime.split(':');
+                date.setHours(parseInt(hours), parseInt(minutes));
+            }
+            
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
             const day = date.getDate();
@@ -487,11 +604,22 @@
             
             // 显示农历信息
             const lunarInfo = document.getElementById('lunarInfo');
-            lunarInfo.innerHTML = `
-                <strong>农历：</strong>${lunarYear}年${lunarMonth}月${lunarDay}日 ${lunar.getYearInGanZhi()}年<br>
-                <strong>生肖：</strong>${lunar.getYearShengXiao()}<br>
-                <strong>节气：</strong>${lunar.getJieQi() || '无'}
-            `;
+            if (dateType === 'solar') {
+                lunarInfo.innerHTML = `
+                    <strong>公历：</strong>${year}年${month}月${day}日 ${hour}时<br>
+                    <strong>农历：</strong>${lunar.getYear()}年${lunar.getMonth()}月${lunar.getDay()}日 ${lunar.getYearInGanZhi()}年<br>
+                    <strong>生肖：</strong>${lunar.getYearShengXiao()}<br>
+                    <strong>节气：</strong>${lunar.getJieQi() || '无'}
+                `;
+            } else {
+                const solar = lunar.getSolar();
+                lunarInfo.innerHTML = `
+                    <strong>农历：</strong>${lunar.getYear()}年${lunar.getMonth()}月${lunar.getDay()}日 ${hour}时<br>
+                    <strong>公历：</strong>${solar.getYear()}年${solar.getMonth()}月${solar.getDay()}日<br>
+                    <strong>生肖：</strong>${lunar.getYearShengXiao()}<br>
+                    <strong>节气：</strong>${lunar.getJieQi() || '无'}
+                `;
+            }
             
             // 计算四柱
             const yearGZ = lunar.getYearInGanZhi();
