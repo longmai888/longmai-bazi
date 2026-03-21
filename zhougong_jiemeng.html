@@ -7,27 +7,69 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d1b4e 50%, #4a148c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #fff;
+        }
+        
         .dream-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a148c 0%, #764ba2 50%, #f5b041 100%);
             color: white;
             padding: 50px 20px;
             text-align: center;
+            border-bottom: 2px solid rgba(243, 156, 18, 0.5);
+        }
+        .dream-hero h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5b041 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .dream-hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
         .dream-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .search-box {
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(155, 123, 199, 0.3);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             margin-bottom: 40px;
         }
         .search-input {
             width: 100%;
             padding: 15px;
-            border: 2px solid #ddd;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(243, 156, 18, 0.3);
             border-radius: 10px;
             font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .search-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.3);
+        }
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(243, 156, 18, 0.5);
         }
         .category-grid {
             display: grid;
@@ -36,39 +78,50 @@
             margin: 30px 0;
         }
         .category-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(155, 123, 199, 0.3);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            color: #fff;
         }
         .category-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(243, 156, 18, 0.5);
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 40px rgba(243, 156, 18, 0.3);
+        }
+        .category-card h3 {
+            color: #f5b041;
+        }
+        .category-card p {
+            color: rgba(255, 255, 255, 0.6) !important;
         }
         .dream-list {
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(155, 123, 199, 0.3);
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
         }
         .dream-item {
             padding: 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
         }
         .dream-item:hover {
-            background: #f5f7fa;
+            background: rgba(255, 255, 255, 0.05);
         }
         .dream-title {
             font-size: 1.2rem;
-            color: #764ba2;
+            color: #f5b041;
             margin-bottom: 10px;
         }
         .dream-meaning {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
     </style>
@@ -82,9 +135,10 @@
     <div class="dream-content">
         <div class="search-box">
             <input type="text" class="search-input" id="dreamSearch" placeholder="输入梦境关键词，如：梦见蛇、梦见飞..." onkeyup="searchDream()">
+            <button class="search-btn" onclick="searchDream()">🔍 解梦查询</button>
         </div>
 
-        <h2 style="text-align: center; color: #764ba2; margin-bottom: 30px;">梦境分类</h2>
+        <h2 style="text-align: center; color: #f5b041; margin-bottom: 30px; text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);">梦境分类</h2>
         <div class="category-grid">
             <div class="category-card" onclick="showCategory('animal')">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🐍</div>
