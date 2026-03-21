@@ -15,6 +15,7 @@
             margin-bottom: 40px;
         }
         .tarot-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .tarot-hero p { font-size: 1.1rem; opacity: 0.9; }
         .tarot-content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
         .spread-selector {
             display: flex;
@@ -31,6 +32,10 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.1rem;
+        }
+        .spread-btn:hover {
+            border-color: #9966CC;
+            transform: translateY(-2px);
         }
         .spread-btn.active {
             background: linear-gradient(135deg, #FFB6C1, #9966CC);
@@ -56,90 +61,296 @@
             font-size: 0.9rem;
             text-align: center;
             padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .tarot-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-5px) rotateY(10deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
-        .tarot-card.selected {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            transform: scale(1.1);
+        .tarot-card.revealed {
+            background: white;
+            color: #333;
+            border: 2px solid #9966CC;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
+        .reading-area {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .reading-area h3 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .card-position {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+        .card-position .position-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        .instruction {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .instruction h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        .instruction p {
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .tarot-hero h1 { font-size: 2rem; }
+            .spread-btn { padding: 12px 20px; font-size: 1rem; }
+            .card-deck { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
         }
     </style>
 </head>
 <body>
-    <div class="tarot-hero">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">☯️ 龙脉文化</a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="bazi_detail.html">八字排盘</a>
+            <a href="ziwei.html">紫微斗数</a>
+            <a href="tarot.html">塔罗占卜</a>
+            <a href="liuyao.html">六爻预测</a>
+        </div>
+    </nav>
+
+    <!-- 头部区域 -->
+    <section class="tarot-hero">
         <h1>🔮 塔罗占卜</h1>
-        <p class="subtitle">78张塔罗牌 · 5种牌�?· AI智能解读</p>
-    </div>
+        <p>78张塔罗牌 · 5种牌阵 · AI智能解读</p>
+    </section>
+
+    <!-- 主要内容 -->
     <div class="tarot-content">
-        <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">选择牌阵</h3>
+        <!-- 牌阵选择 -->
         <div class="spread-selector">
-            <button class="spread-btn active" onclick="selectSpread('single')">单张�?/button>
-            <button class="spread-btn" onclick="selectSpread('three')">三张�?/button>
+            <button class="spread-btn active" onclick="selectSpread('single')">单张牌</button>
+            <button class="spread-btn" onclick="selectSpread('three')">三张牌</button>
             <button class="spread-btn" onclick="selectSpread('love')">爱情牌阵</button>
             <button class="spread-btn" onclick="selectSpread('career')">事业牌阵</button>
-            <button class="spread-btn" onclick="selectSpread('celtic')">凯尔特十�?/button>
+            <button class="spread-btn" onclick="selectSpread('celtic')">凯尔特十字</button>
         </div>
-        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">请抽�?/h3>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">
-                静心冥想您的问题，然后选择塔罗�?            </p>
-            <div class="card-deck" id="card-deck">
-                <!-- 塔罗牌将在这里生�?-->
+
+        <!-- 说明文字 -->
+        <div class="instruction">
+            <h3>请抽牌</h3>
+            <p>选择塔罗牌阵，点击卡牌进行抽牌，获取AI智能解读</p>
+        </div>
+
+        <!-- 卡牌区域 -->
+        <div class="card-deck" id="cardDeck">
+            <!-- 卡牌将通过JavaScript生成 -->
+        </div>
+
+        <!-- 解读区域 -->
+        <div class="reading-area" id="readingArea" style="display: none;">
+            <h3>🔮 塔罗解读</h3>
+            <div id="readingContent"></div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer style="background: #333; color: white; padding: 40px 20px; margin-top: 60px;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <div style="margin-bottom: 20px;">
+                <a href="about.html" style="color: white; margin: 0 15px;">关于我们</a>
+                <a href="product_plan.html" style="color: white; margin: 0 15px;">产品规划</a>
+                <a href="team.html" style="color: white; margin: 0 15px;">团队介绍</a>
+                <a href="contact.html" style="color: white; margin: 0 15px;">联系我们</a>
             </div>
-            <button class="btn-primary" onclick="interpretCards()">开始解�?/button>
+            <div style="margin-bottom: 20px;">
+                <a href="user_agreement.html" style="color: #aaa; margin: 0 10px;">用户协议</a>
+                <a href="privacy_policy.html" style="color: #aaa; margin: 0 10px;">隐私政策</a>
+                <a href="disclaimer.html" style="color: #aaa; margin: 0 10px;">免责声明</a>
+            </div>
+            <div style="color: #aaa; font-size: 0.9rem;">
+                <p>联系方式</p>
+                <p>邮箱：longmai@foxmail.com | 电话：400-XXX-XXXX</p>
+                <p>地址：中国</p>
+            </div>
+            <p style="margin-top: 20px; color: #666;">&copy; 2026 龙脉文化 版权所有</p>
         </div>
-        <div id="result-section" style="display: none; background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">塔罗解读</h3>
-            <div id="interpretation-content"></div>
-        </div>
-    </div>
-    <script src="tarot.js"></script>
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>��������</h4>
-            <ul>
-                <li><a href="about.html">Ʒ�ƹ���</a></li>
-                <li><a href="about.html">�Ŷӽ���</a></li>
-                <li><a href="about.html">��ϵ����</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>��������</h4>
-            <ul>
-                <li><a href="user_agreement.html">�û�Э��</a></li>
-                <li><a href="privacy_policy.html">��˽����</a></li>
-                <li><a href="disclaimer.html">��������</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>��ϵ��ʽ</h4>
-            <ul>
-                <li>?? longmai@foxmail.com</li>
-                <li>?? 400-XXX-XXXX</li>
-                <li>?? ����ʡ������������</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
-        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
-        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
-        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
-    </div>
-</footer>
+    </footer>
+
+    <script>
+        // 塔罗牌数据
+        const tarotCards = [
+            { name: '愚者', nameEn: 'The Fool', meaning: '新的开始，冒险，纯真' },
+            { name: '魔术师', nameEn: 'The Magician', meaning: '创造力，意志力，显化' },
+            { name: '女祭司', nameEn: 'The High Priestess', meaning: '直觉，潜意识，神秘' },
+            { name: '皇后', nameEn: 'The Empress', meaning: '丰饶，母性，创造力' },
+            { name: '皇帝', nameEn: 'The Emperor', meaning: '权威，结构，控制' },
+            { name: '教皇', nameEn: 'The Hierophant', meaning: '传统，信仰，指导' },
+            { name: '恋人', nameEn: 'The Lovers', meaning: '爱情，选择，和谐' },
+            { name: '战车', nameEn: 'The Chariot', meaning: '意志力，胜利，决心' },
+            { name: '力量', nameEn: 'Strength', meaning: '勇气，耐心，内在力量' },
+            { name: '隐者', nameEn: 'The Hermit', meaning: '内省，独处，寻找真理' },
+            { name: '命运之轮', nameEn: 'Wheel of Fortune', meaning: '变化，周期，命运' },
+            { name: '正义', nameEn: 'Justice', meaning: '公正，平衡，因果' },
+            { name: '倒吊人', nameEn: 'The Hanged Man', meaning: '牺牲，新视角，等待' },
+            { name: '死神', nameEn: 'Death', meaning: '结束，转变，新生' },
+            { name: '节制', nameEn: 'Temperance', meaning: '平衡，调和，耐心' },
+            { name: '恶魔', nameEn: 'The Devil', meaning: '束缚，欲望，物质主义' },
+            { name: '塔', nameEn: 'The Tower', meaning: '突变，觉醒，破坏' },
+            { name: '星星', nameEn: 'The Star', meaning: '希望，灵感，宁静' },
+            { name: '月亮', nameEn: 'The Moon', meaning: '幻觉，恐惧，潜意识' },
+            { name: '太阳', nameEn: 'The Sun', meaning: '成功，活力，喜悦' },
+            { name: '审判', nameEn: 'Judgement', meaning: '重生，觉醒，救赎' },
+            { name: '世界', nameEn: 'The World', meaning: '完成，成就，圆满' }
+        ];
+
+        let currentSpread = 'single';
+        let selectedCards = [];
+
+        // 初始化卡牌
+        function initCards() {
+            const deck = document.getElementById('cardDeck');
+            deck.innerHTML = '';
+            
+            for (let i = 0; i < 22; i++) {
+                const card = document.createElement('div');
+                card.className = 'tarot-card';
+                card.innerHTML = '🔮<br>塔罗牌';
+                card.onclick = () => drawCard(i);
+                deck.appendChild(card);
+            }
+        }
+
+        // 选择牌阵
+        function selectSpread(spread) {
+            currentSpread = spread;
+            selectedCards = [];
+            
+            // 更新按钮状态
+            document.querySelectorAll('.spread-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 重置卡牌
+            initCards();
+            
+            // 隐藏解读区域
+            document.getElementById('readingArea').style.display = 'none';
+            
+            // 更新说明
+            const instructions = {
+                'single': '请抽一张牌，获取当前状况的指引',
+                'three': '请抽三张牌，代表过去、现在、未来',
+                'love': '请抽三张牌，解读爱情运势',
+                'career': '请抽三张牌，解读事业发展',
+                'celtic': '请抽十张牌，进行深度解读'
+            };
+            document.querySelector('.instruction p').textContent = instructions[spread];
+        }
+
+        // 抽牌
+        function drawCard(index) {
+            const cards = document.querySelectorAll('.tarot-card');
+            const card = cards[index];
+            
+            if (card.classList.contains('revealed')) return;
+            
+            // 随机选择一张塔罗牌
+            const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+            
+            card.classList.add('revealed');
+            card.innerHTML = `<strong>${randomCard.name}</strong><br><small>${randomCard.nameEn}</small>`;
+            
+            selectedCards.push({
+                index: index,
+                card: randomCard
+            });
+            
+            // 检查是否完成抽牌
+            const requiredCards = {
+                'single': 1,
+                'three': 3,
+                'love': 3,
+                'career': 3,
+                'celtic': 10
+            };
+            
+            if (selectedCards.length >= requiredCards[currentSpread]) {
+                showReading();
+            }
+        }
+
+        // 显示解读
+        function showReading() {
+            const readingArea = document.getElementById('readingArea');
+            const readingContent = document.getElementById('readingContent');
+            
+            let html = '';
+            
+            const positions = {
+                'single': ['当前状况'],
+                'three': ['过去', '现在', '未来'],
+                'love': ['你', '对方', '关系发展'],
+                'career': ['现状', '挑战', '建议'],
+                'celtic': ['现状', '障碍', '基础', '过去', '未来', '自我', '环境', '希望', '结果', ' outcome']
+            };
+            
+            selectedCards.forEach((item, index) => {
+                const position = positions[currentSpread][index] || `位置${index + 1}`;
+                html += `
+                    <div class="card-position">
+                        <div style="font-size: 1.2rem; margin-bottom: 10px;">
+                            <strong>${item.card.name}</strong> (${item.card.nameEn})
+                        </div>
+                        <div style="color: #666; margin-bottom: 5px;">
+                            <strong>位置：</strong>${position}
+                        </div>
+                        <div style="color: #764ba2; margin-bottom: 10px;">
+                            <strong>含义：</strong>${item.card.meaning}
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: left;">
+                            <strong>AI解读：</strong><br>
+                            ${generateInterpretation(item.card, position)}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            readingContent.innerHTML = html;
+            readingArea.style.display = 'block';
+            readingArea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 生成AI解读
+        function generateInterpretation(card, position) {
+            const interpretations = {
+                '愚者': '这是一个全新的开始，放下顾虑，勇敢迈出第一步。保持开放的心态，相信直觉。',
+                '魔术师': '你拥有实现目标所需的所有资源和能力。现在是采取行动的最佳时机。',
+                '女祭司': '相信你的直觉和内在智慧。答案就在你心中，需要静心聆听。',
+                '皇后': '拥抱丰饶和创造力。关注自我关爱，培养内心的平静与喜悦。',
+                '皇帝': '建立结构和秩序。运用理性和权威，为自己设定清晰的界限。',
+                '恋人': '重要的选择即将到来。倾听内心，选择符合你真实价值观的道路。',
+                '战车': '通过意志力和决心，你将克服障碍取得胜利。保持专注，不要放弃。',
+                '力量': '以温柔而坚定的方式面对挑战。真正的力量来自内心的平静。',
+                '命运之轮': '变化正在发生，顺应周期。好运即将到来，保持开放。',
+                '太阳': '成功和喜悦就在前方。保持积极乐观，分享你的光芒。'
+            };
+            
+            return interpretations[card.name] || `${card.name}出现在${position}位置，暗示着${card.meaning}的能量正在影响这个领域。建议保持觉察，顺应变化。`;
+        }
+
+        // 初始化
+        initCards();
+    </script>
 </body>
 </html>
