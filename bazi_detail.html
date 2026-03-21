@@ -828,6 +828,135 @@
             '庚申': '石榴木', '辛酉': '石榴木', '壬戌': '大海水', '癸亥': '大海水'
         };
         
+        // 人元司令（月令司令）
+        const renYuanSiLing = {
+            '正月': '丙火', '二月': '甲木', '三月': '戊土',
+            '四月': '丙火', '五月': '丁火', '六月': '己土',
+            '七月': '庚金', '八月': '辛金', '九月': '戊土',
+            '十月': '壬水', '冬月': '癸水', '腊月': '己土'
+        };
+        
+        // 节气数据
+        const jieQiData = {
+            '立春': [2, 4], '雨水': [2, 19], '惊蛰': [3, 6], '春分': [3, 21],
+            '清明': [4, 5], '谷雨': [4, 20], '立夏': [5, 6], '小满': [5, 21],
+            '芒种': [6, 6], '夏至': [6, 21], '小暑': [7, 7], '大暑': [7, 23],
+            '立秋': [8, 8], '处暑': [8, 23], '白露': [9, 8], '秋分': [9, 23],
+            '寒露': [10, 8], '霜降': [10, 23], '立冬': [11, 7], '小雪': [11, 22],
+            '大雪': [12, 7], '冬至': [12, 22], '小寒': [1, 6], '大寒': [1, 20]
+        };
+        
+        // 空亡计算（根据年柱和日柱）
+        const kongWangTable = {
+            '甲子': '戌亥', '甲戌': '申酉', '甲申': '午未', '甲午': '辰巳',
+            '甲辰': '寅卯', '甲寅': '子丑',
+            '乙丑': '戌亥', '乙亥': '申酉', '乙酉': '午未', '乙未': '辰巳',
+            '乙巳': '寅卯', '乙卯': '子丑',
+            '丙寅': '戌亥', '丙子': '申酉', '丙戌': '午未', '丙申': '辰巳',
+            '丙午': '寅卯', '丙辰': '子丑',
+            '丁卯': '戌亥', '丁丑': '申酉', '丁亥': '午未', '丁酉': '辰巳',
+            '丁未': '寅卯', '丁巳': '子丑',
+            '戊辰': '戌亥', '戊寅': '申酉', '戊子': '午未', '戊戌': '辰巳',
+            '戊申': '寅卯', '戊午': '子丑',
+            '己巳': '戌亥', '己卯': '申酉', '己丑': '午未', '己亥': '辰巳',
+            '己酉': '寅卯', '己未': '子丑',
+            '庚午': '戌亥', '庚辰': '申酉', '庚寅': '午未', '庚子': '辰巳',
+            '庚戌': '寅卯', '庚申': '子丑',
+            '辛未': '戌亥', '辛巳': '申酉', '辛卯': '午未', '辛丑': '辰巳',
+            '辛亥': '寅卯', '辛酉': '子丑',
+            '壬申': '戌亥', '壬午': '申酉', '壬辰': '午未', '壬寅': '辰巳',
+            '壬子': '寅卯', '壬戌': '子丑',
+            '癸酉': '戌亥', '癸未': '申酉', '癸巳': '午未', '癸卯': '辰巳',
+            '癸丑': '寅卯', '癸亥': '子丑'
+        };
+        
+        // 星宿计算
+        const xingXiuTable = ['角', '亢', '氐', '房', '心', '尾', '箕', '斗', '牛', '女', '虚', '危', '室', '壁', '奎', '娄', '胃', '昴', '毕', '觜', '参', '井', '鬼', '柳', '星', '张', '翼', '轸'];
+        
+        // 命宫计算（根据生月和生时）
+        function calculateMingGong(month, hour) {
+            const monthZhi = ['寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'];
+            const hourZhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            const tianGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+            
+            const monthIndex = month - 1;
+            const hourIndex = Math.floor((hour + 1) / 2) % 12;
+            
+            // 命宫地支 = (月支序号 + 时支序号) % 12
+            const mingGongZhiIndex = (monthIndex + hourIndex) % 12;
+            const mingGongZhi = monthZhi[mingGongZhiIndex];
+            
+            // 命宫天干需要根据年干推算（简化版）
+            const mingGongGan = '甲'; // 简化处理
+            
+            return mingGongGan + mingGongZhi;
+        }
+        
+        // 胎元计算（根据生月和生时）
+        function calculateTaiYuan(month, hour) {
+            const monthZhi = ['寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'];
+            const tianGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+            
+            // 胎元 = 月干进一位，月支进三位
+            const monthIndex = month - 1;
+            const taiYuanZhiIndex = (monthIndex + 3) % 12;
+            const taiYuanZhi = monthZhi[taiYuanZhiIndex];
+            
+            // 胎元天干（简化）
+            const taiYuanGan = '己';
+            
+            return taiYuanGan + taiYuanZhi;
+        }
+        
+        // 身宫计算
+        function calculateShenGong(month, hour) {
+            const monthZhi = ['寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'];
+            const hourZhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            
+            const monthIndex = month - 1;
+            const hourIndex = Math.floor((hour + 1) / 2) % 12;
+            
+            // 身宫地支 = (月支序号 - 时支序号 + 12) % 12
+            const shenGongZhiIndex = (monthIndex - hourIndex + 12) % 12;
+            const shenGongZhi = monthZhi[shenGongZhiIndex];
+            
+            return '甲' + shenGongZhi; // 简化
+        }
+        
+        // 获取星宿
+        function getXingXiu(year, month, day) {
+            // 简化计算，根据日期取模
+            const date = new Date(year, month - 1, day);
+            const startDate = new Date(1900, 0, 1);
+            const daysDiff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
+            const index = daysDiff % 28;
+            return xingXiuTable[index] + '宿';
+        }
+        
+        // 获取空亡
+        function getKongWang(yearGanZhi, dayGanZhi) {
+            const yearKong = kongWangTable[yearGanZhi] || '未知';
+            const dayKong = kongWangTable[dayGanZhi] || '未知';
+            return { year: yearKong, day: dayKong };
+        }
+        
+        // 获取节气
+        function getJieQi(year, month, day) {
+            for (const [name, [m, d]] of Object.entries(jieQiData)) {
+                if (m === month && Math.abs(d - day) <= 15) {
+                    return name;
+                }
+            }
+            return '未知';
+        }
+        
+        // 获取人元司令
+        function getRenYuanSiLing(month) {
+            const lunarMonths = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
+            const lunarMonth = lunarMonths[month - 1];
+            return renYuanSiLing[lunarMonth] || '未知';
+        }
+        
         // 十二长生
         const changShengTable = {
             '甲': ['亥', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌'],
