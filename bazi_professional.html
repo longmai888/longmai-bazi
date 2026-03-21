@@ -606,8 +606,15 @@
                         <option value="female">女</option>
                     </select>
                 </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>历法选择</label>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" id="solarBtn" style="padding: 10px 20px; background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%); border: 2px solid #f5b041; color: #fff; border-radius: 25px; cursor: pointer; font-weight: bold;" onclick="isLunar=false; document.getElementById('solarBtn').style.background='linear-gradient(135deg, #764ba2 0%, #f5b041 100%)'; document.getElementById('solarBtn').style.borderColor='#f5b041'; document.getElementById('lunarBtn').style.background='rgba(118, 75, 162, 0.3)'; document.getElementById('lunarBtn').style.borderColor='rgba(243, 156, 18, 0.3)'; document.getElementById('year-label').textContent='出生年份（公历）';">公历</button>
+                        <button type="button" id="lunarBtn" style="padding: 10px 20px; background: rgba(118, 75, 162, 0.3); border: 2px solid rgba(243, 156, 18, 0.3); color: #fff; border-radius: 25px; cursor: pointer; font-weight: bold;" onclick="isLunar=true; document.getElementById('lunarBtn').style.background='linear-gradient(135deg, #764ba2 0%, #f5b041 100%)'; document.getElementById('lunarBtn').style.borderColor='#f5b041'; document.getElementById('solarBtn').style.background='rgba(118, 75, 162, 0.3)'; document.getElementById('solarBtn').style.borderColor='rgba(243, 156, 18, 0.3)'; document.getElementById('year-label').textContent='出生年份（农历）';">农历</button>
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label>出生年份</label>
+                    <label id="year-label">出生年份（公历）</label>
                     <select id="birth-year"></select>
                 </div>
                 <div class="form-group">
