@@ -964,6 +964,7 @@
             }
             
             try {
+                console.log('使用Lunar库计算...', year, month, day, hour);
                 // 使用lunar-javascript库
                 const solar = Solar.fromYmdHms(year, month, day, hour * 2, 0, 0);
                 const lunar = solar.getLunar();
@@ -1002,6 +1003,8 @@
         
         // 计算八字（主函数）
         function calculateBazi() {
+            console.log('开始排盘...');
+            
             const name = document.getElementById('user-name').value || '未命名';
             const gender = document.getElementById('gender').value;
             
