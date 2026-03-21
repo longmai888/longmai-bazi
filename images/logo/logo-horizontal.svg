@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#667eea;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1c40f;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 左侧图形Logo -->
+  <g transform="translate(60, 60)">
+    <!-- 圆形外框 -->
+    <circle cx="0" cy="0" r="50" fill="white" stroke="url(#purpleGrad)" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#764ba2" stroke-width="1" opacity="0.3"/>
+    
+    <!-- 龙角装饰 -->
+    <g fill="none" stroke="#764ba2" stroke-width="1.5" opacity="0.6">
+      <path d="M-12,-25 L-20,-42 L-15,-47" />
+      <path d="M12,-25 L20,-42 L15,-47" />
+    </g>
+    
+    <!-- 印章 -->
+    <rect x="-28" y="-22" width="56" height="44" rx="4" fill="none" stroke="#764ba2" stroke-width="2"/>
+    <rect x="-24" y="-18" width="48" height="36" rx="2" fill="none" stroke="#764ba2" stroke-width="1" opacity="0.4"/>
+    
+    <!-- 龙脉二字 -->
+    <g filter="url(#glow)">
+      <text x="0" y="6" text-anchor="middle" font-family="SimSun, STKaiti, KaiTi, serif" font-size="24" fill="#764ba2" font-weight="bold" letter-spacing="4">龙脉</text>
+    </g>
+    
+    <!-- 底部装饰 -->
+    <line x1="-18" y1="15" x2="18" y2="15" stroke="#764ba2" stroke-width="1" opacity="0.3"/>
+    
+    <!-- 金色点缀 -->
+    <circle cx="0" cy="38" r="2.5" fill="#f39c12"/>
+  </g>
+  
+  <!-- 中间分隔 -->
+  <line x1="125" y1="30" x2="125" y2="90" stroke="#764ba2" stroke-width="1" opacity="0.3"/>
+  
+  <!-- 中文品牌名 -->
+  <g transform="translate(265, 55)">
+    <text x="0" y="0" text-anchor="middle" font-family="SimSun, STKaiti, KaiTi, serif" font-size="36" fill="#764ba2" font-weight="bold" letter-spacing="12">龙脉文化</text>
+  </g>
+  
+  <!-- 英文品牌名 -->
+  <g transform="translate(265, 85)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#666" letter-spacing="4" font-weight="500">LONGMAI CULTURE</text>
+  </g>
+  
+  <!-- 底部装饰线 -->
+  <line x1="140" y1="95" x2="390" y2="95" stroke="#764ba2" stroke-width="1" opacity="0.2"/>
+</svg>

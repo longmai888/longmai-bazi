@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#667eea;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 圆形背景 -->
+  <circle cx="100" cy="100" r="95" fill="white" stroke="url(#purpleGrad)" stroke-width="3"/>
+  
+  <!-- 内圆装饰 -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#764ba2" stroke-width="1" opacity="0.3"/>
+  <circle cx="100" cy="100" r="82" fill="none" stroke="#f39c12" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+  
+  <!-- 中心印章 -->
+  <g transform="translate(100, 100)">
+    <!-- 印章外框 -->
+    <rect x="-45" y="-35" width="90" height="70" rx="5" fill="none" stroke="#764ba2" stroke-width="2.5"/>
+    <!-- 印章内框 -->
+    <rect x="-40" y="-30" width="80" height="60" rx="3" fill="none" stroke="#764ba2" stroke-width="1" opacity="0.4"/>
+    
+    <!-- 龙脉二字 -->
+    <g filter="url(#glow)">
+      <text x="0" y="10" text-anchor="middle" font-family="SimSun, STKaiti, KaiTi, serif" font-size="38" fill="#764ba2" font-weight="bold" letter-spacing="8">龙脉</text>
+    </g>
+    
+    <!-- 底部装饰线 -->
+    <line x1="-30" y1="22" x2="30" y2="22" stroke="#764ba2" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- 顶部龙角装饰 -->
+  <g transform="translate(100, 45)" fill="none" stroke="#764ba2" stroke-width="1.5" opacity="0.6">
+    <path d="M-20,0 L-30,-20 L-25,-25" />
+    <path d="M20,0 L30,-20 L25,-25" />
+  </g>
+  
+  <!-- 底部金色装饰点 -->
+  <circle cx="100" cy="165" r="3" fill="#f39c12"/>
+  <circle cx="85" cy="160" r="2" fill="#f39c12" opacity="0.6"/>
+  <circle cx="115" cy="160" r="2" fill="#f39c12" opacity="0.6"/>
+</svg>

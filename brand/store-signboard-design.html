@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 - 门头招牌设计图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SimSun', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        
+        .signboard {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        
+        .signboard-title {
+            background: #764ba2;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .signboard-content {
+            padding: 30px;
+        }
+        
+        /* 方案一：发光字招牌 */
+        .design-1 {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .design-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .design-1-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 1;
+        }
+        
+        .design-1-logo {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #f39c12;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(118, 75, 162, 0.3);
+            box-shadow: 0 0 30px rgba(243, 156, 18, 0.5);
+        }
+        
+        .design-1-logo svg {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .design-1-text {
+            text-align: center;
+        }
+        
+        .design-1-brand {
+            font-size: 56px;
+            color: #f39c12;
+            font-weight: bold;
+            letter-spacing: 20px;
+            text-shadow: 0 0 20px rgba(243, 156, 18, 0.8), 0 0 40px rgba(243, 156, 18, 0.4);
+            font-family: 'SimSun', 'STKaiti', serif;
+        }
+        
+        .design-1-sub {
+            font-size: 16px;
+            color: #fff;
+            letter-spacing: 8px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        
+        /* 方案二：简约现代 */
+        .design-2 {
+            width: 100%;
+            height: 180px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #764ba2;
+        }
+        
+        .design-2-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .design-2-logo {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .design-2-text {
+            text-align: center;
+        }
+        
+        .design-2-brand {
+            font-size: 52px;
+            color: #764ba2;
+            font-weight: bold;
+            letter-spacing: 15px;
+            font-family: 'SimSun', 'STKaiti', serif;
+        }
+        
+        .design-2-sub {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 6px;
+            margin-top: 8px;
+        }
+        
+        .design-2-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #764ba2, #f39c12);
+            margin: 15px auto;
+        }
+        
+        /* 方案三：传统中式 */
+        .design-3 {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #764ba2 0%, #5a3d7a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .design-3::before,
+        .design-3::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(243, 156, 18, 0.5);
+        }
+        
+        .design-3::before {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .design-3::after {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .design-3-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 1;
+        }
+        
+        .design-3-logo {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .design-3-text {
+            text-align: center;
+        }
+        
+        .design-3-brand {
+            font-size: 54px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 18px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'SimSun', 'STKaiti', serif;
+        }
+        
+        .design-3-sub {
+            font-size: 14px;
+            color: #f39c12;
+            letter-spacing: 6px;
+            margin-top: 10px;
+        }
+        
+        /* 规格说明 */
+        .specs {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .specs h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .spec-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .spec-item h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .spec-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .recommendation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .recommendation h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation p {
+            color: #856404;
+            line-height: 1.8;
+        }
+        
+        .print-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .print-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .signboard {
+                box-shadow: none;
+                page-break-after: always;
+            }
+            .print-btn,
+            .recommendation {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>龙脉文化 · 门头招牌设计方案</h1>
+        
+        <!-- 方案一：发光字招牌 -->
+        <div class="signboard">
+            <div class="signboard-title">方案一：发光字招牌（推荐）</div>
+            <div class="signboard-content">
+                <div class="design-1">
+                    <div class="design-1-content">
+                        <div class="design-1-logo">
+                            <svg viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="90" fill="none" stroke="#764ba2" stroke-width="6"/>
+                                <rect x="55" y="65" width="90" height="70" rx="5" fill="none" stroke="#764ba2" stroke-width="4"/>
+                                <text x="100" y="115" text-anchor="middle" font-family="SimSun, serif" font-size="45" fill="#764ba2" font-weight="bold">龙脉</text>
+                            </svg>
+                        </div>
+                        <div class="design-1-text">
+                            <div class="design-1-brand">龙脉文化</div>
+                            <div class="design-1-sub">LONGMAI CULTURE · 八字命理 · 紫微斗数</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specs">
+                    <h3>方案一规格说明</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <h4>材质</h4>
+                            <p>不锈钢烤漆底板 + LED发光字<br>亚克力面板 + 金属围边</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>尺寸建议</h4>
+                            <p>宽度：300-600cm<br>高度：80-150cm<br>厚度：8-15cm</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>光源</h4>
+                            <p>LED模组，色温3000K暖白<br>功率：约200-500W</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>预算</h4>
+                            <p>约8000-20000元<br>（根据尺寸和材质）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 方案二：简约现代 -->
+        <div class="signboard">
+            <div class="signboard-title">方案二：简约现代</div>
+            <div class="signboard-content">
+                <div class="design-2">
+                    <div class="design-2-content">
+                        <svg class="design-2-logo" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="95" fill="white" stroke="#764ba2" stroke-width="6"/>
+                            <rect x="55" y="65" width="90" height="70" rx="5" fill="none" stroke="#764ba2" stroke-width="4"/>
+                            <text x="100" y="115" text-anchor="middle" font-family="SimSun, serif" font-size="45" fill="#764ba2" font-weight="bold">龙脉</text>
+                        </svg>
+                        <div class="design-2-text">
+                            <div class="design-2-brand">龙脉文化</div>
+                            <div class="design-2-line"></div>
+                            <div class="design-2-sub">LONGMAI CULTURE</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specs">
+                    <h3>方案二规格说明</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <h4>材质</h4>
+                            <p>铝塑板底板 + 亚克力字<br>或PVC字 + 金属边框</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>尺寸建议</h4>
+                            <p>宽度：250-500cm<br>高度：60-120cm<br>厚度：5-10cm</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>特点</h4>
+                            <p>白天效果好，成本低<br>适合室内或光线充足位置</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>预算</h4>
+                            <p>约3000-8000元<br>性价比高</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 方案三：传统中式 -->
+        <div class="signboard">
+            <div class="signboard-title">方案三：传统中式</div>
+            <div class="signboard-content">
+                <div class="design-3">
+                    <div class="design-3-content">
+                        <div class="design-3-logo">
+                            <svg viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="90" fill="none" stroke="#764ba2" stroke-width="6"/>
+                                <rect x="55" y="65" width="90" height="70" rx="5" fill="none" stroke="#764ba2" stroke-width="4"/>
+                                <text x="100" y="115" text-anchor="middle" font-family="SimSun, serif" font-size="45" fill="#764ba2" font-weight="bold">龙脉</text>
+                            </svg>
+                        </div>
+                        <div class="design-3-text">
+                            <div class="design-3-brand">龙脉文化</div>
+                            <div class="design-3-sub">LONGMAI CULTURE</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specs">
+                    <h3>方案三规格说明</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <h4>材质</h4>
+                            <p>木质底板 + 金属字<br>或仿古铜字 + 木纹装饰</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>尺寸建议</h4>
+                            <p>宽度：300-600cm<br>高度：80-150cm<br>厚度：10-20cm</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>特点</h4>
+                            <p>传统韵味，文化底蕴<br>适合古色古香街道</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>预算</h4>
+                            <p>约5000-15000元<br>根据木材档次</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐建议 -->
+        <div class="recommendation">
+            <h3>💡 设计建议</h3>
+            <p>
+                <strong>推荐方案一（发光字招牌）</strong>，理由如下：<br><br>
+                1. <strong>夜间效果好</strong>：发光字在夜晚非常醒目，吸引客流<br>
+                2. <strong>专业感强</strong>：发光招牌给人专业、正规的印象<br>
+                3. <strong>顺应命理</strong>：紫色发光对应九紫离火大运，旺事业<br>
+                4. <strong>金色点缀</strong>：金色发光字对应喜用神金，利财运<br><br>
+                <strong>制作建议</strong>：<br>
+                - 选择有经验的广告公司制作<br>
+                - 要求提供3D效果图确认<br>
+                - 签订合同，明确质保期（建议2年以上）<br>
+                - 安装前确认城管审批（如需）
+            </p>
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">打印设计图</button>
+    </div>
+</body>
+</html>
