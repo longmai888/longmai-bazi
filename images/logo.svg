@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景：白色圆形 -->
+  <defs>
+    <!-- 圆形裁剪 -->
+    <clipPath id="circleClip">
+      <circle cx="256" cy="256" r="240"/>
+    </clipPath>
+    
+    <!-- 紫金色渐变（龙） -->
+    <linearGradient id="dragonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#b8860b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd700;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 深紫色填充 -->
+    <solidColor id="deepPurple" solid-color="#764ba2"/>
+    
+    <!-- 金色填充 -->
+    <solidColor id="gold" solid-color="#f39c12"/>
+    
+    <!-- 书法字体样式 -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&amp;display=swap');
+      .calligraphy { font-family: 'Noto Serif SC', serif; font-weight: 700; }
+    </style>
+  </defs>
+  
+  <!-- 圆形背景 -->
+  <circle cx="256" cy="256" r="240" fill="#ffffff" stroke="#764ba2" stroke-width="8"/>
+  
+  <!-- 内部内容，圆形裁剪 -->
+  <g clip-path="url(#circleClip)">
+    
+    <!-- 顶部：中国龙侧影 -->
+    <path d="M 100 80 
+             C 120 60, 140 50, 160 55
+             C 180 60, 200 80, 220 100
+             C 240 120, 250 140, 260 160
+             C 270 180, 275 200, 270 220
+             C 265 240, 250 250, 230 240
+             C 210 230, 190 210, 170 190
+             C 150 170, 130 150, 110 130
+             C 90 110, 80 90, 100 80 Z"
+          fill="url(#dragonGradient)" opacity="0.9"/>
+    
+    <!-- 龙的鳞片细节（简化） -->
+    <path d="M 140 70 L 150 80 L 140 90 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 180 85 L 190 95 L 180 105 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 220 115 L 230 125 L 220 135 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 250 165 L 260 175 L 250 185 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 240 210 L 250 220 L 240 230 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 200 220 L 210 230 L 200 240 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 160 200 L 170 210 L 160 220 Z" fill="#ffd700" opacity="0.6"/>
+    <path d="M 120 160 L 130 170 L 120 180 Z" fill="#ffd700" opacity="0.6"/>
+    
+    <!-- 中部：方形印章 -->
+    <rect x="140" y="150" width="232" height="152" rx="16" ry="16" 
+          fill="#764ba2" stroke="#f39c12" stroke-width="4"/>
+    
+    <!-- 印章内文字："龙脉" -->
+    <text x="256" y="210" text-anchor="middle" class="calligraphy" 
+          font-size="72" fill="#ffffff" font-weight="700">
+      龙脉
+    </text>
+    
+    <!-- 印章下方：山脉轮廓（三层） -->
+    <path d="M 80 300 L 120 260 L 160 280 L 200 240 L 240 260 L 280 220 L 300 210 L 340 230 L 380 200 L 420 220 L 460 260 L 500 300 L 500 320 L 80 320 Z"
+          fill="#f39c12" opacity="0.8"/>
+    
+    <!-- 第二层山脉（稍小） -->
+    <path d="M 100 320 L 140 290 L 180 300 L 220 270 L 260 280 L 300 250 L 340 260 L 380 240 L 420 250 L 460 280 L 500 320 L 500 340 L 100 340 Z"
+          fill="#f39c12" opacity="0.6"/>
+    
+    <!-- 第三层山脉（最小） -->
+    <path d="M 120 340 L 160 320 L 200 330 L 240 310 L 280 320 L 320 300 L 360 310 L 400 290 L 440 300 L 500 340 L 500 360 L 120 360 Z"
+          fill="#f39c12" opacity="0.4"/>
+    
+    <!-- "龙脉文化"书法大字 -->
+    <text x="256" y="420" text-anchor="middle" class="calligraphy" 
+          font-size="48" fill="#764ba2" font-weight="700">
+      龙脉文化
+    </text>
+    
+    <!-- 底部英文 -->
+    <text x="256" y="470" text-anchor="middle" 
+          font-family="Arial, sans-serif" font-size="24" fill="#764ba2" font-weight="400">
+      LONGMAI CULTURE
+    </text>
+    
+    <!-- 装饰线条：印章两侧 -->
+    <line x1="80" y1="200" x2="130" y2="200" stroke="#f39c12" stroke-width="3"/>
+    <line x1="382" y1="200" x2="432" y2="200" stroke="#f39c12" stroke-width="3"/>
+    
+  </g>
+  
+  <!-- 最外圈装饰点 -->
+  <circle cx="256" cy="16" r="6" fill="#764ba2"/>
+  <circle cx="496" cy="256" r="6" fill="#764ba2"/>
+  <circle cx="256" cy="496" r="6" fill="#764ba2"/>
+  <circle cx="16" cy="256" r="6" fill="#764ba2"/>
+  
+  <!-- 四角装饰 -->
+  <circle cx="70" cy="70" r="8" fill="#f39c12"/>
+  <circle cx="442" cy="70" r="8" fill="#f39c12"/>
+  <circle cx="70" cy="442" r="8" fill="#f39c12"/>
+  <circle cx="442" cy="442" r="8" fill="#f39c12"/>
+  
+</svg>
