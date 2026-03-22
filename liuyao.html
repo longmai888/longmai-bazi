@@ -3,578 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>六爻占卜 - 龙脉文化 | 免费在线摇卦</title>
-    <meta name="description" content="龙脉文化免费六爻占卜，支持自动摇卦、手动起卦、时间起卦三种方式。专业六爻排盘，显示卦象、六亲、世应、动爻等完整信息。">
-    <meta name="keywords" content="六爻占卜,六爻排盘,摇卦,周易占卜,免费算卦,龙脉文化">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(180deg, #1a1a2e 0%, #2d1b4e 50%, #4a148c 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            line-height: 1.6;
-            color: #fff;
-        }
-        
-        /* 导航 */
-        .nav {
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(243, 156, 18, 0.5);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(243, 156, 18, 0.5);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #f5b041; text-decoration: none; }
-        .nav a { color: #f5b041; text-decoration: none; font-size: 0.9rem; }
-
-        /* Hero */
-        .hero { background: linear-gradient(135deg, #4a148c 0%, #764ba2 50%, #f5b041 100%); color: white; text-align: center; padding: 35px 20px 25px; border-bottom: 2px solid rgba(243, 156, 18, 0.5); }
-        .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
-        .hero p { opacity: 0.9; font-size: 0.95rem; }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-
-        /* 起卦方式切换 */
-        .method-tabs { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-        .method-tab { padding: 10px 22px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); border: 2px solid #e0e0e0; border-radius: 25px; cursor: pointer; font-size: 0.95rem; transition: all 0.3s; }
-        .method-tab.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: #f5b041; }
-
-        /* 卡片 */
-        .card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); border-radius: 15px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 20px; }
-        .card-title { text-align: center; font-size: 1.1rem; font-weight: bold; color: #f5b041; margin-bottom: 15px; }
-
-        /* 问事输入 */
-        .question-input { width: 100%; padding: 12px 15px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 1rem; margin-bottom: 15px; resize: none; }
-        .question-input:focus { border-color: #f5b041; outline: none; }
-
-        /* 摇卦动画 */
-        .coin-area { text-align: center; padding: 20px 0; }
-        .coins { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #4a148c, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #f5b041; border: 3px solid rgba(243, 156, 18, 0.6); box-shadow: 0 4px 20px rgba(243, 156, 18, 0.4), 0 0 20px rgba(118, 75, 162, 0.3); transition: all 0.3s; }
-        .coin.flipping { animation: flip 0.5s ease-in-out; }
-        @keyframes flip { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg); } 100% { transform: rotateY(360deg); } }
-        .coin.yin { background: linear-gradient(135deg, #c0c0c0, #888); color: white; }
-
-        .shake-btn { padding: 14px 40px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-        .shake-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
-        .shake-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        /* 摇卦进度 */
-        .yao-progress { display: flex; justify-content: center; gap: 8px; margin: 15px 0; }
-        .yao-dot { width: 35px; height: 35px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #888; }
-        .yao-dot.done { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .yao-dot.current { background: #FFD700; color: #fff; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        /* 六爻结果 */
-        .result-area { display: none; }
-        .result-area.show { display: block; }
-
-        .gua-display { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
-        .gua-col { text-align: center; }
-        .gua-col h4 { color: #f5b041; margin-bottom: 10px; font-size: 1rem; }
-        .gua-name { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
-        .gua-symbol { font-size: 3rem; line-height: 1; margin-bottom: 5px; }
-
-        /* 爻线显示 */
-        .yao-lines { margin: 20px auto; max-width: 350px; }
-        .yao-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 8px 12px; border-radius: 8px; background: #fafafa; }
-        .yao-pos { width: 30px; font-size: 0.8rem; color: #888; text-align: center; }
-        .yao-line { flex: 1; display: flex; justify-content: center; gap: 6px; }
-        .yao-segment { height: 6px; border-radius: 3px; background: #333; }
-        .yao-segment.yang { width: 100%; }
-        .yao-segment.yin { width: 42%; }
-        .yao-info { width: 80px; text-align: right; font-size: 0.8rem; color: rgba(255, 255, 255, 0.85); }
-        .yao-row.dong { background: #fff5f5; border-left: 3px solid #e74c3c; }
-        .dong-mark { color: #e74c3c; font-weight: bold; font-size: 0.85rem; }
-        .shi-mark { color: #f5b041; font-weight: bold; }
-        .ying-mark { color: #27ae60; font-weight: bold; }
-
-        /* 卦辞 */
-        .gua-text { background: #f8f9ff; border-radius: 12px; padding: 20px; margin: 15px 0; }
-        .gua-text h4 { color: #f5b041; margin-bottom: 8px; }
-        .gua-text p { color: rgba(255, 255, 255, 0.85); line-height: 1.8; }
-
-        /* 手动起卦 */
-        .manual-row { display: flex; align-items: center; gap: 10px; margin: 10px 0; padding: 10px; background: #fafafa; border-radius: 10px; }
-        .manual-row label { width: 50px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); }
-        .manual-row select { flex: 1; padding: 8px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem; }
-
-        /* 底部 */
-        .footer { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(155, 123, 199, 0.3); padding: 25px 20px; text-align: center; margin-top: 30px; }
-        .footer p { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
-        .footer a { color: #f5b041; text-decoration: none; }
-
-        /* 移动端 */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 1.4rem; }
-            .gua-display { gap: 20px; }
-            .coin { width: 50px; height: 50px; font-size: 1.2rem; }
-        }
-    
-        .btn-primary {
-            background: linear-gradient(135deg, #764ba2 0%, #f5b041 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
-        }
-</style>
+    <title>六爻占卜 - 龙脉文化</title>
+    <meta name="description" content="龙脉文化提供专业的六爻占卜服务，传承中华传统文化智慧，在线起卦解卦。">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="nav">
-        <a href="index.html" class="nav-brand">🐉 龙脉文化</a>
-        <a href="index.html">← 返回首页</a>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="images/logo.svg" alt="龙脉文化" class="navbar-logo">
+                <span>龙脉文化</span>
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html" class="navbar-link">首页</a></li>
+                <li class="navbar-item"><a href="bazi_professional.html" class="navbar-link">八字排盘</a></li>
+                <li class="navbar-item"><a href="liuyao.html" class="navbar-link">六爻占卜</a></li>
+                <li class="navbar-item"><a href="articles.html" class="navbar-link">文章</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="hero">
-        <h1>🔯 六爻占卜</h1>
-        <p>心诚则灵 · 摇卦问事 · 趋吉避凶</p>
-    </div>
-
-    <div class="container">
-        <!-- 起卦方式 -->
-        <div class="method-tabs">
-            <div class="method-tab active" onclick="switchMethod('auto')">🎲 自动摇卦</div>
-            <div class="method-tab" onclick="switchMethod('manual')">✍️ 手动起卦</div>
-            <div class="method-tab" onclick="switchMethod('time')">🕐 时间起卦</div>
-        </div>
-
-        <!-- 自动摇卦 -->
-        <div id="method-auto" class="method-content">
-            <div class="card">
-                <div class="card-title">🙏 心中默念所问之事，然后点击摇卦</div>
-                <textarea class="question-input" id="question" rows="2" placeholder="请输入您想问的事情（选填）..."></textarea>
-                
-                <div class="coin-area">
-                    <div class="coins">
-                        <div class="coin" id="coin1">乾</div>
-                        <div class="coin" id="coin2">乾</div>
-                        <div class="coin" id="coin3">乾</div>
-                    </div>
-                    
-                    <div class="yao-progress">
-                        <div class="yao-dot" id="dot1">初</div>
-                        <div class="yao-dot" id="dot2">二</div>
-                        <div class="yao-dot" id="dot3">三</div>
-                        <div class="yao-dot" id="dot4">四</div>
-                        <div class="yao-dot" id="dot5">五</div>
-                        <div class="yao-dot" id="dot6">上</div>
-                    </div>
-
-                    <p id="shake-hint" style="color:#888;font-size:0.9rem;margin:10px 0;">需要摇6次，每次得一爻</p>
-                    <button class="shake-btn" id="shakeBtn" onclick="shakeCoins()">🎲 开始摇卦（第1次）</button>
-                </div>
+    <main class="main-content">
+        <div class="card">
+            <h1>六爻占卜</h1>
+            <p style="text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 30px;">
+                六爻预测，洞察天机。心诚则灵，卦象自显。
+            </p>
+            
+            <div style="text-align: center; padding: 40px;">
+                <button class="btn" onclick="startLiuyao()" style="font-size: 1.2rem; padding: 15px 40px;">
+                    🎲 开始起卦
+                </button>
+            </div>
+            
+            <div id="liuyao-result" style="margin-top: 30px; display: none;">
+                <h3 style="color: #f39c12; text-align: center;">卦象结果</h3>
+                <div id="gua-xiang" style="text-align: center; font-size: 2rem; margin: 20px 0;"></div>
+                <div id="gua-ci" style="text-align: center; color: rgba(255,255,255,0.9);"></div>
+            </div>
+            
+            <div style="margin-top: 40px; padding: 20px; background: rgba(243, 156, 18, 0.1); border-radius: 10px;">
+                <h3 style="color: #f39c12;">📞 专业解卦</h3>
+                <p style="color: rgba(255,255,255,0.8);">
+                    如需专业大师解卦，请联系：<br>
+                    QQ：1614194452<br>
+                    网站：https://longmai888.github.io/longmai-bazi/
+                </p>
             </div>
         </div>
-
-        <!-- 手动起卦 -->
-        <div id="method-manual" class="method-content" style="display:none;">
-            <div class="card">
-                <div class="card-title">✍️ 手动输入六爻</div>
-                <p style="color:#888;font-size:0.9rem;text-align:center;margin-bottom:15px;">从初爻到上爻，选择每一爻的阴阳和动静</p>
-                <div id="manual-rows"></div>
-                <div style="text-align:center;margin-top:15px;">
-                    <button class="shake-btn" onclick="manualGua()">🔮 起卦</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 时间起卦 -->
-        <div id="method-time" class="method-content" style="display:none;">
-            <div class="card">
-                <div class="card-title">🕐 以当前时间自动起卦</div>
-                <p style="color:#888;font-size:0.9rem;text-align:center;margin-bottom:15px;">根据当前年月日时自动计算卦象</p>
-                <textarea class="question-input" id="question-time" rows="2" placeholder="请输入您想问的事情（选填）..."></textarea>
-                <div style="text-align:center;">
-                    <p id="time-display" style="font-size:1.1rem;color: #f5b041;font-weight:bold;margin:15px 0;"></p>
-                    <button class="shake-btn" onclick="timeGua()">🕐 以此时起卦</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 排卦结果 -->
-        <div class="result-area" id="result-area">
-            <div class="card">
-                <div class="card-title">🔯 排卦结果</div>
-                
-                <div class="gua-display">
-                    <div class="gua-col">
-                        <h4>本卦</h4>
-                        <div class="gua-symbol" id="bengua-symbol"></div>
-                        <div class="gua-name" id="bengua-name"></div>
-                    </div>
-                    <div class="gua-col" id="biangua-col" style="display:none;">
-                        <h4>变卦</h4>
-                        <div class="gua-symbol" id="biangua-symbol"></div>
-                        <div class="gua-name" id="biangua-name"></div>
-                    </div>
-                </div>
-
-                <div class="yao-lines" id="yao-lines"></div>
-            </div>
-
-            <div class="card">
-                <div class="gua-text">
-                    <h4>📜 卦辞</h4>
-                    <p id="gua-ci"></p>
-                </div>
-                <div class="gua-text">
-                    <h4>💡 断卦提示</h4>
-                    <p id="gua-hint"></p>
-                </div>
-            </div>
-
-            <div style="text-align:center;margin:20px 0;">
-                <button class="shake-btn" onclick="resetAll()" style="background:linear-gradient(135deg,#e74c3c,#ff6b6b);">🔄 重新摇卦</button>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <footer class="footer">
-        <p><strong>🐉 龙脉文化</strong> — 中华传统文化一站式平台</p>
-        <p><a href="index.html">返回首页</a> | <a href="articles.html">文章中心</a> | 🌐 longmai-bazi.pages.dev</p>
+        <div class="footer-content">
+            <p class="footer-contact">📞 QQ咨询：1614194452</p>
+            <p class="footer-copyright">© 2026 龙脉文化 - 传承千年智慧</p>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-    // ===== 六十四卦数据 =====
-    var guaData = {
-        '111111': {name:'乾为天', symbol:'☰☰', ci:'元亨利贞。', hint:'乾卦代表刚健进取。事业上大有可为，但需谨防过刚易折。'},
-        '000000': {name:'坤为地', symbol:'☷☷', ci:'元亨，利牝马之贞。', hint:'坤卦代表柔顺包容。宜守不宜攻，顺势而为，厚德载物。'},
-        '100010': {name:'水雷屯', symbol:'☵☳', ci:'元亨利贞，勿用有攸往。', hint:'屯卦代表初始困难。万事开头难，但坚持必有收获。'},
-        '010001': {name:'山水蒙', symbol:'☶☵', ci:'亨，匪我求童蒙。', hint:'蒙卦代表启蒙教育。需要虚心学习，寻求明师指点。'},
-        '111010': {name:'水天需', symbol:'☵☰', ci:'有孚，光亨贞吉。', hint:'需卦代表等待时机。不可急躁冒进，耐心等待机会。'},
-        '010111': {name:'天水讼', symbol:'☰☵', ci:'有孚窒惕，中吉。', hint:'讼卦代表争讼纠纷。宜和解不宜争斗，退一步海阔天空。'},
-        '010000': {name:'地水师', symbol:'☷☵', ci:'贞，丈人吉。', hint:'师卦代表统率众人。需要有组织有纪律，以德服人。'},
-        '000010': {name:'水地比', symbol:'☵☷', ci:'吉，原筮元永贞。', hint:'比卦代表亲近和睦。宜合作不宜独行，团结就是力量。'},
-        '111011': {name:'风天小畜', symbol:'☴☰', ci:'亨，密云不雨。', hint:'小畜卦代表小有积蓄。力量不足以成大事，需继续积累。'},
-        '110111': {name:'天泽履', symbol:'☰☱', ci:'履虎尾，不咥人。', hint:'履卦代表谨慎行事。如履薄冰，小心翼翼方可无咎。'},
-        '111000': {name:'地天泰', symbol:'☷☰', ci:'小往大来，吉亨。', hint:'泰卦代表通泰安康。天地交感，万事亨通，好运来临。'},
-        '000111': {name:'天地否', symbol:'☰☷', ci:'否之匪人，不利君子贞。', hint:'否卦代表闭塞不通。运势低迷，宜静待时机，否极泰来。'},
-        '101111': {name:'天火同人', symbol:'☰☲', ci:'同人于野，亨。', hint:'同人卦代表志同道合。宜合作共事，同心协力。'},
-        '111101': {name:'火天大有', symbol:'☲☰', ci:'元亨。', hint:'大有卦代表丰收富有。事业顺利，财运亨通。'},
-        '001000': {name:'地山谦', symbol:'☷☶', ci:'亨，君子有终。', hint:'谦卦代表谦虚谨慎。谦受益满招损，低调做人。'},
-        '000100': {name:'雷地豫', symbol:'☳☷', ci:'利建侯行师。', hint:'豫卦代表愉悦安乐。顺势而为，可有作为。'},
-        '100110': {name:'泽雷随', symbol:'☱☳', ci:'元亨利贞。', hint:'随卦代表随顺适应。顺应时势，灵活变通。'},
-        '011001': {name:'山风蛊', symbol:'☶☴', ci:'元亨，利涉大川。', hint:'蛊卦代表整治弊端。需要改革创新，拨乱反正。'},
-        '110000': {name:'地泽临', symbol:'☷☱', ci:'元亨利贞。', hint:'临卦代表亲临督导。以身作则，亲力亲为。'},
-        '000011': {name:'风地观', symbol:'☴☷', ci:'盥而不荐，有孚颙若。', hint:'观卦代表观察审视。静观其变，深思熟虑后再行动。'},
-        '100101': {name:'火雷噬嗑', symbol:'☲☳', ci:'亨，利用狱。', hint:'噬嗑卦代表明断是非。果断处理问题，不可拖延。'},
-        '101001': {name:'山火贲', symbol:'☶☲', ci:'亨，小利有攸往。', hint:'贲卦代表文饰修养。注重外在形象，但不可华而不实。'},
-        '000001': {name:'山地剥', symbol:'☶☷', ci:'不利有攸往。', hint:'剥卦代表剥落衰败。运势不佳，宜守不宜进。'},
-        '100000': {name:'地雷复', symbol:'☷☳', ci:'亨，出入无疾。', hint:'复卦代表回复转机。否极泰来，好运即将回归。'},
-        '100111': {name:'天雷无妄', symbol:'☰☳', ci:'元亨利贞。', hint:'无妄卦代表真实无妄。顺其自然，不可妄为。'},
-        '111001': {name:'山天大畜', symbol:'☶☰', ci:'利贞，不家食吉。', hint:'大畜卦代表大有积蓄。厚积薄发，时机成熟可大展宏图。'},
-        '100001': {name:'山雷颐', symbol:'☶☳', ci:'贞吉，观颐。', hint:'颐卦代表颐养身心。注意饮食健康，修身养性。'},
-        '011110': {name:'泽风大过', symbol:'☱☴', ci:'栋桡，利有攸往。', hint:'大过卦代表非常之举。需要非常手段解决问题，但不可过度。'},
-        '010010': {name:'坎为水', symbol:'☵☵', ci:'有孚维心亨。', hint:'坎卦代表险难重重。需要坚定信念，以智慧化解困难。'},
-        '101101': {name:'离为火', symbol:'☲☲', ci:'利贞，亨。', hint:'离卦代表光明依附。需要找到依靠，借力发展。'},
-        '001110': {name:'泽山咸', symbol:'☱☶', ci:'亨利贞，取女吉。', hint:'咸卦代表感应交流。感情运势好，宜主动沟通。'},
-        '011100': {name:'雷风恒', symbol:'☳☴', ci:'亨无咎利贞。', hint:'恒卦代表恒久坚持。持之以恒，方能成功。'},
-        '001111': {name:'天山遁', symbol:'☰☶', ci:'亨，小利贞。', hint:'遁卦代表退避隐藏。识时务者为俊杰，该退则退。'},
-        '111100': {name:'雷天大壮', symbol:'☳☰', ci:'利贞。', hint:'大壮卦代表壮大强盛。势头正猛，但需防过刚。'},
-        '000101': {name:'火地晋', symbol:'☲☷', ci:'康侯用锡马蕃庶。', hint:'晋卦代表晋升进步。事业上升期，把握机会。'},
-        '101000': {name:'地火明夷', symbol:'☷☲', ci:'利艰贞。', hint:'明夷卦代表光明受损。韬光养晦，保存实力。'},
-        '101011': {name:'风火家人', symbol:'☴☲', ci:'利女贞。', hint:'家人卦代表家庭和睦。齐家治国，从家庭做起。'},
-        '110101': {name:'火泽睽', symbol:'☲☱', ci:'小事吉。', hint:'睽卦代表乖违背离。意见不合，求同存异。'},
-        '001010': {name:'水山蹇', symbol:'☵☶', ci:'利西南。', hint:'蹇卦代表行路艰难。遇到困难，宜寻求帮助。'},
-        '010100': {name:'雷水解', symbol:'☳☵', ci:'利西南。', hint:'解卦代表解除困难。困难即将过去，曙光在前。'},
-        '110001': {name:'山泽损', symbol:'☶☱', ci:'有孚元吉。', hint:'损卦代表减损克制。舍小取大，先损后益。'},
-        '100011': {name:'风雷益', symbol:'☴☳', ci:'利有攸往。', hint:'益卦代表增益进取。好运来临，宜积极行动。'},
-        '011111': {name:'泽天夬', symbol:'☱☰', ci:'扬于王庭。', hint:'夬卦代表决断果敢。当断则断，不可犹豫。'},
-        '111110': {name:'天风姤', symbol:'☰☴', ci:'女壮，勿用取女。', hint:'姤卦代表不期而遇。注意防范小人，谨慎交友。'},
-        '000110': {name:'泽地萃', symbol:'☱☷', ci:'亨，王假有庙。', hint:'萃卦代表聚集汇合。团结力量，集思广益。'},
-        '011000': {name:'地风升', symbol:'☷☴', ci:'元亨。', hint:'升卦代表上升进步。稳步上升，前途光明。'},
-        '010110': {name:'泽水困', symbol:'☱☵', ci:'亨贞大人吉。', hint:'困卦代表困境受困。身处困境但不失志，终会脱困。'},
-        '011010': {name:'水风井', symbol:'☵☴', ci:'改邑不改井。', hint:'井卦代表汲取滋养。不断学习充电，提升自我。'},
-        '101110': {name:'泽火革', symbol:'☱☲', ci:'已日乃孚。', hint:'革卦代表变革创新。时机成熟，大胆改革。'},
-        '011101': {name:'火风鼎', symbol:'☲☴', ci:'元吉亨。', hint:'鼎卦代表鼎新革故。推陈出新，事业有成。'},
-        '100100': {name:'震为雷', symbol:'☳☳', ci:'亨，震来虩虩。', hint:'震卦代表震动惊醒。居安思危，有备无患。'},
-        '001001': {name:'艮为山', symbol:'☶☶', ci:'艮其背，不获其身。', hint:'艮卦代表止步思考。该停则停，三思后行。'},
-        '001011': {name:'风山渐', symbol:'☴☶', ci:'女归吉。', hint:'渐卦代表循序渐进。不可急于求成，一步一个脚印。'},
-        '110100': {name:'雷泽归妹', symbol:'☳☱', ci:'征凶，无攸利。', hint:'归妹卦代表归宿婚嫁。感情上需谨慎，不可冲动。'},
-        '101100': {name:'雷火丰', symbol:'☳☲', ci:'亨，王假之。', hint:'丰卦代表丰盛充实。事业鼎盛期，但盛极必衰需警惕。'},
-        '001101': {name:'火山旅', symbol:'☲☶', ci:'小亨，旅贞吉。', hint:'旅卦代表旅行在外。出行有利，但需小心谨慎。'},
-        '011011': {name:'巽为风', symbol:'☴☴', ci:'小亨，利有攸往。', hint:'巽卦代表顺从柔和。以柔克刚，顺势而为。'},
-        '110110': {name:'兑为泽', symbol:'☱☱', ci:'亨利贞。', hint:'兑卦代表喜悦和乐。人际关系好，心情愉悦。'},
-        '010011': {name:'风水涣', symbol:'☴☵', ci:'亨，王假有庙。', hint:'涣卦代表涣散离散。需要凝聚人心，重新整合。'},
-        '110010': {name:'水泽节', symbol:'☵☱', ci:'亨，苦节不可贞。', hint:'节卦代表节制适度。凡事有度，过犹不及。'},
-        '110011': {name:'风泽中孚', symbol:'☴☱', ci:'豚鱼吉。', hint:'中孚卦代表诚信感化。以诚待人，信守承诺。'},
-        '001100': {name:'雷山小过', symbol:'☳☶', ci:'亨利贞。', hint:'小过卦代表小有过越。小事可为，大事不宜。'},
-        '010101': {name:'水火既济', symbol:'☵☲', ci:'亨小利贞。', hint:'既济卦代表事已成功。功成名就，但需防骄傲。'},
-        '101010': {name:'火水未济', symbol:'☲☵', ci:'亨，小狐汔济。', hint:'未济卦代表尚未完成。革命尚未成功，仍需努力。'}
-    };
-
-    // 六亲对应
-    var liuQin = ['父母','兄弟','子孙','妻财','官鬼'];
-
-    // ===== 摇卦逻辑 =====
-    var yaoResults = [];
-    var shakeCount = 0;
-
-    function shakeCoins() {
-        if (shakeCount >= 6) return;
-        
-        var btn = document.getElementById('shakeBtn');
-        btn.disabled = true;
-        
-        // 铜钱动画
-        var coins = [document.getElementById('coin1'), document.getElementById('coin2'), document.getElementById('coin3')];
-        coins.forEach(function(c) { c.classList.add('flipping'); });
-        
-        setTimeout(function() {
-            // 随机结果：3个铜钱，正面=3，反面=2
-            var values = [];
-            for (var i = 0; i < 3; i++) {
-                var val = Math.random() > 0.5 ? 3 : 2;
-                values.push(val);
-                coins[i].classList.remove('flipping');
-                if (val === 3) {
-                    coins[i].textContent = '正';
-                    coins[i].classList.remove('yin');
-                } else {
-                    coins[i].textContent = '反';
-                    coins[i].classList.add('yin');
-                }
+        function startLiuyao() {
+            var yao = generateLiuyao();
+            var result = interpretLiuyao(yao);
+            
+            var guaXiang = '';
+            var hasChange = false;
+            
+            for (var i = 5; i >= 0; i--) {
+                var line = result[i];
+                guaXiang += line.symbol + '<br>';
+                if (line.isChange) hasChange = true;
             }
             
-            var sum = values[0] + values[1] + values[2];
-            // 6=老阴(变), 7=少阳, 8=少阴, 9=老阳(变)
-            yaoResults.push(sum);
+            document.getElementById('gua-xiang').innerHTML = guaXiang;
+            document.getElementById('gua-ci').innerHTML = hasChange ? '本卦有变爻，需看变卦' : '本卦无变爻';
+            document.getElementById('liuyao-result').style.display = 'block';
             
-            // 更新进度
-            var dot = document.getElementById('dot' + (shakeCount + 1));
-            var yaoType = (sum === 7 || sum === 9) ? '阳' : '阴';
-            var isDong = (sum === 6 || sum === 9);
-            dot.textContent = yaoType + (isDong ? '动' : '');
-            dot.classList.remove('current');
-            dot.classList.add('done');
-            
-            shakeCount++;
-            
-            if (shakeCount < 6) {
-                var nextDot = document.getElementById('dot' + (shakeCount + 1));
-                nextDot.classList.add('current');
-                btn.textContent = '🎲 继续摇卦（第' + (shakeCount + 1) + '次）';
-                btn.disabled = false;
-            } else {
-                btn.textContent = '✅ 摇卦完成！';
-                document.getElementById('shake-hint').textContent = '六爻已全，正在排卦...';
-                setTimeout(function() { showResult(yaoResults); }, 500);
-            }
-        }, 600);
-    }
-
-    // ===== 显示结果 =====
-    function showResult(yaos) {
-        // 构建本卦二进制（初爻在前）
-        var benBin = '';
-        var bianBin = '';
-        var dongYao = [];
-        
-        for (var i = 0; i < 6; i++) {
-            var s = yaos[i];
-            var isYang = (s === 7 || s === 9);
-            var isDong = (s === 6 || s === 9);
-            benBin += isYang ? '1' : '0';
-            
-            if (isDong) {
-                dongYao.push(i);
-                bianBin += isYang ? '0' : '1'; // 动则变
-            } else {
-                bianBin += isYang ? '1' : '0';
-            }
+            showToast('起卦完成！', 'success');
         }
-        
-        // 反转（卦数据是上卦在前）
-        var benKey = benBin.split('').reverse().join('');
-        var bianKey = bianBin.split('').reverse().join('');
-        
-        var benGua = guaData[benKey] || {name:'未知卦', symbol:'?', ci:'暂无卦辞', hint:'暂无提示'};
-        
-        document.getElementById('bengua-name').textContent = benGua.name;
-        document.getElementById('bengua-symbol').textContent = benGua.symbol;
-        
-        if (dongYao.length > 0) {
-            var bianGua = guaData[bianKey] || {name:'未知卦', symbol:'?'};
-            document.getElementById('biangua-name').textContent = bianGua.name;
-            document.getElementById('biangua-symbol').textContent = bianGua.symbol;
-            document.getElementById('biangua-col').style.display = 'block';
-        } else {
-            document.getElementById('biangua-col').style.display = 'none';
-        }
-        
-        // 世应位置（简化：根据上下卦关系）
-        var shiPos = 4, yingPos = 1; // 默认
-        
-        // 画爻线
-        var linesHtml = '';
-        var yaoNames = ['初爻','二爻','三爻','四爻','五爻','上爻'];
-        for (var i = 5; i >= 0; i--) {
-            var s = yaos[i];
-            var isYang = (s === 7 || s === 9);
-            var isDong = (s === 6 || s === 9);
-            var rowClass = isDong ? 'yao-row dong' : 'yao-row';
-            
-            var lineHtml = '';
-            if (isYang) {
-                lineHtml = '<div class="yao-segment yang"></div>';
-            } else {
-                lineHtml = '<div class="yao-segment yin"></div><div class="yao-segment yin"></div>';
-            }
-            
-            var infoText = '';
-            if (isDong) infoText += '<span class="dong-mark">◎动</span> ';
-            if (i === shiPos) infoText += '<span class="shi-mark">世</span>';
-            if (i === yingPos) infoText += '<span class="ying-mark">应</span>';
-            
-            linesHtml += '<div class="' + rowClass + '">';
-            linesHtml += '<div class="yao-pos">' + yaoNames[i] + '</div>';
-            linesHtml += '<div class="yao-line">' + lineHtml + '</div>';
-            linesHtml += '<div class="yao-info">' + infoText + '</div>';
-            linesHtml += '</div>';
-        }
-        document.getElementById('yao-lines').innerHTML = linesHtml;
-        
-        // 卦辞
-        document.getElementById('gua-ci').textContent = '【' + benGua.name + '】' + benGua.ci;
-        
-        var hintText = benGua.hint;
-        if (dongYao.length > 0) {
-            hintText += ' 本卦有' + dongYao.length + '个动爻，变卦为' + (guaData[bianKey] ? guaData[bianKey].name : '未知') + '。';
-            if (guaData[bianKey]) hintText += guaData[bianKey].hint;
-        } else {
-            hintText += ' 本卦无动爻，以本卦卦辞为主。';
-        }
-        document.getElementById('gua-hint').textContent = hintText;
-        
-        document.getElementById('result-area').classList.add('show');
-        document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // ===== 手动起卦 =====
-    (function() {
-        var html = '';
-        var names = ['初爻','二爻','三爻','四爻','五爻','上爻'];
-        for (var i = 0; i < 6; i++) {
-            html += '<div class="manual-row">';
-            html += '<label>' + names[i] + '</label>';
-            html += '<select id="manual-' + i + '">';
-            html += '<option value="7">少阳 ——（阳静）</option>';
-            html += '<option value="8">少阴 — —（阴静）</option>';
-            html += '<option value="9">老阳 ——○（阳动）</option>';
-            html += '<option value="6">老阴 — —×（阴动）</option>';
-            html += '</select></div>';
-        }
-        document.getElementById('manual-rows').innerHTML = html;
-    })();
-
-    function manualGua() {
-        var yaos = [];
-        for (var i = 0; i < 6; i++) {
-            yaos.push(parseInt(document.getElementById('manual-' + i).value));
-        }
-        showResult(yaos);
-    }
-
-    // ===== 时间起卦 =====
-    function updateTimeDisplay() {
-        var now = new Date();
-        var diZhi = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-        var h = now.getHours();
-        var dzIdx = Math.floor((h + 1) / 2) % 12;
-        document.getElementById('time-display').textContent = 
-            now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 ' + 
-            now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0') + ' ' + diZhi[dzIdx] + '时';
-    }
-    setInterval(updateTimeDisplay, 1000);
-    updateTimeDisplay();
-
-    function timeGua() {
-        var now = new Date();
-        var y = now.getFullYear(), m = now.getMonth() + 1, d = now.getDate(), h = now.getHours();
-        var shangNum = (y + m + d) % 8 || 8;
-        var xiaNum = (y + m + d + Math.floor((h + 1) / 2)) % 8 || 8;
-        var dongPos = (y + m + d + Math.floor((h + 1) / 2)) % 6 || 6;
-        
-        // 先天八卦数转三爻
-        var bagua = {1:'111',2:'110',3:'101',4:'100',5:'011',6:'010',7:'001',8:'000'};
-        var shangBin = bagua[shangNum] || '111';
-        var xiaBin = bagua[xiaNum] || '000';
-        var fullBin = xiaBin + shangBin; // 初爻在前
-        
-        var yaos = [];
-        for (var i = 0; i < 6; i++) {
-            var isYang = fullBin[i] === '1';
-            if (i === dongPos - 1) {
-                yaos.push(isYang ? 9 : 6); // 动爻
-            } else {
-                yaos.push(isYang ? 7 : 8); // 静爻
-            }
-        }
-        showResult(yaos);
-    }
-
-    // ===== 切换方式 =====
-    function switchMethod(method) {
-        document.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
-        document.querySelectorAll('.method-content').forEach(function(c) { c.style.display = 'none'; });
-        event.target.classList.add('active');
-        document.getElementById('method-' + method).style.display = 'block';
-        document.getElementById('result-area').classList.remove('show');
-    }
-
-    // ===== 重置 =====
-    function resetAll() {
-        yaoResults = [];
-        shakeCount = 0;
-        document.getElementById('shakeBtn').textContent = '🎲 开始摇卦（第1次）';
-        document.getElementById('shakeBtn').disabled = false;
-        document.getElementById('shake-hint').textContent = '需要摇6次，每次得一爻';
-        document.querySelectorAll('.yao-dot').forEach(function(d) { 
-            d.classList.remove('done','current'); 
-        });
-        var names = ['初','二','三','四','五','上'];
-        for (var i = 0; i < 6; i++) {
-            document.getElementById('dot' + (i+1)).textContent = names[i];
-        }
-        document.getElementById('coin1').textContent = '乾';
-        document.getElementById('coin2').textContent = '乾';
-        document.getElementById('coin3').textContent = '乾';
-        document.querySelectorAll('.coin').forEach(function(c) { c.classList.remove('yin'); });
-        document.getElementById('result-area').classList.remove('show');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
     </script>
 </body>
 </html>
