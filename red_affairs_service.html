@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红事服务 - 龙脉文化 | 开业婚礼搬家</title>
+    <meta name="description" content="龙脉文化提供徐州地区红事服务：开业庆典、婚礼策划、搬家乔迁，传统与现代结合，让每一个重要时刻都吉祥如意。">
+    <style>
+        :root {
+            --primary: #FF6B35; /* 火 - 主色 */
+            --secondary: #2C3E50; /* 水 - 辅色 */
+            --success: #28a745; /* 木 - 成功色 */
+            --background: #f8f9fa; /* 金 - 背景 */
+            --text: #333;
+            --border: #ddd;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), #ff8533);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover, .nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .section h3 {
+            color: var(--secondary);
+            font-size: 1.3em;
+            margin: 20px 0 10px;
+        }
+        
+        .intro {
+            background: linear-gradient(135deg, #fff5eb, #ffe4d4);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .service-card {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+        
+        .service-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .price {
+            color: var(--success);
+            font-size: 2em;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        
+        .price span {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .price-note {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        
+        /* Process */
+        .process {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 8px;
+        }
+        
+        .step-num {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background: var(--background);
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 40px;
+        }
+        
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 20px;
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            padding: 15px 20px;
+            background: white;
+        }
+        
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 8px;
+        }
+        
+        .contact-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .contact-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        /* CTA Button */
+        .cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+        }
+        
+        .cta:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255,107,53,0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .disclaimer {
+            font-size: 0.9em;
+            color: #aaa;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8em; }
+            .nav { gap: 8px; }
+            .nav a { padding: 8px 15px; font-size: 0.9em; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🦞</div>
+            <h1>红事服务中心</h1>
+            <p>龙脉文化 · 徐州本地专业庆典服务</p>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav">
+            <a href="#intro" class="active">简介</a>
+            <a href="#services">服务项目</a>
+            <a href="#process">服务流程</a>
+            <a href="#faq">常见问题</a>
+            <a href="#contact">联系我们</a>
+        </div>
+        
+        <!-- Intro Section -->
+        <section id="intro" class="section">
+            <h2>关于我们</h2>
+            <div class="intro">
+                <p><strong>龙脉文化</strong>专注于传统文化与现代生活的结合，为徐州地区提供专业的红事庆典服务。我们结合传统择吉日、风水布局与现代活动策划，让每一个重要时刻都吉祥如意、圆满成功。</p>
+                <br>
+                <p>📍 <strong>服务区域：</strong>徐州市区 + 各县区（新沂、邳州、沛县、睢宁、铜山、贾汪等）</p>
+                <p>📅 <strong>预约时间：</strong>建议提前3-7天预约（旺季需更早）</p>
+                <p>📝 <strong>服务保障：</strong>签订正式协议、费用透明、售后无忧</p>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <h2>服务项目</h2>
+            <p>我们提供三类核心红事服务，满足不同场景需求：</p>
+            
+            <div class="services-grid">
+                <!-- 开业庆典 -->
+                <div class="service-card">
+                    <div class="service-icon">🎊</div>
+                    <h3>开业庆典</h3>
+                    <p>为商铺、公司、工厂开业提供全方位仪式服务</p>
+                    <div class="price">¥888起 <span>一套</span></div>
+                    <p class="price-note">（根据规模定制价格）</p>
+                    <ul class="feature-list">
+                        <li>择吉日（黄历+八字匹配）</li>
+                        <li>现场风水布局指导</li>
+                        <li>舞狮/锣鼓表演推荐</li>
+                        <li>开业仪式流程设计</li>
+                        <li>剪彩用品（红绸、金剪刀）</li>
+                        <li>吉祥话语主持</li>
+                    </ul>
+                </div>
+                
+                <!-- 婚礼策划 -->
+                <div class="service-card">
+                    <div class="service-icon">💒</div>
+                    <h3>婚礼策划</h3>
+                    <p>传统中式婚礼 + 新式定制婚礼服务</p>
+                    <div class="price">¥2000起 <span>整套</span></div>
+                    <p class="price-note">（套餐灵活定制）</p>
+                    <ul class="feature-list">
+                        <li>择婚期（双方八字合婚）</li>
+                        <li>传统中式/西式/新中式</li>
+                        <li>婚礼流程设计</li>
+                        <li>司仪推荐（可选）</li>
+                        <li>现场布置建议</li>
+                        <li>嫁妆/彩礼文化指导</li>
+                        <li>敬茶仪式安排</li>
+                    </ul>
+                </div>
+                
+                <!-- 搬家乔迁 -->
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>搬家乔迁</h3>
+                    <p>入宅仪式、旺宅布局、搬家注意事项</p>
+                    <div class="price">¥388起 <span>一次</span></div>
+                    <p class="price-note">（简装388，精装1288）</p>
+                    <ul class="feature-list">
+                        <li>择入宅吉时</li>
+                        <li>旺宅风水布局</li>
+                        <li>搬家仪式流程</li>
+                        <li>进门吉祥物建议</li>
+                        <li>灶台/床位朝向指导</li>
+                        <li>乔迁喜庆用品清单</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 套餐对比表 -->
+            <h3 style="margin-top: 30px;">套餐详细对比</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <thead>
+                    <tr style="background: var(--background);">
+                        <th style="padding: 12px; border: 1px solid var(--border); text-align: left;">服务内容</th>
+                        <th style="padding: 12px; border: 1px solid var(--border); text-align: center;">基础版</th>
+                        <th style="padding: 12px; border: 1px solid var(--border); text-align: center;">标准版</th>
+                        <th style="padding: 12px; border: 1px solid var(--border); text-align: center;">高端定制</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border);">开业庆典</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥888</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥1888</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥3888+</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border);">婚礼策划</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥2000</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥5000</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥10000+</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border);">搬家乔迁</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥388</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥888</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">¥1288</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border);">包含服务</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">基础择日 + 流程指导</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">择日 + 现场指导 + 用品</td>
+                        <td style="padding: 10px; border: 1px solid var(--border); text-align: center;">全流程定制 + 专人陪同</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Process Section -->
+        <section id="process" class="section">
+            <h2>服务流程</h2>
+            <div class="process">
+                <div class="process-step">
+                    <div class="step-num">1</div>
+                    <h4>咨询预约</h4>
+                    <p>加微信/QQ沟通需求，确认服务类型、时间、地点</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">2</div>
+                    <h4>支付定金</h4>
+                    <p>确认订单后支付30%定金（微信/支付宝）</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">3</div>
+                    <h4>择吉日/方案</h4>
+                    <p>根据八字、黄历、风水状况，提供3个可选日期/方案</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">4</div>
+                    <h4>现场服务</h4>
+                    <p>按约定时间到场执行仪式，全程指导</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">5</div>
+                    <h4>尾款结算</h4>
+                    <p>服务完成后支付70%尾款，确认满意</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section id="faq" class="section">
+            <h2>常见问题</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: 择吉日是怎么选的？准确吗？</div>
+                <div class="faq-answer">
+                    A: 我们综合黄历宜忌、双方八字（如有）、五行平衡、当天星宿等多维度选择。择日属于传统文化，仅供参考，不保证100%准确，但我们会尽力提供最优方案。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: 服务不满意可以退款吗？</div>
+                <div class="faq-answer">
+                    A: 定金支付后若取消，定金不退（已产生择日成本）。服务完成后如不满意，可协商部分退款或免费返工一次。正式条款见《红事服务协议》。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: 外地可以提供线上指导吗？</div>
+                <div class="faq-answer">
+                    A: 可以的！搬家/开业择日、流程指导均可远程进行（微信/QQ）。现场仪式建议徐州本地预约。外地客户可选择"远程顾问套餐"（标准价50%）。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: 需要准备哪些材料？</div>
+                <div class="faq-answer">
+                    A: 一般需要提供主人/新人生辰八字（可选）、地址、仪式规模。我们会给出详细用品清单，大部分可在当地采购，也可提供代购服务。
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: 签约后可以修改日期吗？</div>
+                <div class="faq-answer">
+                    A: 可以，提前3天以上免费调整1次。3天内调整收取200元改期费（因已安排人员）。如需改期，请尽早沟通。
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2>联系我们</h2>
+            <p>欢迎预约咨询，我们期待为您的重要时刻增添吉祥！</p>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <strong>QQ客服</strong>
+                    <span>1614194452</span>
+                    <small>在线时间 9:00-21:00</small>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <strong>微信</strong>
+                    <span>fuxinfu889</span>
+                    <small>推荐！添加请备注"红事"</small>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <strong>邮箱</strong>
+                    <span>longmai@foxmail.com</span>
+                    <small>业务咨询与合作</small>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <strong>网站</strong>
+                    <span>https://longmai888.github.io/longmai-bazi/</span>
+                    <small>在线测算 + 更多服务</small>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="javascript:void(0)" onclick="openQQ()" class="cta">立即预约咨询</a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>龙脉文化</strong> · 新沂市隆脉信息咨询工作室</p>
+            <p>© 2026 龙脉文化 版权所有</p>
+            <div class="disclaimer">
+                <p>⚠️ <strong>免责声明：</strong>本店所有服务为传统文化咨询，仅供娱乐参考，不承诺任何效果。择日、风水等属于玄学范畴，请理性对待。服务最终解释权归本店所有。</p>
+                <p style="margin-top: 10px;">详细条款见《<a href="#" style="color: #aaa;">平台服务协议</a>》与《<a href="#" style="color: #aaa;">红事服务协议</a>》</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Update active state
+                document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Open QQ function
+        function openQQ() {
+            // 直接打开QQ对话（使用tencent协议）
+            window.open('tencent://message/?uin=1614194452&Site=龙脉文化&Menu=yes', '_blank');
+            // 如果浏览器不支持tencent协议，提示手动添加
+            setTimeout(function() {
+                alert('请手动添加QQ：1614194452，或微信：fuxinfu889');
+            }, 500);
+        }
+        
+        // FAQ accordion toggle (optional enhancement)
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                if (answer.style.display === 'none' || !answer.style.display) {
+                    answer.style.display = 'block';
+                    this.style.background = '#ffe4d4';
+                } else {
+                    answer.style.display = 'none';
+                    this.style.background = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
