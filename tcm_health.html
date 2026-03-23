@@ -221,12 +221,12 @@
                 <div class="form-group">
                     <label>性别</label>
                     <select id="gender">
-                        <option value="male">?/option>
-                        <option value="female">?/option>
+                        <option value="male"></option>
+                        <option value="female"></option>
                     </select>
                 </div>
             </div>
-            <button class="btn-primary" onclick="analyzeHealth()">开始体质分?/button>
+            <button class="btn-primary" onclick="analyzeHealth()">开始体质分</button>
         </div>
 
         <div class="result-section" id="resultSection">
@@ -266,13 +266,13 @@
         // 初始化年份选择
         const yearSelect = document.getElementById('year');
         for (let i = 2026; i >= 1920; i--) {
-            yearSelect.innerHTML += `<option value="${i}">${i}?/option>`;
+            yearSelect.innerHTML += `<option value="${i}">${i}</option>`;
         }
 
         // 初始化日期选择
         const daySelect = document.getElementById('day');
         for (let i = 1; i <= 31; i++) {
-            daySelect.innerHTML += `<option value="${i}">${i}?/option>`;
+            daySelect.innerHTML += `<option value="${i}">${i}</option>`;
         }
 
         // 9种体质类?        const constitutions = {
@@ -371,13 +371,13 @@
             const secondary = constitutions[secondaryType];
             
             document.getElementById('constitutionResult').innerHTML = `
-                <p style="margin-bottom: 15px;"><strong>主要体质?/strong></p>
+                <p style="margin-bottom: 15px;"><strong>主要体质</strong></p>
                 <span class="constitution-type ${primary.class}">${primary.name}</span>
                 <p style="margin: 15px 0;">${primary.description}</p>
-                <p style="margin-bottom: 15px;"><strong>次要体质?/strong></p>
+                <p style="margin-bottom: 15px;"><strong>次要体质</strong></p>
                 <span class="constitution-type ${secondary.class}">${secondary.name}</span>
                 <div style="margin-top: 20px;">
-                    <h4 style="margin-bottom: 10px;">体质特征?/h4>
+                    <h4 style="margin-bottom: 10px;">体质特征</h4>
                     <ul style="list-style: none; padding: 0;">
                         ${primary.features.map(f => `<li style="padding: 5px 0;">?${f}</li>`).join('')}
                     </ul>
@@ -409,36 +409,36 @@
             document.getElementById('medicineGrid').innerHTML = `
                 <div class="medicine-card">
                     <h4>黄芪</h4>
-                    <p><strong>功效?/strong>补气升阳，益卫固?/p>
-                    <p><strong>用法?/strong>泡水、炖?/p>
+                    <p><strong>功效</strong>补气升阳，益卫固</p>
+                    <p><strong>用法</strong>泡水、炖</p>
                 </div>
                 <div class="medicine-card">
                     <h4>枸杞</h4>
-                    <p><strong>功效?/strong>滋补肝肾，益精明?/p>
-                    <p><strong>用法?/strong>泡水、煲?/p>
+                    <p><strong>功效</strong>滋补肝肾，益精明</p>
+                    <p><strong>用法</strong>泡水、煲</p>
                 </div>
                 <div class="medicine-card">
                     <h4>山药</h4>
-                    <p><strong>功效?/strong>补脾养胃，生津益?/p>
-                    <p><strong>用法?/strong>煮粥、炖?/p>
+                    <p><strong>功效</strong>补脾养胃，生津益</p>
+                    <p><strong>用法</strong>煮粥、炖</p>
                 </div>
             `;
 
             document.getElementById('seasonalTips').innerHTML = `
-                <p><strong>当前季节养生重点?/strong></p>
+                <p><strong>当前季节养生重点</strong></p>
                 <ul style="margin-top: 10px; list-style: none;">
-                    <li style="padding: 5px 0;">?饮食清淡，少食油?/li>
-                    <li style="padding: 5px 0;">?早睡早起，保证睡?/li>
-                    <li style="padding: 5px 0;">?适度运动，增强体?/li>
+                    <li style="padding: 5px 0;">?饮食清淡，少食油</li>
+                    <li style="padding: 5px 0;">?早睡早起，保证睡</li>
+                    <li style="padding: 5px 0;">?适度运动，增强体</li>
                 </ul>
             `;
 
             document.getElementById('healthWarning').innerHTML = `
-                <p><strong>近期健康提醒?/strong></p>
+                <p><strong>近期健康提醒</strong></p>
                 <ul style="margin-top: 10px;">
-                    <li>注意${primary.name}相关的健康问?/li>
+                    <li>注意${primary.name}相关的健康问</li>
                     <li>大运流年变化期间，建议定期体检</li>
-                    <li>情绪波动较大时，及时调整心?/li>
+                    <li>情绪波动较大时，及时调整心</li>
                 </ul>
             `;
 
@@ -464,19 +464,19 @@
             </ul>
         </div>
         <div class="footer-section">
-            <h4>ϵʽ</h4>
+            <h4>ϵ式</h4>
             <ul>
                 <li>?? longmai@foxmail.com</li>
                 <li>?? 400-XXX-XXXX</li>
-                <li>?? ʡ</li>
+                <li>?? 省</li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>?? վݽֲοκʽĽŵ</p>
-        <p>?? ѧڴͳĻ룬Կ</p>
-        <p>?? սȨĻƽ̨</p>
-        <p>? 2026 Ļ Ȩ | ICPXXXXXXXX</p>
+        <p>?? վ内容供考式的策</p>
+        <p>?? 学在统化文慧</p>
+        <p>?? սȨ化ƽ̨</p>
+        <p>? 2026 化 Ȩ | ICPXXXXXXXX</p>
     </div>
 </footer>
 </body>

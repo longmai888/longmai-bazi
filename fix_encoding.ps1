@@ -1,0 +1,124 @@
+# 批量修复HTML文件乱码
+# UTF-8编码
+
+$files = Get-ChildItem -Path "D:\龙脉文化\website" -Filter "*.html" -Recurse
+
+# 乱码映射表
+$replacements = @{
+    # 常用词汇
+    "涓撲笟" = "专业"
+    "鍏瓧" = "八字"
+    "鎺掔洏" = "排盘"
+    "榫欒剦" = "龙脉"
+    "鏂囧寲" = "文化"
+    "鍥涙煴" = "四柱"
+    "鍗佺" = "十神"
+    "澶ц繍" = "大运"
+    "娴佸勾" = "流年"
+    "璇﹁В" = "详解"
+    "鍒嗘瀽" = "分析"
+    "鍛界悊" = "命理"
+    
+    # 导航菜单
+    "棣栭〉" = "首页"
+    "鏂囩珷" = "文章"
+    
+    # 表单标签
+    "鍐滃巻" = "农历"
+    "鍏巻" = "公历"
+    "骞翠唤" = "年份"
+    "鏈堜唤" = "月份"
+    "鏃ユ湡" = "日期"
+    "鏃惰景" = "时辰"
+    "鍑虹敓" = "出生"
+    "鎬у埆" = "性别"
+    "鐪熷お闃虫椂" = "真太阳时"
+    "鏄惁" = "是否"
+    "闂版湀" = "闰月"
+    "璇烽€夋嫨" = "请选择"
+    "濡傦細" = "如："
+    "鍖椾含" = "北京"
+    
+    # 月份
+    "姝ｆ湀" = "正月"
+    "浜屾湀" = "二月"
+    "涓夋湀" = "三月"
+    "鍥涙湀" = "四月"
+    "浜旀湀" = "五月"
+    "鍏湀" = "六月"
+    "涓冩湀" = "七月"
+    "鍏湀" = "八月"
+    "涔濇湀" = "九月"
+    "鍗佹湀" = "十月"
+    "鍗佷竴鏈?" = "十一月"
+    "鍗佷簩鏈?" = "十二月"
+    
+    # 按钮
+    "寮€濮?" = "开始"
+    "鎻愪氦" = "提交"
+    "杩斿洖" = "返回"
+    "鏌ヨ" = "查询"
+    
+    # 结果显示
+    "缁撴灉" = "结果"
+    "骞存煴" = "年柱"
+    "鏈堟煴" = "月柱"
+    "鏃ユ煴" = "日柱"
+    "鏃舵煴" = "时柱"
+    
+    # 页脚
+    "鑱旂郴鎴戜滑" = "联系我们"
+    "鍏充簬鎴戜滑" = "关于我们"
+    "闅愮鏀跨瓥" = "隐私政策"
+    "浼犳壙" = "传承"
+    "鏄撳" = "易学"
+    "寮樻壃" = "弘扬"
+    "浼犵粺" = "传统"
+    "鏅烘収" = "智慧"
+    "鍐呭" = "内容"
+    "浠呬緵鍙傝€?" = "仅供参考"
+    "涓嶄綔涓?" = "不作为"
+    "鍐崇瓥" = "决策"
+    "渚濇嵁" = "依据"
+    
+    # 评论
+    "璇勮" = "评论"
+    "鐖卞ソ鑰?" = "爱好者"
+    
+    # 其他
+    "姹熻嫃鐪?" = "江苏省"
+    "鐪?" = "省"
+    
+    # 标签闭合修复
+    "?/option>" = "</option>"
+    "?/label>" = "</label>"
+    "?/button>" = "</button>"
+    "?/div>" = "</div>"
+    "?/h3>" = "</h3>"
+    "?/h4>" = "</h4>"
+    "?/strong>" = "</strong>"
+    "?/span>" = "</span>"
+    "?/p>" = "</p>"
+    "?/li>" = "</li>"
+    "?/a>" = "</a>"
+}
+
+foreach ($file in $files) {
+    Write-Host "Processing: $($file.Name)"
+    
+    # 读取文件内容（UTF-8）
+    $content = Get-Content -Path $file.FullName -Raw -Encoding UTF8
+    
+    # 执行替换
+    foreach ($key in $replacements.Keys) {
+        $content = $content -replace [regex]::Escape($key), $replacements[$key]
+    }
+    
+    # 保存文件（UTF-8 without BOM）
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($file.FullName, $content, $utf8NoBom)
+    
+    Write-Host "Fixed: $($file.Name)" -ForegroundColor Green
+}
+
+Write-Host "`nAll files processed!" -ForegroundColor Cyan
