@@ -1,0 +1,21 @@
+# 立即执行：
+
+1. 打开 https://github.com/longmai888/longmai-bazi/settings/pages
+2. 找到 "Clear cache" 按钮
+3. 点击它
+4. 等待 10-15 分钟
+5. 用无痕浏览器访问 https://longmai888.github.io/longmai-bazi/
+6. 验证 footer 是否显示中文（如"📧 longmai@foxmail.com"）
+
+# 预期结果：
+
+✅ 所有页面恢复正常
+✅ footer 显示完整中文
+✅ 功能按钮可点击
+✅ 农历转公历正常
+✅ 45个页面全部正常
+
+# 如果还乱码：
+
+截图 Settings → Pages 页面给我
+检查 Build status 是什么状态

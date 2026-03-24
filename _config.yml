@@ -1,0 +1,16 @@
+#include .nojekyll
+
+# GitHub Pages 配置
+# 即使使用 Deploy from branch，这个文件也会被读取
+
+# 强制所有 HTML 使用 UTF-8
+encoding: utf-8
+
+# 避免任何转换
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 文件处理
+safe: true
+incremental: false
