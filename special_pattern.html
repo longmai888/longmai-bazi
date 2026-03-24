@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>龙脉文化 · 特殊格局判断</title>
+    <title>é¾èæå Â· ç¹æ®æ ¼å±å¤æ­</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <style>
@@ -70,131 +70,131 @@
 </head>
 <body>
     <div class="pattern-hero">
-        <h1>🔮 特殊格局判断</h1>
-        <p class="subtitle">从格 · 专旺�?· 化气�?· 禄刃�?/p>
+        <h1>ð® ç¹æ®æ ¼å±å¤æ­</h1>
+        <p class="subtitle">ä»æ ¼ Â· ä¸æºæ ?Â· åæ°æ ?Â· ç¦åæ ?/p>
     </div>
     <div class="pattern-content">
         <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
-            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">输入您的八字</h3>
+            <h3 style="text-align: center; color: #764ba2; margin-bottom: 20px;">è¾å¥æ¨çå«å­</h3>
             <p style="text-align: center; color: #666; margin-bottom: 20px;">
-                请先在主页完成八字排盘，或直接输入八�?            </p>
-            <button class="btn-primary" onclick="analyzePattern()">开始判�?/button>
+                è¯·åå¨ä¸»é¡µå®æå«å­æçï¼æç´æ¥è¾å¥å«å­?            </p>
+            <button class="btn-primary" onclick="analyzePattern()">å¼å§å¤æ?/button>
         </div>
 
         <div id="pattern-result" style="display: none;">
-            <h2 style="text-align: center; color: #764ba2; margin: 40px 0;">您的格局判断结果</h2>
+            <h2 style="text-align: center; color: #764ba2; margin: 40px 0;">æ¨çæ ¼å±å¤æ­ç»æ</h2>
             
             <div style="background: linear-gradient(135deg, #FFD700, #FFA500); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 40px;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">🌟 从财�?/h2>
+                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">ð ä»è´¢æ ?/h2>
                 <p style="font-size: 1.2rem; opacity: 0.95;">
-                    特殊格局 · 大富之命 · 善于聚财
+                    ç¹æ®æ ¼å± Â· å¤§å¯ä¹å½ Â· åäºèè´¢
                 </p>
             </div>
 
-            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">所有特殊格局</h3>
+            <h3 style="text-align: center; color: #764ba2; margin: 30px 0;">ææç¹æ®æ ¼å±</h3>
             <div class="pattern-grid">
                 <div class="pattern-card" onclick="showPatternDetail('congcai')">
-                    <div class="pattern-icon">💰</div>
-                    <div class="pattern-name">从财�?/div>
+                    <div class="pattern-icon">ð°</div>
+                    <div class="pattern-name">ä»è´¢æ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">大富</span>
-                        <span class="pattern-badge">商业</span>
+                        <span class="pattern-badge">å¤§å¯</span>
+                        <span class="pattern-badge">åä¸</span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        日主极弱，财星极旺，顺从财星。善于赚钱，重视物质，商业天赋�?                    </p>
+                        æ¥ä¸»æå¼±ï¼è´¢æææºï¼é¡ºä»è´¢æãåäºèµé±ï¼éè§ç©è´¨ï¼åä¸å¤©èµã?                    </p>
                 </div>
 
                 <div class="pattern-card" onclick="showPatternDetail('congguan')">
-                    <div class="pattern-icon">👑</div>
-                    <div class="pattern-name">从官杀�?/div>
+                    <div class="pattern-icon">ð</div>
+                    <div class="pattern-name">ä»å®ææ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">权贵</span>
-                        <span class="pattern-badge">公职</span>
+                        <span class="pattern-badge">æè´µ</span>
+                        <span class="pattern-badge">å¬è</span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        日主极弱，官杀极旺，顺从官杀。服从权威，有执行力，适合公务员�?                    </p>
+                        æ¥ä¸»æå¼±ï¼å®æææºï¼é¡ºä»å®æãæä»æå¨ï¼ææ§è¡åï¼éåå¬å¡åã?                    </p>
                 </div>
 
                 <div class="pattern-card" onclick="showPatternDetail('congqiang')">
-                    <div class="pattern-icon">💪</div>
-                    <div class="pattern-name">从强�?/div>
+                    <div class="pattern-icon">ðª</div>
+                    <div class="pattern-name">ä»å¼ºæ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">专业</span>
-                        <span class="pattern-badge">技�?/span>
+                        <span class="pattern-badge">ä¸ä¸</span>
+                        <span class="pattern-badge">ææ?/span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        日主极旺，比劫印绶重重。独立自主，固执己见，适合技术专业�?                    </p>
+                        æ¥ä¸»ææºï¼æ¯å«å°ç»¶ééãç¬ç«èªä¸»ï¼åºæ§å·±è§ï¼éåææ¯ä¸ä¸ã?                    </p>
                 </div>
 
                 <div class="pattern-card" onclick="showPatternDetail('congruo')">
-                    <div class="pattern-icon">🌸</div>
-                    <div class="pattern-name">从弱�?/div>
+                    <div class="pattern-icon">ð¸</div>
+                    <div class="pattern-name">ä»å¼±æ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">辅助</span>
-                        <span class="pattern-badge">配合</span>
+                        <span class="pattern-badge">è¾å©</span>
+                        <span class="pattern-badge">éå</span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        日主极弱，克泄耗重重。适应力强，依赖他人，适合辅助工作�?                    </p>
+                        æ¥ä¸»æå¼±ï¼åæ³èééãéåºåå¼ºï¼ä¾èµä»äººï¼éåè¾å©å·¥ä½ã?                    </p>
                 </div>
 
                 <div class="pattern-card" onclick="showPatternDetail('zhuanwang')">
-                    <div class="pattern-icon">🔥</div>
-                    <div class="pattern-name">专旺�?/div>
+                    <div class="pattern-icon">ð¥</div>
+                    <div class="pattern-name">ä¸æºæ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">特殊</span>
-                        <span class="pattern-badge">稀�?/span>
+                        <span class="pattern-badge">ç¹æ®</span>
+                        <span class="pattern-badge">ç¨æ?/span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        五行专一极旺。性格极端，成就非凡或一事无成�?                    </p>
+                        äºè¡ä¸ä¸ææºãæ§æ ¼æç«¯ï¼æå°±éå¡æä¸äºæ æã?                    </p>
                 </div>
 
                 <div class="pattern-card" onclick="showPatternDetail('huaqi')">
-                    <div class="pattern-icon">🌈</div>
-                    <div class="pattern-name">化气�?/div>
+                    <div class="pattern-icon">ð</div>
+                    <div class="pattern-name">åæ°æ ?/div>
                     <div style="text-align: center; margin: 15px 0;">
-                        <span class="pattern-badge">贵格</span>
-                        <span class="pattern-badge">罕见</span>
+                        <span class="pattern-badge">è´µæ ¼</span>
+                        <span class="pattern-badge">ç½è§</span>
                     </div>
                     <p style="color: #666; line-height: 1.6; margin-top: 15px;">
-                        天干五合化气成功。贵气十足，但条件苛刻，极为罕见�?                    </p>
+                        å¤©å¹²äºååæ°æåãè´µæ°åè¶³ï¼ä½æ¡ä»¶èå»ï¼æä¸ºç½è§ã?                    </p>
                 </div>
             </div>
 
             <div style="background: white; padding: 30px; border-radius: 15px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <h3 style="color: #764ba2; margin-bottom: 20px;">📖 格局详解：从财格</h3>
+                <h3 style="color: #764ba2; margin-bottom: 20px;">ð æ ¼å±è¯¦è§£ï¼ä»è´¢æ ¼</h3>
                 <div style="background: #f5f7fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                    <h4 style="color: #764ba2; margin-bottom: 10px;">成格条件</h4>
+                    <h4 style="color: #764ba2; margin-bottom: 10px;">ææ ¼æ¡ä»¶</h4>
                     <ul style="line-height: 2; color: #555;">
-                        <li>�?日主无根或极�?/li>
-                        <li>�?财星透干得地，极�?/li>
-                        <li>�?无比劫印绶帮�?/li>
-                        <li>�?全局顺从财星</li>
+                        <li>â?æ¥ä¸»æ æ ¹ææå¼?/li>
+                        <li>â?è´¢æéå¹²å¾å°ï¼ææ?/li>
+                        <li>â?æ æ¯å«å°ç»¶å¸®èº?/li>
+                        <li>â?å¨å±é¡ºä»è´¢æ</li>
                     </ul>
                 </div>
 
                 <div style="background: #f5f7fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                    <h4 style="color: #764ba2; margin-bottom: 10px;">性格特征</h4>
+                    <h4 style="color: #764ba2; margin-bottom: 10px;">æ§æ ¼ç¹å¾</h4>
                     <p style="line-height: 1.8; color: #555;">
-                        唯利是图，善于赚钱，重视物质。头脑灵活，商业天赋强，能抓住商机。但过于重视金钱，可能忽略感情和精神层面�?                    </p>
+                        å¯å©æ¯å¾ï¼åäºèµé±ï¼éè§ç©è´¨ãå¤´èçµæ´»ï¼åä¸å¤©èµå¼ºï¼è½æä½åæºãä½è¿äºéè§éé±ï¼å¯è½å¿½ç¥ææåç²¾ç¥å±é¢ã?                    </p>
                 </div>
 
                 <div style="background: #f5f7fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                    <h4 style="color: #764ba2; margin-bottom: 10px;">事业方向</h4>
+                    <h4 style="color: #764ba2; margin-bottom: 10px;">äºä¸æ¹å</h4>
                     <ul style="line-height: 2; color: #555;">
-                        <li>💼 商业贸易、投资理�?/li>
-                        <li>🏦 金融行业、银行证�?/li>
-                        <li>🏢 房地产、实业投�?/li>
-                        <li>💰 创业经商、连锁经�?/li>
+                        <li>ð¼ åä¸è´¸æãæèµçè´?/li>
+                        <li>ð¦ éèè¡ä¸ãé¶è¡è¯å?/li>
+                        <li>ð¢ æ¿å°äº§ãå®ä¸æèµ?/li>
+                        <li>ð° åä¸ç»åãè¿éç»è?/li>
                     </ul>
                 </div>
 
                 <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #FFD700;">
-                    <h4 style="color: #764ba2; margin-bottom: 10px;">⚠️ 注意事项</h4>
+                    <h4 style="color: #764ba2; margin-bottom: 10px;">â ï¸ æ³¨æäºé¡¹</h4>
                     <ul style="line-height: 2; color: #555;">
-                        <li>忌行比劫印绶运，破格</li>
-                        <li>喜行财星、食伤运，发�?/li>
-                        <li>婚姻可能因财生变</li>
-                        <li>健康注意脾胃、肝�?/li>
+                        <li>å¿è¡æ¯å«å°ç»¶è¿ï¼ç ´æ ¼</li>
+                        <li>åè¡è´¢æãé£ä¼¤è¿ï¼åè´?/li>
+                        <li>å©å§»å¯è½å è´¢çå</li>
+                        <li>å¥åº·æ³¨æè¾èãèè?/li>
                     </ul>
                 </div>
             </div>
@@ -204,35 +204,35 @@
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
-            <h4>��������</h4>
+            <h4>¹ØÓÚÎÒÃÇ</h4>
             <ul>
-                <li><a href="about.html">Ʒ�ƹ���</a></li>
-                <li><a href="about.html">�Ŷӽ���</a></li>
-                <li><a href="about.html">��ϵ����</a></li>
+                <li><a href="about.html">Æ·ÅÆ¹ÊÊÂ</a></li>
+                <li><a href="about.html">ÍÅ¶Ó½éÉÜ</a></li>
+                <li><a href="about.html">ÁªÏµÎÒÃÇ</a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>��������</h4>
+            <h4>·¨ÂÉÉùÃ÷</h4>
             <ul>
-                <li><a href="user_agreement.html">�û�Э��</a></li>
-                <li><a href="privacy_policy.html">��˽����</a></li>
-                <li><a href="disclaimer.html">��������</a></li>
+                <li><a href="user_agreement.html">ÓÃ»§Ð­Òé</a></li>
+                <li><a href="privacy_policy.html">ÒþË½Õþ²ß</a></li>
+                <li><a href="disclaimer.html">ÃâÔðÉùÃ÷</a></li>
             </ul>
         </div>
         <div class="footer-section">
-            <h4>��ϵ��ʽ</h4>
+            <h4>ÁªÏµ·½Ê½</h4>
             <ul>
                 <li>?? longmai@foxmail.com</li>
                 <li>?? 400-XXX-XXXX</li>
-                <li>?? ����ʡ������������</li>
+                <li>?? ½­ËÕÊ¡ÐìÖÝÊÐÐÂÒÊÊÐ</li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>?? ����վ�������ݽ������ֲο����������κ���ʽ�Ľ�����ŵ</p>
-        <p>?? ������ѧ���ڴ�ͳ�Ļ����룬�����Կ���</p>
-        <p>?? ���ս���Ȩ�������Ļ�ƽ̨����</p>
-        <p>? 2026 �����Ļ� ��Ȩ���� | ��ICP��XXXXXXXX��</p>
+        <p>?? ±¾ÍøÕ¾ËùÓÐÄÚÈÝ½ö¹©ÓéÀÖ²Î¿¼£¬²»¹¹³ÉÈÎºÎÐÎÊ½µÄ½¨Òé»ò³ÐÅµ</p>
+        <p>?? ÃüÀíÐþÑ§ÊôÓÚ´«Í³ÎÄ»¯·¶³ë£¬ÇëÀíÐÔ¿´´ý</p>
+        <p>?? ×îÖÕ½âÊÍÈ¨¹éÁúÂöÎÄ»¯Æ½Ì¨ËùÓÐ</p>
+        <p>? 2026 ÁúÂöÎÄ»¯ °æÈ¨ËùÓÐ | ¾©ICP±¸XXXXXXXXºÅ</p>
     </div>
 </footer>
 </body>
