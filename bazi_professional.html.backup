@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙脉文化 - 专业八字排盘</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 专业八字页 - 紫金风格 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d1b4e 50%, #4a148c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 2.5rem;
+            color: #FFD700;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-section {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #FFD700;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(243, 156, 18, 0.4);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #FF6B35;
+        }
+
+        .shichen-btns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .shichen-btn {
+            padding: 15px 5px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(243, 156, 18, 0.4);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            color: #fff;
+        }
+
+        .shichen-btn:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #FF6B35;
+        }
+
+        .shichen-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #FF8C00);
+            border-color: #FF6B35;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .sc-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .shichen-btn small {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #FF6B35, #FF8C00);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+        }
+
+        .result-card {
+            display: none;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        .result-section {
+            margin-bottom: 25px;
+        }
+
+        .result-section h3 {
+            color: #FFD700;
+            margin: 0 0 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid rgba(243, 156, 18, 0.5);
+            padding-bottom: 8px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .tiangan, .dizhi, .wuxing {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(243, 156, 18, 0.2);
+        }
+
+        .tiangan {
+            color: #FF6B35;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .dizhi {
+            color: #28a745;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .wuxing {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(243, 156, 18, 0.3);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer a {
+            color: #FF6B35;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .shichen-btns {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>专业八字排盘</h1>
+            <p>精准计算 · 五行分析 · 大运流年</p>
+        </div>
+
+        <div class="form-section">
+            <div class="form-group">
+                <label>出生日期</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                    <select id="year">
+                        <option value="">选择年</option>
+                    </select>
+                    <select id="month">
+                        <option value="">选择月</option>
+                    </select>
+                    <select id="day">
+                        <option value="">选择日</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>出生时辰</label>
+                <div class="shichen-btns" id="shichen-btns">
+                    <!-- 由 JS 生成 -->
+                </div>
+                <input type="hidden" id="selectedHour" value="-1">
+            </div>
+
+            <div class="form-group">
+                <label>性别</label>
+                <div style="display: flex; gap: 20px;">
+                    <label><input type="radio" name="gender" value="male" checked> 男</label>
+                    <label><input type="radio" name="gender" value="female"> 女</label>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="calculateBazi()">开始排盘</button>
+        </div>
+
+        <div class="result-card" id="result-card">
+            <!-- 结果区域 -->
+            <div class="result-section">
+                <h3>八字四柱</h3>
+                <div class="result-grid" id="bazi-grid">
+                    <!-- 由 JS 填充 -->
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>五行分布</h3>
+                <div class="result-grid" id="wuxing-grid">
+                    <!-- 由 JS 填充 -->
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>日主（日元）</h3>
+                <div id="rizhu" style="font-size: 1.5rem; color: #FFD700; font-weight: 600;">
+                    <!-- 由 JS 填充 -->
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>节气与运数</h3>
+                <div id="qiyun" style="line-height: 1.8;">
+                    <!-- 由 JS 填充 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>联系QQ：1614194452 | 🌐 <a href="https://longmai888.github.io/longmai-bazi/">https://longmai888.github.io/longmai-bazi/</a>（主站）<br>备用：<a href="https://longmai-bazi.pages.dev/">https://longmai-bazi.pages.dev/</a>（镜像）</p>
+            <p style="margin-top: 10px; opacity: 0.6;">© 2026 龙脉文化 · 传承千年智慧</p>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 数据定义 ====================
+        const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+        const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+        const SHICHEN = ['子时', '丑时', '寅时', '卯时', '辰时', '巳时', '午时', '未时', '申时', '酉时', '戌时', '亥时'];
+        const SHICHEN_HOURS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21]; // 对应时辰开始的24小时制小时
+
+        // 五行映射
+        const WU_XING = {
+            '甲': '木', '乙': '木',
+            '丙': '火', '丁': '火',
+            '戊': '土', '己': '土',
+            '庚': '金', '辛': '金',
+            '壬': '水', '癸': '水',
+            '子': '水', '丑': '土', '寅': '木', '卯': '木',
+            '辰': '土', '巳': '火', '午': '火', '未': '土',
+            '申': '金', '酉': '金', '戌': '土', '亥': '水'
+        };
+
+        // 六十甲子
+        const JIAZI = [];
+        for (let i = 0; i < 60; i++) {
+            JIAZI.push(TIANGAN[i % 10] + DIZHI[i % 12]);
+        }
+
+        // ==================== 初始化 ====================
+        let selectedHour = -1;
+        let selectedHourIndex = -1;
+
+        function init() {
+            populateSelects();
+            initShichenButtons();
+        }
+
+        function populateSelects() {
+            const yearSel = document.getElementById('year');
+            const currentYear = new Date().getFullYear();
+            for (let y = currentYear; y >= 1900; y--) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y + '年';
+                yearSel.appendChild(opt);
+            }
+
+            const monthSel = document.getElementById('month');
+            for (let m = 1; m <= 12; m++) {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m + '月';
+                monthSel.appendChild(opt);
+            }
+
+            const daySel = document.getElementById('day');
+            for (let d = 1; d <= 31; d++) {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d + '日';
+                daySel.appendChild(opt);
+            }
+        }
+
+        function initShichenButtons() {
+            const container = document.getElementById('shichen-btns');
+            container.innerHTML = '';
+            SHICHEN.forEach((name, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'shichen-btn';
+                btn.dataset.hour = SHICHEN_HOURS[idx];
+                btn.dataset.index = idx;
+                btn.innerHTML = `<span class="sc-icon">${getShichenIcon(idx)}</span>${name}<small>${SHICHEN_HOURS[idx]}-${(SHICHEN_HOURS[idx]+2)%24}点</small>`;
+                btn.onclick = () => selectShichen(btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function getShichenIcon(idx) {
+            const icons = ['🌙', '🌙', '🌅', '🌅', '☀️', '☀️', '☀️', '🌙', '🌅', '☀️', '🌙', '🌙'];
+            return icons[idx] || '•';
+        }
+
+        function selectShichen(btn) {
+            document.querySelectorAll('.shichen-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedHour = parseInt(btn.dataset.hour);
+            selectedHourIndex = parseInt(btn.dataset.index);
+            document.getElementById('selectedHour').value = selectedHour;
+        }
+
+        // ==================== 八字计算核心 ====================
+
+        // 简易农历转换（公历转农历，仅支持1900-2100）
+        const LUNAR_INFO = [
+            0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+            0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+            // ... 省略部分，仅用于演示，实际需要完整60年数据
+        ];
+
+        function solarToLunar(year, month, day) {
+            // 简化版本：仅返回基本数据，实际需完整算法
+            // 这里返回公历日期作为占位
+            return {
+                year: year,
+                month: month,
+                day: day,
+                isLeap: false,
+                monthName: month + '月',
+                dayName: day + '日'
+            };
+        }
+
+        // 获取节气（简化）
+        function getJieQi(year, month, day) {
+            // 简化：返回固定节气名称
+            const jieqiList = [
+                '小寒', '大寒', '立春', '雨水', '惊蛰', '春分',
+                '清明', '谷雨', '立夏', '小满', '芒种', '夏至',
+                '小暑', '大暑', '立秋', '处暑', '白露', '秋分',
+                '寒露', '霜降', '立冬', '小雪', '大雪', '冬至'
+            ];
+            // 根据月份返回大致节气
+            const idx = (month - 1) * 2 + (day > 15 ? 1 : 0);
+            return jieqiList[idx % 24];
+        }
+
+        // 计算八字四柱
+        function calculateSiZhu(year, month, day, hour) {
+            // 1. 年柱：以立春为界
+            const jieqi = getJieQi(year, month, day);
+            const lunarYear = (jieqi === '立春' || jieqi === '雨水' || month > 2) ? year : year - 1;
+            const yearGanZhi = getYearGanZhi(lunarYear);
+
+            // 2. 月柱：根据节气
+            const monthGanZhi = getMonthGanZhi(year, month, day);
+
+            // 3. 日柱：计算
+            const dayGanZhi = getDayGanZhi(year, month, day);
+
+            // 4. 时柱：根据时辰
+            const hourGanZhi = getHourGanZhi(dayGanZhi, hour);
+
+            return {
+                year: yearGanZhi,
+                month: monthGanZhi,
+                day: dayGanZhi,
+                hour: hourGanZhi
+            };
+        }
+
+        function getYearGanZhi(year) {
+            const gan = (year - 3) % 10;
+            const zhi = (year - 3) % 12;
+            return TIANGAN[gan < 0 ? gan + 10 : gan] + DIZHI[zhi < 0 ? zhi + 12 : zhi];
+        }
+
+        function getMonthGanZhi(year, month, day) {
+            // 简化：固定计算
+            const yearGan = (year - 3) % 10;
+            const monthGanIdx = (yearGan * 2 + month) % 10;
+            const monthZhiIdx = (month + 1) % 12; // 正月为寅
+            return TIANGAN[monthGanIdx < 0 ? monthGanIdx + 10 : monthGanIdx] + DIZHI[monthZhiIdx];
+        }
+
+        function getDayGanZhi(year, month, day) {
+            // 使用已知基准日计算（简化）
+            const baseDate = new Date(1900, 0, 31); // 1900-1-31 是甲辰日
+            const targetDate = new Date(year, month - 1, day);
+            const diff = Math.floor((targetDate - baseDate) / (1000 * 60 * 60 * 24));
+            const ganIdx = (diff + 10) % 10; // 甲辰日的甲是第0位
+            const zhiIdx = (diff + 4) % 12;  // 辰是第4位
+            return TIANGAN[ganIdx < 0 ? ganIdx + 10 : ganIdx] + DIZHI[zhiIdx < 0 ? zhiIdx + 12 : zhiIdx];
+        }
+
+        function getHourGanZhi(dayGanZhi, hour) {
+            const dayGanIdx = TIANGAN.indexOf(dayGanZhi[0]);
+            const shichenIdx = SHICHEN_HOURS.indexOf(hour);
+            if (shichenIdx === -1) shichenIdx = 0;
+            const hourGanIdx = (dayGanIdx * 2 + shichenIdx) % 10;
+            return TIANGAN[hourGanIdx] + DIZHI[shichenIdx];
+        }
+
+        // ==================== 排盘主函数 ====================
+        function calculateBazi() {
+            try {
+                console.log('开始排盘...');
+
+                const year = parseInt(document.getElementById('year').value);
+                const month = parseInt(document.getElementById('month').value);
+                const day = parseInt(document.getElementById('day').value);
+
+                if (!year || !month || !day) {
+                    alert('请选择完整的出生日期');
+                    return;
+                }
+
+                if (selectedHour < 0) {
+                    alert('请选择出生时辰');
+                    return;
+                }
+
+                // 计算四柱
+                const sz = calculateSiZhu(year, month, day, selectedHour);
+
+                // 显示八字
+                displayBazi(sz);
+
+                // 计算五行
+                const wuxingCount = countWuXing(sz);
+
+                // 显示五行
+                displayWuXing(wuxingCount);
+
+                // 日主
+                const rizhu = sz.day[0];
+                document.getElementById('rizhu').innerHTML = `日主：<span style="font-size:2rem;color:#FF6B35;">${rizhu}（${WU_XING[rizhu]}）</span>`;
+
+                // 节气与运数
+                const jieqi = getJieQi(year, month, day);
+                const daYun = calculateDaYun(year, month, day, selectedHour);
+                document.getElementById('qiyun').innerHTML = `
+                    <p>节气：<strong>${jieqi}</strong></p>
+                    <p>起运：${daYun}岁起运</p>
+                    <p>大运：每十年一换，需结合八字完整分析</p>
+                `;
+
+                // 显示结果
+                document.getElementById('result-card').classList.add('show');
+                document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('八字计算错误:', error);
+                alert('计算失败：' + error.message);
+            }
+        }
+
+        function displayBazi(sz) {
+            const grid = document.getElementById('bazi-grid');
+            grid.innerHTML = '';
+            const order = [
+                { label: '年柱', val: sz.year },
+                { label: '月柱', val: sz.month },
+                { label: '日柱', val: sz.day },
+                { label: '时柱', val: sz.hour }
+            ];
+            order.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'tiangan';
+                div.innerHTML = `<strong>${item.label}</strong><br>${item.val[0]}<br><small>${WU_XING[item.val[0]]}</small>`;
+                grid.appendChild(div);
+
+                const div2 = document.createElement('div');
+                div2.className = 'dizhi';
+                div2.innerHTML = `&nbsp;`;
+                grid.appendChild(div2);
+
+                const div3 = document.createElement('div');
+                div3.className = 'dizhi';
+                div3.innerHTML = `<strong>${item.val[1]}</strong><br><small>${WU_XING[item.val[1]]}</small>`;
+                grid.appendChild(div3);
+
+                const div4 = document.createElement('div');
+                div4.className = 'wuxing';
+                div4.innerHTML = `${WU_XING[item.val[0]]}${WU_XING[item.val[1]]}`;
+                grid.appendChild(div4);
+            });
+        }
+
+        function countWuXing(sz) {
+            const count = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
+            const four = [sz.year, sz.month, sz.day, sz.hour];
+            four.forEach(pair => {
+                count[WU_XING[pair[0]]]++;
+                count[WU_XING[pair[1]]]++;
+            });
+            return count;
+        }
+
+        function displayWuXing(count) {
+            const grid = document.getElementById('wuxing-grid');
+            grid.innerHTML = '';
+            for (const [wx, num] of Object.entries(count)) {
+                const div = document.createElement('div');
+                div.className = 'wuxing';
+                div.innerHTML = `<strong>${wx}</strong><br>${num} 次`;
+                grid.appendChild(div);
+            }
+        }
+
+        function calculateDaYun(year, month, day, hour) {
+            // 简化：3岁起运
+            return 3;
+        }
+
+        // 初始化
+        init();
+    </script>
+</body>
+</html>

@@ -174,7 +174,7 @@
             gap: 10px;
         }
 
-        .tiangan, .dizhi, .wuxing, .nayin-item {
+        .tiangan, .dizhi, .wuxing {
             background: rgba(255,255,255,0.05);
             padding: 10px;
             border-radius: 8px;
@@ -196,11 +196,6 @@
 
         .wuxing {
             color: #ffc107;
-            font-size: 0.9rem;
-        }
-
-        .nayin-item {
-            color: #17a2b8;
             font-size: 0.9rem;
         }
 
@@ -277,29 +272,6 @@
             margin-bottom: 5px;
         }
 
-        .changsheng-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .changsheng-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(243, 156, 18, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
-        .changsheng-item.active {
-            background: linear-gradient(135deg, rgba(255,107,53,0.3), rgba(255,140,0,0.3));
-            border-color: #FF6B35;
-            color: #FFD700;
-            font-weight: 600;
-        }
-
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -319,21 +291,10 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             .result-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-            }
-            .tiangan, .dizhi, .wuxing, .nayin-item {
-                padding: 8px 2px;
-                font-size: 1rem;
+                grid-template-columns: repeat(2, 1fr);
             }
             .dayun-table {
-                font-size: 0.75rem;
-            }
-            .dayun-table th, .dayun-table td {
-                padding: 6px;
-            }
-            .changsheng-grid {
-                grid-template-columns: repeat(4, 1fr);
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -342,7 +303,7 @@
     <div class="container">
         <div class="hero">
             <h1>专业八字排盘</h1>
-            <p>精准计算 · 五行分析 · 大运流年 · 神煞十神 · 纳音藏干 · 十二长生</p>
+            <p>精准计算 · 五行分析 · 大运流年 · 神煞十神</p>
         </div>
 
         <div class="form-section">
@@ -352,14 +313,16 @@
                     <select id="year">
                         <option value="">选择年</option>
                         <!-- 静态年份选项：2026-1900 -->
-                        <option value="2026">2026年</option><option value="2025">2025年</option><option value="2024">2024年</option><option value="2023">2023年</option><option value="2022">2022年</option><option value="2021">2021年</option><option value="2020">2020年</option><option value="2019">2019年</option><option value="2018">2018年</option><option value="2017">2017年</option><option value="2016">2016年</option><option value="2015">2015年</option><option value="2014">2014年</option><option value="2013">2013年</option><option value="2012">2012年</option><option value="2011">2011年</option><option value="2010">2010年</option><option value="2009">2009年</option><option value="2008">2008年</option><option value="2007">2007年</option><option value="2006">2006年</option><option value="2005">2005年</option><option value="2004">2004年</option><option value="2003">2003年</option><option value="2002">2002年</option><option value="2001">2001年</option><option value="2000">2000年</option><option value="1999">1999年</option><option value="1998">1998年</option><option value="1997">1997年</option><option value="1996">1996年</option><option value="1995">1995年</option><option value="1994">1994年</option><option value="1993">1993年</option><option value="1992">1992年</option><option value="1991">1991年</option><option value="1990">1990年</option><option value="1989">1989年</option><option value="1988">1988年</option><option value="1987">1987年</option><option value="1986">1986年</option><option value="1985">1985年</option><option value="1984">1984年</option><option value="1983">1983年</option><option value="1982">1982年</option><option value="1981">1981年</option><option value="1980">1980年</option><option value="1979">1979年</option><option value="1978">1978年</option><option value="1977">1977年</option><option value="1976">1976年</option><option value="1975">1975年</option><option value="1974">1974年</option><option value="1973">1973年</option><option value="1972">1972年</option><option value="1971">1971年</option><option value="1970">1970年</option><option value="1969">1969年</option><option value="1968">1968年</option><option value="1967">1967年</option><option value="1966">1966年</option><option value="1965">1965年</option><option value="1964">1964年</option><option value="1963">1963年</option><option value="1962">1962年</option><option value="1961">1961年</option><option value="1960">1960年</option><option value="1959">1959年</option><option value="1958">1958年</option><option value="1957">1957年</option><option value="1956">1956年</option><option value="1955">1955年</option><option value="1954">1954年</option><option value="1953">1953年</option><option value="1952">1952年</option><option value="1951">1951年</option><option value="1950">1950年</option><option value="1949">1949年</option><option value="1948">1948年</option><option value="1947">1947年</option><option value="1946">1946年</option><option value="1945">1945年</option><option value="1944">1944年</option><option value="1943">1943年</option><option value="1942">1942年</option><option value="1941">1941年</option><option value="1940">1940年</option><option value="1939">1939年</option><option value="1938">1938年</option><option value="1937">1937年</option><option value="1936">1936年</option><option value="1935">1935年</option><option value="1934">1934年</option><option value="1933">1933年</option><option value="1932">1932年</option><option value="1931">1931年</option><option value="1930">1930年</option><option value="1929">1929年</option><option value="1928">1928年</option><option value="1927">1927年</option><option value="1926">1926年</option><option value="1925">1925年</option><option value="1924">1924年</option><option value="1923">1923年</option><option value="1922">1922年</option><option value="1921">1921年</option><option value="1920">1920年</option><option value="1919">1919年</option><option value="1918">1918年</option><option value="1917">1917年</option><option value="1916">1916年</option><option value="1915">1915年</option><option value="1914">1914年</option><option value="1913">1913年</option><option value="1912">1912年</option><option value="1911">1911年</option><option value="1910">1910年</option><option value="1909">1909年</option><option value="1908">1908年</option><option value="1907">1907年</option><option value="1906">1906年</option><option value="1905">1905年</option><option value="1904">1904年</option><option value="1903">1903年</option><option value="1902">1902年</option><option value="1901">1901年</option><option value="1900">1900年</option>
+                        <!-- 由脚本生成 -->
                     </select>
                     <select id="month">
                         <option value="">选择月</option>
+                        <!-- 静态月份选项 -->
                         <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
                     </select>
                     <select id="day">
                         <option value="">选择日</option>
+                        <!-- 静态日期选项 -->
                         <option value="1">1日</option><option value="2">2日</option><option value="3">3日</option><option value="4">4日</option><option value="5">5日</option><option value="6">6日</option><option value="7">7日</option><option value="8">8日</option><option value="9">9日</option><option value="10">10日</option><option value="11">11日</option><option value="12">12日</option><option value="13">13日</option><option value="14">14日</option><option value="15">15日</option><option value="16">16日</option><option value="17">17日</option><option value="18">18日</option><option value="19">19日</option><option value="20">20日</option><option value="21">21日</option><option value="22">22日</option><option value="23">23日</option><option value="24">24日</option><option value="25">25日</option><option value="26">26日</option><option value="27">27日</option><option value="28">28日</option><option value="29">29日</option><option value="30">30日</option><option value="31">31日</option>
                     </select>
                 </div>
@@ -368,6 +331,7 @@
             <div class="form-group">
                 <label>出生时辰</label>
                 <div class="shichen-btns" id="shichen-btns">
+                    <!-- 由 JS 生成 -->
                 </div>
                 <input type="hidden" id="selectedHour" value="-1">
             </div>
@@ -380,74 +344,80 @@
                 </div>
             </div>
 
-            <button class="submit-btn" onclick="calculateBazi()">🔮 开始排盘</button>
+            <button class="submit-btn" onclick="calculateBazi()">开始排盘</button>
         </div>
 
         <div class="result-card" id="result-card">
+            <!-- 结果区域 -->
             <div class="result-section">
-                <h3>📋 基本信息</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; line-height: 1.8;">
-                    <div>公历：<span id="solar-date" style="color: #FF6B35;"></span></div>
-                    <div>农历：<span id="lunar-date" style="color: #28a745;"></span></div>
-                    <div>生肖：<span id="shengxiao" style="color: #17a2b8;"></span></div>
-                    <div>节气：<span id="jieqi" style="color: #ffc107;"></span></div>
-                    <div>胎元：<span id="taiyuan" style="color: #FF6B35;"></span></div>
-                    <div>命宫：<span id="minggong" style="color: #28a745;"></span></div>
-                    <div>身宫：<span id="shengong" style="color: #17a2b8;"></span></div>
-                    <div>空亡：<span id="kongwang" style="color: #ffc107;"></span></div>
+                <h3>八字四柱</h3>
+                <div class="result-grid" id="bazi-grid">
+                    <!-- 由 JS 填充 -->
                 </div>
             </div>
 
             <div class="result-section">
-                <h3>🎯 四柱八字（带纳音）</h3>
-                <div class="result-grid" id="bazi-grid"></div>
-            </div>
-
-            <div class="result-section">
-                <h3>⚡ 五行力量分析</h3>
-                <div class="result-grid" id="wuxing-grid"></div>
+                <h3>五行分布</h3>
+                <div class="result-grid" id="wuxing-grid">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
                 <h3>日主（日元）</h3>
-                <div id="rizhu" style="font-size: 1.5rem; color: #FFD700; font-weight: 600;"></div>
+                <div id="rizhu" style="font-size: 1.5rem; color: #FFD700; font-weight: 600;">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
                 <h3>十神</h3>
-                <div class="shishen-box" id="shishen-box"></div>
+                <div class="shishen-box" id="shishen-box">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
                 <h3>地支藏干</h3>
-                <div id="canggan" style="line-height: 1.8;"></div>
+                <div id="canggan" style="line-height: 1.8;">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
                 <h3>节气与运数</h3>
-                <div id="qiyun" style="line-height: 1.8;"></div>
+                <div id="qiyun" style="line-height: 1.8;">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
                 <h3>大运</h3>
-                <table class="dayun-table" id="dayun-table"></table>
+                <table class="dayun-table" id="dayun-table">
+                    <!-- 由 JS 填充 -->
+                </table>
             </div>
 
             <div class="result-section">
                 <h3>流年</h3>
-                <table class="dayun-table" id="liunian-table"></table>
+                <table class="dayun-table" id="liunian-table">
+                    <!-- 由 JS 填充 -->
+                </table>
             </div>
 
             <div class="result-section">
                 <h3>神煞</h3>
-                <div class="shensha-grid" id="shensha-grid"></div>
+                <div class="shensha-grid" id="shensha-grid">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
 
             <div class="result-section">
-                <h3>十二长生</h3>
-                <div class="changsheng-grid" id="changsheng-grid"></div>
+                <h3>胎元、命宫、身宫、空亡</h3>
+                <div id="extra-info" style="line-height: 1.8;">
+                    <!-- 由 JS 填充 -->
+                </div>
             </div>
-
         </div>
 
         <div class="footer">
@@ -474,31 +444,6 @@
             '辰': '土', '巳': '火', '午': '火', '未': '土',
             '申': '金', '酉': '金', '戌': '土', '亥': '水'
         };
-
-        // 六十甲子纳音（简化-实际应完整60项）
-        const NAYIN = [
-            '海中金', '炉中火', '大林木', '路旁土', '剑锋金', '山头火', '洞下水', '白腊金', '杨柳木', '泉中水',
-            '霹雳火', '壁上土', '金泊金', '覆灯火', '沙中土', '天河水', '大驿土', '钗环金', '桑柘木', '大溪水',
-            '长流水', '沙中金', '天上火', '石榴木', '大海水', '金箔金', '佛灯火', '霹雳火', '松柏木', '长流水',
-            '屋上土', '霹雳火', '覆灯火', '钗环金', '大驿土', '路旁土', '城头土', '屋上土', '壁上土', '覆灯火',
-            '金箔金', '佛灯火', '霹雳火', '松柏木', '长流水', '屋上土', '霹雳火', '覆灯火', '钗环金', '大驿土',
-            '路旁土', '城头土', '屋上土', '壁上土', '覆灯火', '金箔金', '佛灯火', '霹雳火', '松柏木', '长流水'
-        ];
-
-        // 十二长生命理表
-        const CHANGSHENG_TABLE = {
-            '甲': ['亥', '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌'],
-            '乙': ['午', '巳', '辰', '卯', '寅', '丑', '子', '亥', '戌', '酉', '申', '未'],
-            '丙': ['寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'],
-            '丁': ['酉', '申', '未', '午', '巳', '辰', '卯', '寅', '丑', '子', '亥', '戌'],
-            '戊': ['寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'],
-            '己': ['酉', '申', '未', '午', '巳', '辰', '卯', '寅', '丑', '子', '亥', '戌'],
-            '庚': ['巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑', '寅', '卯', '辰'],
-            '辛': ['子', '亥', '戌', '酉', '申', '未', '午', '巳', '辰', '卯', '寅', '丑'],
-            '壬': ['申', '酉', '戌', '亥', '子', '丑', '寅', '卯', '辰', '巳', '午', '未'],
-            '癸': ['卯', '寅', '丑', '子', '亥', '戌', '酉', '申', '未', '午', '巳', '辰']
-        };
-        const CHANGSHENG_NAME = ['长生', '沐浴', '冠带', '临官', '帝旺', '衰', '病', '死', '墓', '绝', '胎', '养'];
 
         // 十神映射（阳日干）
         const SHISHEN_YANG = {
@@ -534,23 +479,39 @@
             '亥': ['壬', '甲']
         };
 
-        // 神煞定义（简化版，试用版有更完整逻辑）
+        // 神煞定义
         const SHEN_SHA = {
             '天乙贵人': { '鼠': '牛', '牛': '鼠', '虎': '猪', '兔': '狗', '龙': '鸡', '蛇': '猴', '马': '羊', '羊': '马', '猴': '蛇', '鸡': '龙', '狗': '猪', '猪': '虎' },
+            '太极贵人': { '鼠': '未', '牛': '午', '虎': '亥', '兔': '子', '龙': '酉', '蛇': '申', '马': '丑', '羊': '寅', '猴': '卯', '鸡': '辰', '狗': '巳', '亥': '午' },
             '桃花': { '鼠': '酉', '牛': '午', '虎': '卯', '兔': '子', '龙': '酉', '蛇': '午', '马': '卯', '羊': '子', '猴': '酉', '鸡': '午', '狗': '卯', '猪': '子' },
             '羊刃': { '甲': '卯', '乙': '辰', '丙': '午', '丁': '未', '戊': '午', '己': '未', '庚': '酉', '辛': '戌', '壬': '子', '癸': '丑' },
             '驿马': { '鼠': '寅', '牛': '卯', '虎': '辰', '兔': '巳', '龙': '午', '蛇': '未', '马': '申', '羊': '酉', '猴': '戌', '鸡': '亥', '狗': '子', '猪': '丑' },
-            '华盖': { '鼠': '未', '牛': '午', '虎': '卯', '兔': '戌', '龙': '酉', '蛇': '申', '马': '丑', '羊': '寅', '猴': '亥', '鸡': '辰', '狗': '巳', '猪': '午' }
+            '华盖': { '鼠': '未', '牛': '午', '虎': '卯', '兔': '戌', '龙': '酉', '蛇': '申', '马': '丑', '羊': '寅', '猴': '亥', '鸡': '辰', '狗': '巳', '猪': '午' },
+            '灾煞': { '子': '午', '丑': '未', '寅': '申', '卯': '酉', '辰': '戌', '巳': '亥', '午': '子', '未': '丑', '申': '寅', '酉': '卯', '戌': '辰', '亥': '巳' },
+            '劫煞': { '子': '巳', '丑': '寅', '寅': '亥', '卯': '申', '辰': '巳', '巳': '寅', '午': '亥', '未': '申', '申': '巳', '酉': '寅', '戌': '亥', '亥': '申' },
+            '亡神': { '子': '亥', '丑': '寅', '寅': '巳', '卯': '申', '辰': '亥', '巳': '寅', '午': '巳', '未': '申', '申': '亥', '酉': '寅', '戌': '巳', '亥': '申' }
         };
 
         // 生肖映射
         const SHENGXIAO = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+
+        // 农历信息（简化，用于胎元命宫计算）
+        const LUNAR_INFO = [
+            0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+            0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+            0x04970, 0x049e0, 0x0a570, 0x048e0, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+            0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+            0x04970, 0x049e0, 0x0a570, 0x048e0, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+            0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+            0x04970, 0x049e0, 0x0a570, 0x048e0, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2
+        ];
 
         // ==================== 初始化 ====================
         let selectedHour = -1;
         let selectedHourIndex = -1;
 
         function init() {
+            // 静态年份下拉框（不依赖JS）
             initShichenButtons();
         }
 
@@ -591,21 +552,25 @@
 
         function getMonthGanZhi(year, month) {
             const yearGan = (year - 3) % 10;
-            const startGan = (yearGan === 0 || yearGan === 5) ? 2 :
-                           (yearGan === 1 || yearGan === 6) ? 4 :
-                           (yearGan === 2 || yearGan === 7) ? 6 :
-                           (yearGan === 3 || yearGan === 8) ? 8 : 0;
+            // 月干：甲己之年丙作首，乙庚之岁戊为头，丙辛必定寻庚起，丁壬壬位顺行流，若问戊癸何处起，甲寅之上好追求
+            const startGan = (yearGan === 0 || yearGan === 5) ? 2 : // 甲己 -> 丙(2)
+                           (yearGan === 1 || yearGan === 6) ? 4 : // 乙庚 -> 戊(4)
+                           (yearGan === 2 || yearGan === 7) ? 6 : // 丙辛 -> 庚(6)
+                           (yearGan === 3 || yearGan === 8) ? 8 : // 丁壬 -> 壬(8)
+                           0; // 戊癸 -> 甲(0)
             const monthGanIdx = (startGan + month - 1) % 10;
-            const monthZhiIdx = (month + 1) % 12;
+            // 月支：正月为寅，顺推
+            const monthZhiIdx = (month + 1) % 12; // 0=子, 1=丑... 3=寅
             return TIANGAN[monthGanIdx] + DIZHI[monthZhiIdx];
         }
 
         function getDayGanZhi(year, month, day) {
+            // 使用基准日计算：1900年1月31日是甲辰日
             const baseDate = new Date(1900, 0, 31);
             const targetDate = new Date(year, month - 1, day);
             const diff = Math.floor((targetDate - baseDate) / (1000 * 60 * 60 * 24));
-            const ganIdx = (diff + 10) % 10;
-            const zhiIdx = (diff + 4) % 12;
+            const ganIdx = (diff + 10) % 10; // 甲辰日的甲是第10个？实际：甲辰日甲是第0位，基准日甲辰，甲为0
+            const zhiIdx = (diff + 4) % 12;  // 辰是第4位
             return TIANGAN[ganIdx < 0 ? ganIdx + 10 : ganIdx] + DIZHI[zhiIdx < 0 ? zhiIdx + 12 : zhiIdx];
         }
 
@@ -613,25 +578,13 @@
             const dayGanIdx = TIANGAN.indexOf(dayGanZhi[0]);
             const shichenIdx = SHICHEN_HOURS.indexOf(hour);
             if (shichenIdx === -1) shichenIdx = 0;
+            // 时干：日干顺推
             const hourGanIdx = (dayGanIdx * 2 + shichenIdx) % 10;
             return TIANGAN[hourGanIdx] + DIZHI[shichenIdx];
         }
 
-        function getNaYin(ganZhi) {
-            const ganIdx = TIANGAN.indexOf(ganZhi[0]);
-            const zhiIdx = DIZHI.indexOf(ganZhi[1]);
-            const jiaziIdx = (ganIdx * 12 + zhiIdx) % 60;
-            return NAYIN[jiaziIdx] || '未知';
-        }
-
-        function getChangSheng(dayGan, zhi) {
-            const table = CHANGSHENG_TABLE[dayGan];
-            if (!table) return '-';
-            const index = table.indexOf(zhi);
-            return index !== -1 ? CHANGSHENG_NAME[index] : '-';
-        }
-
         function getJieQi(year, month, day) {
+            // 简化节气表（精确需要复杂算法）
             const jieqiTable = [
                 { month: 1, day: 5, name: '小寒' }, { month: 1, day: 20, name: '大寒' },
                 { month: 2, day: 4, name: '立春' }, { month: 2, day: 19, name: '雨水' },
@@ -649,7 +602,8 @@
             for (let jq of jieqiTable) {
                 if (month === jq.month && day >= jq.day) return jq.name;
             }
-            return jieqiTable[0].name;
+            // 跨月情况：找上一个节气
+            return jieqiTable.find(jq => jq.month === month && jq.day <= day)?.name || jieqiTable[0].name;
         }
 
         function getShengXiao(year) {
@@ -660,6 +614,7 @@
         // 计算四柱
         function calculateSiZhu(year, month, day, hour) {
             const jieqi = getJieQi(year, month, day);
+            // 年柱：立春前是上年
             const lunarYear = (jieqi === '立春' || jieqi === '雨水' || month > 2) ? year : year - 1;
             const yearGanZhi = getYearGanZhi(lunarYear);
             const monthGanZhi = getMonthGanZhi(year, month);
@@ -670,17 +625,23 @@
 
         // 计算胎元、命宫、身宫、空亡
         function calculateExtra(year, month, day, sz) {
-            const monthGanIdx = TIANGAN.indexOf(sz.month[0]);
-            const monthZhiIdx = DIZHI.indexOf(sz.month[1]);
-            const taiYuanGanIdx = (monthGanIdx + 5) % 10;
-            const taiYuan = TIANGAN[taiYuanGanIdx] + DIZHI[(monthZhiIdx + 6) % 12];
+            // 胎元：月干之合，月支之冲（简化）
+            const monthGan = sz.month[0];
+            const monthZhi = sz.month[1];
+            const monthGanIdx = TIANGAN.indexOf(monthGan);
+            const taiYuanGanIdx = (monthGanIdx + 5) % 10; // 假设规则，需精确查表
+            const taiYuan = TIANGAN[taiYuanGanIdx] + DIZHI[(DIZHI.indexOf(monthZhi) + 6) % 12];
 
+            // 命宫：根据月支和时支
+            const monthZhiIdx = DIZHI.indexOf(monthZhi);
             const hourZhiIdx = DIZHI.indexOf(sz.hour[1]);
             const mingGongIdx = (monthZhiIdx + hourZhiIdx + 2) % 12;
             const mingGong = DIZHI[mingGongIdx];
 
+            // 身宫：日支
             const shenGong = sz.day[1];
 
+            // 空亡：六甲旬空
             const jiaZiIdx = (TIANGAN.indexOf(sz.day[0]) + DIZHI.indexOf(sz.day[1])) % 60;
             const kongWang = ['戌', '亥', '申', '酉', '午', '未', '辰', '巳', '寅', '卯', '子', '丑'][(jiaZiIdx % 12)];
 
@@ -688,178 +649,24 @@
         }
 
         // 计算十神
-        function calculateShiShen(sz) {
-            const riGan = sz.day[0];
-            const shenMap = ['甲','丙','戊','庚','壬'].includes(riGan) ? SHISHEN_YANG[riGan] : SHISHEN_YIN[riGan];
-            const result = {};
-            const allGan = [sz.year[0], sz.month[0], sz.day[0], sz.hour[0]];
-            const allZhi = [sz.year[1], sz.month[1], sz.day[1], sz.hour[1]];
-            ['年', '月', '日', '时'].forEach((label, idx) => {
-                const ganKey = label + '干';
-                const zhiKey = label + '支';
-                result[ganKey] = shenMap[TIANGAN.indexOf(allGan[idx])] || '?';
-                result[zhiKey] = shenMap[DIZHI.indexOf(allZhi[idx])] || '?';
-            });
-            return result;
-        }
-
-        function displayShiShen(shishen) {
-            const container = document.getElementById('shishen-box');
-            const labels = ['年干', '年支', '月干', '月支', '日干', '日支', '时干', '时支'];
-            let html = '<div class="shishen-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">';
-            labels.forEach(label => {
-                const val = shishen[label];
-                html += `<div class="shishen-item"><span class="shishen-name">${label}</span><span>${val}</span></div>`;
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function displayCangGan(sz) {
-            const container = document.getElementById('canggan');
-            let html = '';
-            const labels = ['年支', '月支', '日支', '时支'];
-            const zhilist = [sz.year[1], sz.month[1], sz.day[1], sz.hour[1]];
-            labels.forEach((label, i) => {
-                const zhi = zhilist[i];
-                const cang = CANGAN[zhi];
-                html += `<div style="margin-bottom:8px;"><strong>${label}（${zhi}）</strong>：`;
-                cang.forEach(gan => {
-                    html += `<span class="canggan-item">${gan}（${WU_XING[gan]}）</span>`;
-                });
-                html += '</div>';
-            });
-            container.innerHTML = html;
-        }
-
-        function displayQiYun(sz, year, month, day) {
-            const container = document.getElementById('qiyun');
-            const daYun = calculateDaYun(year, month, day, selectedHour, sz);
-            let html = `<p>节气：<strong>${sz.jieqi}</strong></p>`;
-            html += `<p>起运：${daYun.startAge}岁起运（${daYun.direction === 1 ? '顺排' : '逆排'}）</p>`;
-            html += `<p>大运：每十年一换</p>`;
-            container.innerHTML = html;
-        }
-
-        function displayDaYun(dayun, year, month, day) {
-            const table = document.getElementById('dayun-table');
-            let html = '<tr><th>起运岁数</th><th>大运干支</th><th>天干五行</th><th>地支五行</th></tr>';
-            for (let i = 0; i < dayun.dayun.length; i++) {
-                const age = dayun.startAge + i * 10;
-                const gy = dayun.dayun[i];
-                html += `<tr><td>${age}岁起</td><td>${gy}</td><td>${WU_XING[gy[0]]}</td><td>${WU_XING[gy[1]]}</td></tr>`;
-            }
-            table.innerHTML = html;
-        }
-
-        function displayLiuNian(liunian) {
-            const table = document.getElementById('liunian-table');
-            let html = '<tr><th>流年</th><th>干支</th><th>天干五行</th><th>地支五行</th><th>十神</th></tr>';
-            liunian.forEach(item => {
-                html += `<tr><td>${item.year}年</td><td>${item.ganzhi}</td><td>${WU_XING[item.ganzhi[0]]}</td><td>${WU_XING[item.ganzhi[1]]}</td><td>${item.shishen}</td></tr>`;
-            });
-            table.innerHTML = html;
-        }
-
-        function displayShenSha(shenList) {
-            const grid = document.getElementById('shensha-grid');
-            grid.innerHTML = shenList.length ? shenList.map(s => `<div class="shensha-item"><div class="shensha-name">${s}</div></div>`).join('') : '<div class="shensha-item">无</div>';
-        }
-
-        function displayExtra(extra) {
-            const container = document.getElementById('extra-info');
-            container.innerHTML = `
-                <p>胎元：<strong>${extra.taiYuan}</strong>（${WU_XING[extra.taiYuan[0]]}${WU_XING[extra.taiYuan[1]]}）</p>
-                <p>命宫：<strong>${extra.mingGong}</strong>（${WU_XING[extra.mingGong] || '土'}）</p>
-                <p>身宫：<strong>${extra.shenGong}</strong>（${WU_XING[extra.shenGong] || '土'}）</p>
-                <p>空亡：<strong>${extra.kongWang}</strong></p>
-            `;
-
-            // Also update the summary displays
-            document.getElementById('taiyuan').textContent = extra.taiYuan;
-            document.getElementById('minggong').textContent = extra.mingGong;
-            document.getElementById('shengong').textContent = extra.shenGong;
-            document.getElementById('kongwang').textContent = extra.kongWang;
-        }
-
-        function displayLunarDate(lunar) {
-            const container = document.getElementById('lunar-date');
-            container.innerHTML = `农历${lunar.lunarYearText}${lunar.monthName}${lunar.dayName}`;
-        }
-
-        function displayChangSheng(sz) {
-            const container = document.getElementById('changsheng-grid');
-            const riGan = sz.day[0];
-            const zhilist = [sz.year[1], sz.month[1], sz.day[1], sz.hour[1]];
-            let html = '';
-            CHANGSHENG_NAME.forEach((name, idx) => {
-                const zhi = CHANGSHENG_TABLE[riGan][idx];
-                const isActive = zhilist.includes(zhi);
-                html += `<div class="changsheng-item ${isActive ? 'active' : ''}">${name}<br><small>${zhi}</small></div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function displayBazi(sz) {
-            const grid = document.getElementById('bazi-grid');
-            grid.innerHTML = '';
-            const order = [
-                { label: '年柱', val: sz.year },
-                { label: '月柱', val: sz.month },
-                { label: '日柱', val: sz.day },
-                { label: '时柱', val: sz.hour }
-            ];
-            order.forEach(item => {
-                const nanyi = getNaYin(item.val);
-                const div = document.createElement('div');
-                div.className = 'tiangan';
-                div.innerHTML = `<strong>${item.label}</strong><br>${item.val[0]}<br><small>${WU_XING[item.val[0]]}</small>`;
-                grid.appendChild(div);
-
-                const div2 = document.createElement('div');
-                div2.className = 'dizhi';
-                div2.innerHTML = `&nbsp;`;
-                grid.appendChild(div2);
-
-                const div3 = document.createElement('div');
-                div3.className = 'dizhi';
-                div3.innerHTML = `<strong>${item.val[1]}</strong><br><small>${WU_XING[item.val[1]]}</small>`;
-                grid.appendChild(div3);
-
-                const div4 = document.createElement('div');
-                div4.className = 'wuxing';
-                div4.innerHTML = `${WU_XING[item.val[0]]}${WU_XING[item.val[1]]}<br><small>${nanyi}</small>`;
-                grid.appendChild(div4);
-            });
-        }
-
-        function countWuXing(sz) {
-            const count = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
-            const four = [sz.year, sz.month, sz.day, sz.hour];
-            four.forEach(pair => {
-                count[WU_XING[pair[0]]]++;
-                count[WU_XING[pair[1]]]++;
-            });
-            return count;
-        }
-
-        function displayWuXing(count) {
-            const grid = document.getElementById('wuxing-grid');
-            grid.innerHTML = '';
-            for (const [wx, num] of Object.entries(count)) {
-                const div = document.createElement('div');
-                div.className = 'wuxing';
-                div.innerHTML = `<strong>${wx}</strong><br>${num} 次`;
-                grid.appendChild(div);
-            }
+        function getShiShen(riZhu, ganOrZhi) {
+            const riGan = riZhu[0];
+            const isYang = ['甲', '丙', '戊', '庚', '壬'].includes(riGan);
+            const map = isYang ? SHISHEN_YANG[riGan] : SHISHEN_YIN[riGan];
+            const chars = ganOrZhi.split('');
+            return chars.map(c => WU_XING[c] === WU_XING[riGan] ? (isYang ? '比肩' : '劫财') : // 同我
+                          map[TIANGAN.indexOf(c)] || map[DIZHI.indexOf(c)] || '?').join(' ');
         }
 
         // 计算大运
         function calculateDaYun(year, month, day, hour, sz) {
+            // 起运岁数：根据出生日期到下一个节气的天数 / 3
+            // 简化：固定3岁起运
             const startAge = 3;
+            // 顺排还是逆排：阳年顺，阴年逆
             const yearGan = sz.year[0];
             const isYang = ['甲', '丙', '戊', '庚', '壬'].includes(yearGan);
-            const direction = isYang ? 1 : -1;
+            const direction = isYang ? 1 : -1; // 1顺，-1逆
 
             const dayun = [];
             let currentGanIdx = TIANGAN.indexOf(sz.month[0]);
@@ -874,18 +681,20 @@
             return { startAge, direction, dayun };
         }
 
-        // 计算流年
+        // 计算流年（当前大运下的12年）
         function calculateLiuNian(dayun, startAge, currentYear) {
             const liunian = [];
+            const startIdx = dayun.findIndex((_, idx) => startAge + idx * 10 <= currentYear - startAge);
             const currentDayunIdx = Math.floor((currentYear - startAge) / 10);
+            const currentDayun = dayun[currentDayunIdx];
 
+            // 生成当前大运的10年流年
             for (let i = 0; i < 10; i++) {
                 const year = currentYear + i - (currentYear % 10) + (currentDayunIdx * 10);
-                const ganzhi = TIANGAN[(year - 4) % 10] + DIZHI[(year - 4) % 12];
                 liunian.push({
                     year: year,
-                    ganzhi: ganzhi,
-                    shishen: '偏财' // 简化
+                    ganzhi: TIANGAN[(year - 4) % 10] + DIZHI[(year - 4) % 12],
+                    shishen: getShiShen(currentDayun, TIANGAN[(year - 4) % 10] + DIZHI[(year - 4) % 12])
                 });
             }
             return liunian;
@@ -897,37 +706,40 @@
             const monthZhi = sz.month[1];
             const dayZhi = sz.day[1];
             const hourZhi = sz.hour[1];
-            const dayGan = sz.day[0];
 
-            // 天乙贵人（简化）
+            // 天乙贵人：根据日干
+            const dayGan = sz.day[0];
             const tiy贵人Map = { '甲': '丑未', '乙': '子申', '丙': '亥酉', '丁': '子申', '戊': '丑未', '己': '申子', '庚': '午寅', '辛': '午寅', '壬': '卯巳', '癸': '卯巳' };
             if (tiy贵人Map[dayGan]?.includes(monthZhi) || tiy贵人Map[dayGan]?.includes(hourZhi)) {
                 shenList.push('天乙贵人');
             }
 
-            // 桃花
+            // 桃花：根据生肖
             const taoHuaZhi = SHEN_SHA['桃花'][sx];
             if ([monthZhi, dayZhi, hourZhi].includes(taoHuaZhi)) {
                 shenList.push('桃花');
             }
 
-            // 羊刃
+            // 羊刃：根据日干
             const yangRenZhi = SHEN_SHA['羊刃'][dayGan];
             if ([dayZhi].includes(yangRenZhi)) {
                 shenList.push('羊刃');
             }
 
-            // 驿马
+            // 驿马：根据年支
             const yiMaZhi = SHEN_SHA['驿马'][sx];
             if ([monthZhi, dayZhi, hourZhi].includes(yiMaZhi)) {
                 shenList.push('驿马');
             }
 
-            // 华盖
+            // 华盖：根据日支
             const huaGaiZhi = SHEN_SHA['华盖'][sx];
             if ([dayZhi].includes(huaGaiZhi)) {
                 shenList.push('华盖');
             }
+
+            // 灾煞、劫煞、亡神...
+            // 简化处理
 
             return shenList;
         }
@@ -954,13 +766,7 @@
                 // 计算四柱
                 const sz = calculateSiZhu(year, month, day, selectedHour);
 
-                // 基本信息
-                document.getElementById('solar-date').textContent = `${year}年${month}月${day}日 ${selectedHour}:00`;
-                document.getElementById('lunar-date').textContent = `农历${year}年${month}月${day}日（简化）`;
-                document.getElementById('shengxiao').textContent = getShengXiao(year);
-                document.getElementById('jieqi').textContent = sz.jieqi;
-
-                // 显示八字四柱（含纳音）
+                // 显示八字四柱
                 displayBazi(sz);
 
                 // 计算五行
@@ -997,9 +803,6 @@
                 const shenSha = calculateShenSha(sz, getShengXiao(year));
                 displayShenSha(shenSha);
 
-                // 十二长生
-                displayChangSheng(sz);
-
                 // 显示结果
                 document.getElementById('result-card').classList.add('show');
                 document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
@@ -1010,7 +813,166 @@
             }
         }
 
-        // 初始化
+        function calculateShiShen(sz) {
+            const riGan = sz.day[0];
+            const isYang = ['甲', '丙', '戊', '庚', '壬'].includes(riGan);
+            const shenMap = isYang ? SHISHEN_YANG[riGan] : SHISHEN_YIN[riGan];
+            const result = {};
+            ['年', '月', '日', '时'].forEach((label, idx) => {
+                const gan = ['年','月','日','时'][idx] + '干';
+                const zhi = ['年','月','日','时'][idx] + '支';
+                const ganChar = sz.year[0] + sz.month[0] + sz.day[0] + sz.hour[0];
+                const zhiChar = sz.year[1] + sz.month[1] + sz.day[1] + sz.hour[1];
+                result[gan] = shenMap[TIANGAN.indexOf(ganChar[idx])] || '?';
+                result[zhi] = shenMap[DIZHI.indexOf(zhiChar[idx])] || '?';
+            });
+            return result;
+        }
+
+        function displayShiShen(shishen) {
+            const container = document.getElementById('shishen-box');
+            const labels = ['年干', '年支', '月干', '月支', '日干', '日支', '时干', '时支'];
+            let html = '<div class="shishen-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">';
+            labels.forEach((label, i) => {
+                const val = Object.values(shishen)[i];
+                html += `<div class="shishen-item"><span class="shishen-name">${label}</span><span>${val}</span></div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function displayCangGan(sz) {
+            const container = document.getElementById('canggan');
+            let html = '';
+            ['年支', '月支', '日支', '时支'].forEach((label, i) => {
+                const zhi = sz.year[1] + sz.month[1] + sz.day[1] + sz.hour[1];
+                const cang = CANGAN[zhi[i]];
+                html += `<div style="margin-bottom:8px;"><strong>${label}（${zhi[i]}）</strong>：`;
+                cang.forEach((gan, idx) => {
+                    html += `<span class="canggan-item">${gan}（${WU_XING[gan]}）</span>`;
+                });
+                html += '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function displayQiYun(sz, year, month, day) {
+            const container = document.getElementById('qiyun');
+            const daYun = calculateDaYun(year, month, day, selectedHour, sz);
+            let html = `<p>节气：<strong>${sz.jieqi}</strong></p>`;
+            html += `<p>起运：${daYun.startAge}岁起运（${daYun.direction === 1 ? '顺排' : '逆排'}）</p>`;
+            html += `<p>大运：每十年一换</p>`;
+            container.innerHTML = html;
+        }
+
+        function displayDaYun(dayun, year, month, day) {
+            const table = document.getElementById('dayun-table');
+            let html = '<tr><th>起运岁数</th><th>大运干支</th><th>天干五行</th><th>地支五行</th></tr>';
+            for (let i = 0; i < dayun.dayun.length; i++) {
+                const age = dayun.startAge + i * 10;
+                const gy = dayun.dayun[i];
+                const gan = gy[0], zhi = gy[1];
+                html += `<tr><td>${age}岁起</td><td>${gy}</td><td>${WU_XING[gan]}</td><td>${WU_XING[zhi]}</td></tr>`;
+            }
+            table.innerHTML = html;
+        }
+
+        function displayLiuNian(liunian) {
+            const table = document.getElementById('liunian-table');
+            let html = '<tr><th>流年</th><th>干支</th><th>天干五行</th><th>地支五行</th><th>十神</th></tr>';
+            liunian.forEach(item => {
+                html += `<tr><td>${item.year}年</td><td>${item.ganzhi}</td><td>${WU_XING[item.ganzhi[0]]}</td><td>${WU_XING[item.ganzhi[1]]}</td><td>${item.shishen}</td></tr>`;
+            });
+            table.innerHTML = html;
+        }
+
+        function displayShenSha(shenList) {
+            const grid = document.getElementById('shensha-grid');
+            grid.innerHTML = shenList.length ? shenList.map(s => `<div class="shensha-item"><div class="shensha-name">${s}</div></div>`).join('') : '<div class="shensha-item">无</div>';
+        }
+
+        function displayExtra(extra) {
+            const container = document.getElementById('extra-info');
+            container.innerHTML = `
+                <p>胎元：<strong>${extra.taiYuan}</strong>（${WU_XING[extra.taiYuan[0]]}${WU_XING[extra.taiYuan[1]]}）</p>
+                <p>命宫：<strong>${extra.mingGong}</strong>（${WU_XING[extra.mingGong] || '土'}）</p>
+                <p>身宫：<strong>${extra.shenGong}</strong>（${WU_XING[extra.shenGong] || '土'}）</p>
+                <p>空亡：<strong>${extra.kongWang}</strong></p>
+            `;
+        }
+
+        function displayBazi(sz) {
+            const grid = document.getElementById('bazi-grid');
+            grid.innerHTML = '';
+            const order = [
+                { label: '年柱', val: sz.year },
+                { label: '月柱', val: sz.month },
+                { label: '日柱', val: sz.day },
+                { label: '时柱', val: sz.hour }
+            ];
+            order.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'tiangan';
+                div.innerHTML = `<strong>${item.label}</strong><br>${item.val[0]}<br><small>${WU_XING[item.val[0]]}</small>`;
+                grid.appendChild(div);
+
+                const div2 = document.createElement('div');
+                div2.className = 'dizhi';
+                div2.innerHTML = `&nbsp;`;
+                grid.appendChild(div2);
+
+                const div3 = document.createElement('div');
+                div3.className = 'dizhi';
+                div3.innerHTML = `<strong>${item.val[1]}</strong><br><small>${WU_XING[item.val[1]]}</small>`;
+                grid.appendChild(div3);
+
+                const div4 = document.createElement('div');
+                div4.className = 'wuxing';
+                div4.innerHTML = `${WU_XING[item.val[0]]}${WU_XING[item.val[1]]}`;
+                grid.appendChild(div4);
+            });
+        }
+
+        function countWuXing(sz) {
+            const count = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
+            const four = [sz.year, sz.month, sz.day, sz.hour];
+            four.forEach(pair => {
+                count[WU_XING[pair[0]]]++;
+                count[WU_XING[pair[1]]]++;
+            });
+            return count;
+        }
+
+        function displayWuXing(count) {
+            const grid = document.getElementById('wuxing-grid');
+            grid.innerHTML = '';
+            for (const [wx, num] of Object.entries(count)) {
+                const div = document.createElement('div');
+                div.className = 'wuxing';
+                div.innerHTML = `<strong>${wx}</strong><br>${num} 次`;
+                grid.appendChild(div);
+            }
+        }
+
+        function getJieQiDate(year, month) {
+            const table = [
+                { month: 1, day: 5, name: '小寒' }, { month: 1, day: 20, name: '大寒' },
+                { month: 2, day: 4, name: '立春' }, { month: 2, day: 19, name: '雨水' },
+                { month: 3, day: 5, name: '惊蛰' }, { month: 3, day: 20, name: '春分' },
+                { month: 4, day: 4, name: '清明' }, { month: 4, day: 20, name: '谷雨' },
+                { month: 5, day: 5, name: '立夏' }, { month: 5, day: 21, name: '小满' },
+                { month: 6, day: 5, name: '芒种' }, { month: 6, day: 21, name: '夏至' },
+                { month: 7, day: 7, name: '小暑' }, { month: 7, day: 23, name: '大暑' },
+                { month: 8, day: 7, name: '立秋' }, { month: 8, day: 23, name: '处暑' },
+                { month: 9, day: 7, name: '白露' }, { month: 9, day: 23, name: '秋分' },
+                { month: 10, day: 8, name: '寒露' }, { month: 10, day: 24, name: '霜降' },
+                { month: 11, day: 7, name: '立冬' }, { month: 11, day: 22, name: '小雪' },
+                { month: 12, day: 7, name: '大雪' }, { month: 12, day: 22, name: '冬至' }
+            ];
+            return table.filter(item => item.month === month);
+        }
+
+        // 初始化（不再需要populateSelects）
         init();
     </script>
 </body>
